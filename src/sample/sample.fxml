@@ -12,9 +12,9 @@
 
     <MenuBar>
         <menus>
-            <Menu text="Menu 1">
+            <Menu text="Fil">
                 <items>
-                    <MenuItem text="Fil" />
+                    <MenuItem text="Nooooooooooo" />
                     <MenuItem text="Regler 2" />
                     <MenuItem text="Hjelp" />
                     <SeparatorMenuItem />
