@@ -27,6 +27,7 @@
     </MenuBar>
 
     <Button text="Start Game of Life Simulation" alignment="CENTER"/>
+    <Button text="Stop Game of Life Simulation" alignment="CENTER"/>
 
 </VBox>
 
