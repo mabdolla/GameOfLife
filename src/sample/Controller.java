@@ -18,29 +18,29 @@ public class Controller implements Initializable {
     @FXML private HBox CanvasHbox;
 
     private byte [][] board = {
-            {1,0,0,1},
-            {0,1,1,0},
-            {0,1,1,0},
-            {1,0,0,1}
+            {1,0,0,1,0,0,0},
+            {0,1,1,0,0,0,0},
+            {0,1,1,0,0,0,0},
+            {1,0,0,1,0,0,0}
     };
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources ){
-        celleSlider.setValue(20.0);
+        celleSlider.setValue(90.0);
         draw();
     }
 
 
     public void lagSpillebrett () {
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
+            for (int j = 0; j < board.length; j++) {
                 double celleSTR = celleSlider.getValue();
 
                 if (board[i][j] == 0) {
-                    gc.setFill(Color.INDIANRED);
-                    gc.fillRect(150*i, 100*j, celleSTR,celleSTR);
+                    gc.setFill(Color.WHITE);
+                    gc.fillRect(100*i, 100*j, celleSTR,celleSTR);
                 } else if (board[i][j] == 1) {
-                    gc.setFill(Color.BLUE);
-                    gc.fillRect(150*i, 100*j, celleSTR, celleSTR);
+                    gc.setFill(Color.BLACK);
+                    gc.fillRect(100*i, 100*j, celleSTR, celleSTR);
                 }
             }
         }
@@ -48,7 +48,7 @@ public class Controller implements Initializable {
 
     public void draw() {
         gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
+        gc.setFill(Color.DARKGRAY);
         gc.fillRect(0, 0, canvas.getWidth() , canvas.getHeight());
 
         lagSpillebrett();
