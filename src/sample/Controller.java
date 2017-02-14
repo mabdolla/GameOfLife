@@ -17,7 +17,7 @@ public class Controller implements Initializable {
     GraphicsContext gc;
     @FXML private HBox CanvasHbox;
 
-    private byte [][] board {
+    private byte [][] board = {
             {1,0,0,1,0,0,0},
             {0,1,1,0,0,0,0},
             {0,1,1,0,0,0,0},
@@ -28,9 +28,9 @@ public class Controller implements Initializable {
             {0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0}
             {0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0}
+            {0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0},
     };
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources ){
