@@ -15,7 +15,7 @@
    <children>
       <HBox fx:id="CanvasHbox" prefHeight="305.0" prefWidth="600.0">
          <children>
-            <Canvas fx:id="canvas" height="400.0" width="700.0" />
+            <Canvas fx:id="canvas" height="710.0" width="1200.0" />
          </children>
       </HBox>
       <GridPane prefHeight="138.0" prefWidth="665.0" style="-fx-background-color: black;">
