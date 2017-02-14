@@ -21,6 +21,8 @@ public class Controller implements Initializable {
             {1,0,0,1,0,0,0},
             {0,1,1,0,0,0,0},
             {0,1,1,0,0,0,0},
+            {1,0,0,1,0,0,0},
+            {0,1,1,0,0,0,0},
             {1,0,0,1,0,0,0}
     };
 
@@ -35,10 +37,10 @@ public class Controller implements Initializable {
             for (int j = 0; j < board.length; j++) {
                 double celleSTR = celleSlider.getValue();
 
-                if (board[i][j] == 0) {
+                if (board[j][i] == 0) {
                     gc.setFill(Color.WHITE);
                     gc.fillRect(100*i, 100*j, celleSTR,celleSTR);
-                } else if (board[i][j] == 1) {
+                } else if (board[j][i] == 1) {
                     gc.setFill(Color.BLACK);
                     gc.fillRect(100*i, 100*j, celleSTR, celleSTR);
                 }
