@@ -21,7 +21,7 @@ public class Controller1 implements Initializable {
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
-        brett = new Brett(50,50,gc);
+        brett = new Brett(60,60,gc);
         celleSlider.setValue(brett.getCelleSTR());
         celleSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
             brett.setCelleSTR((int) celleSlider.getValue());
