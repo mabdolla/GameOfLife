@@ -16,28 +16,89 @@ public class Brett {
         this.kolonne=kolonne;
         this.gc=gc;
         brett = new int [rad][kolonne];
+        /*brett = new int[][]
+                {{0,0,1,0,0,0,0},
+                {0,0,1,0,0,0,0},
+                {0,0,1,0,0,0,0}};
+        */
+        testArray();
+        draw();
     }
 
-    public void draw() {
-        for (int j = 0; j < brett.length; j++) {
-            for (int i = 0; i < brett[j].length; i++) {
+    public void testArray(){
+        brett[1][1]=1;
+        brett[1][0]=1;
+        brett[0][1]=1;
+        brett[1][12]=1;
+        brett[12][1]=1;
+    }
+
+    public void background() {
+        /*for (int j = 0; j < brett.length; j++) {
+            for (int i = 0; i < brett[0].length; i++) {
                 gc.setFill(Color.DARKGRAY);
                 gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
             }
-        }
-        lagSpillebrett();
+        }*/
+        //lagSpillebrett();
+
+        gc.setFill(Color.YELLOW);
+        gc.fillRect(0,0,brett.length*celleSTR,brett[0].length*celleSTR);
     }
 
-    public void lagSpillebrett () {
+    public void draw() {
+        background();
         for (int j = 0; j < brett.length; j++) {
-            for (int i = 0; i < brett[j].length; i++) {
-                if (brett[j][i]==1) {
+            for (int i = 0; i < brett[0].length; i++) {
+                if (brett[j][i]==1){
                     gc.setFill(Color.BLACK);
                     gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
-
+                }else{
+                    gc.setFill(Color.WHITE);
+                    gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
+                }
             }
         }
-    }}
+    }
+
+    public void nextGeneration(){
+        int[][] nesteBrett = new int[rad][kolonne];
+
+        //beregning
+        for (int x = 0; x < brett.length; x++) {
+            for (int y = 0; y < brett[0].length; y++) {
+                nesteBrett[x][y] = setCellRules(brett[x][y],getNeighbours(x,y));
+            }
+        }
+
+
+        brett = nesteBrett;
+        nesteBrett = null;
+
+        draw();
+    }
+
+    public int setCellRules(int isAlive,int naboer){
+        if (isAlive==1 && naboer == 3)
+            return 1;
+
+
+        return 0;
+    }
+
+    public int getNeighbours(int x, int y){
+        int antallNaboer = 0;
+        if (brett[x-1][y-1] == 1)antallNaboer++;
+        if (brett[x-1][y-1] == 1)antallNaboer++;
+        if (brett[x-1][y-1] == 1)antallNaboer++;
+
+        try {
+
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println(e);
+        }
+        return antallNaboer;
+    }
 
     public void setCelleSTR (int CSTR) {
         this.celleSTR=CSTR;

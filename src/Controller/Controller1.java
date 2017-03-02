@@ -20,8 +20,9 @@ public class Controller1 implements Initializable {
     Brett brett;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-
+        gc = canvas.getGraphicsContext2D();
         brett = new Brett(50,50,gc);
+
         celleSlider.setValue(brett.getCelleSTR());
         celleSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
             brett.setCelleSTR((int) celleSlider.getValue());
@@ -33,6 +34,11 @@ public class Controller1 implements Initializable {
 
     public void clearBoard() {
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+    }
+
+    @FXML public void startAnimation(){
+        System.out.println("halla");
+        brett.nextGeneration();
     }
 
     @FXML public void makeBoard() {
