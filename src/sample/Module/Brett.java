@@ -23,6 +23,8 @@ public class Brett {
         */
         testArray();
         draw();
+
+
     }
 
     public void testArray(){
@@ -79,35 +81,52 @@ public class Brett {
     }
 
     public int setCellRules(int isAlive,int naboer){
-        if (isAlive==1 && naboer == 3)
-            return 1;
+        if (isAlive==1 && naboer <= 3)
+            return 0;
 
+        if (isAlive==1 && naboer == 0)
+            return 0;
 
         return 0;
     }
 
+
     public int getNeighbours(int x, int y){
+
         int antallNaboer = 0;
-        if (brett[x-1][y-1] == 1)antallNaboer++;
-        if (brett[x-1][y-1] == 1)antallNaboer++;
-        if (brett[x-1][y-1] == 1)antallNaboer++;
 
-        try {
+        if (!(x-1==-1 || y-1==-1) && brett[x-1][y-1] == 1)antallNaboer++; // husk rekkefølge, på &&, det som er T.V stemmer., legg in betingelser (løkker) for å ungå at programmet skal aksessere utenfor brettet.
 
-        } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println(e);
+        if (antallNaboer>0)
+            System.out.println(x+","+y+" har "+antallNaboer+" naboer");
+
+
+       try {
+           if (brett[x-1][y] == 1)antallNaboer++;//
+           if (brett[x-1][y+1] == 1)antallNaboer++;
+           if (brett[x][y-1] == 1)antallNaboer++;
+           if (brett[x][y+1] == 1)antallNaboer++;
+           if (brett[x+1][y-1] == 1)antallNaboer++;
+           if (brett[x+1][y] == 1)antallNaboer++;
+           if (brett[x+1][y+1] == 1)antallNaboer++;
+       } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("FEILET på "+x+", "+y+" : UTTAFOR");
         }
         return antallNaboer;
     }
 
+
+
+
     public void setCelleSTR (int CSTR) {
+
         this.celleSTR=CSTR;
     }
 
     public int getCelleSTR () {
+
         return celleSTR;
     }
-
 
 }
 
