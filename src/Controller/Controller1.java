@@ -1,5 +1,6 @@
 package Controller;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -7,6 +8,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import sample.Module.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class Controller1 implements Initializable {
 
@@ -18,6 +21,11 @@ public class Controller1 implements Initializable {
     private HBox CanvasHbox;
     public GraphicsContext gc;
     Brett brett;
+
+
+
+
+
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         gc = canvas.getGraphicsContext2D();
@@ -31,6 +39,11 @@ public class Controller1 implements Initializable {
         }));
         System.out.println("Hehehe");
     }
+
+
+
+
+
 
     public void clearBoard() {
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
