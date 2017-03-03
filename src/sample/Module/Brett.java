@@ -28,11 +28,15 @@ public class Brett {
     }
 
     public void testArray(){
-        brett[8][8]=1;
-        brett[8][9]=1;
-        brett[8][10]=1;
-        brett[8][11]=1;
-        brett[8][12]=1;
+        brett[0][1]=1;
+        brett[0][2]=1;
+        brett[1][1]=1;
+        brett[1][2]=1;
+        brett[1][3]=1;
+
+
+
+
     }
 
     public void background() {
@@ -81,10 +85,23 @@ public class Brett {
     }
 
     public int setCellRules(int isAlive,int naboer){
-        if (isAlive==1 && naboer <= 3)
+        if (isAlive==0 && naboer == 0)
             return 0;
-
-        if (isAlive==1 && naboer == 0)
+        if (isAlive==0 && naboer == 1)
+            return 0;
+        if (isAlive==0 && naboer == 2)
+            return 0;
+        if (isAlive==0 && naboer == 3)
+            return 1;
+        if(isAlive==0 && naboer >= 4)
+            return 0;
+        if(isAlive==1 && naboer <= 1)
+            return 0;
+        if(isAlive==1 && naboer == 2)
+            return 1;
+        if(isAlive==1 && naboer == 3)
+            return 1;
+        if(isAlive==1 && naboer >= 4)
             return 0;
 
         return 0;
@@ -92,23 +109,26 @@ public class Brett {
 
 
     public int getNeighbours(int x, int y){
+        //x = rader
+        //y = kolonner
 
         int antallNaboer = 0;
 
-        if (!(x-1==-1 || y-1==-1) && brett[x-1][y-1] == 1)antallNaboer++; // husk rekkefølge, på &&, det som er T.V stemmer., legg in betingelser (løkker) for å ungå at programmet skal aksessere utenfor brettet.
+        if (!(x-1==-1 || y-1==-1) && brett[x-1][y-1] == 1)antallNaboer++; // Oppe venstre
+        if (!(y-1==-1) && brett[x][y-1] == 1)antallNaboer++; //Oppe midten
+        if (!(x+1==50 || y-1==-1) && brett[x+1][y-1] == 1)antallNaboer++; //Oppe høyre
+        if (!(x+1==50 || y+1==50) && brett[x+1][y+1] == 1)antallNaboer++; //Nede høyre
+        if (!(x-1==-1 || y+1==50) && brett[x-1][y+1] == 1)antallNaboer++;  //Nede venstre
+        if (!(x+1==50) && brett[x+1][y] == 1)antallNaboer++;   //Midten høyre
+        if (!(y+1==50) && brett[x][y+1] == 1)antallNaboer++;   //Nede midten
+        if (!(x-1==-1)&& brett[x-1][y] == 1)antallNaboer++;    //Venstre midten
 
         if (antallNaboer>0)
             System.out.println(x+","+y+" har "+antallNaboer+" naboer");
 
 
        try {
-           if (brett[x-1][y] == 1)antallNaboer++;//
-           if (brett[x-1][y+1] == 1)antallNaboer++;
-           if (brett[x][y-1] == 1)antallNaboer++;
-           if (brett[x][y+1] == 1)antallNaboer++;
-           if (brett[x+1][y-1] == 1)antallNaboer++;
-           if (brett[x+1][y] == 1)antallNaboer++;
-           if (brett[x+1][y+1] == 1)antallNaboer++;
+
        } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("FEILET på "+x+", "+y+" : UTTAFOR");
         }
