@@ -18,8 +18,8 @@ public class Brett {
         brett = new int [rad][kolonne];
         /*brett = new int[][]
                 {{0,0,1,0,0,0,0},
-                {0,0,1,0,0,0,0},
-                {0,0,1,0,0,0,0}};
+                {0,0,1,1,0,0,0},
+                {0,0,1,1,1,0,0}};
         */
         testArray();
         draw();
@@ -28,27 +28,17 @@ public class Brett {
     }
 
     public void testArray(){
-        brett[0][1]=1;
-        brett[0][2]=1;
-        brett[1][1]=1;
-        brett[1][2]=1;
-        brett[1][3]=1;
 
-
-
+        brett[25][25]=1;
+        brett[25][26]=1;
+        brett[25][27]=1;
+        brett[26][26]=1;
 
     }
 
     public void background() {
-        /*for (int j = 0; j < brett.length; j++) {
-            for (int i = 0; i < brett[0].length; i++) {
-                gc.setFill(Color.DARKGRAY);
-                gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
-            }
-        }*/
-        //lagSpillebrett();
 
-        gc.setFill(Color.YELLOW);
+        gc.setFill(Color.BLACK);
         gc.fillRect(0,0,brett.length*celleSTR,brett[0].length*celleSTR);
     }
 
@@ -85,23 +75,18 @@ public class Brett {
     }
 
     public int setCellRules(int isAlive,int naboer){
-        if (isAlive==0 && naboer == 0)
+
+        if (isAlive == 0 && naboer <= 2)
             return 0;
-        if (isAlive==0 && naboer == 1)
-            return 0;
-        if (isAlive==0 && naboer == 2)
-            return 0;
-        if (isAlive==0 && naboer == 3)
+        if (isAlive == 0 && naboer == 3)
             return 1;
-        if(isAlive==0 && naboer >= 4)
+        if(isAlive == 0 && naboer >= 4)
             return 0;
-        if(isAlive==1 && naboer <= 1)
+        if(isAlive == 1 && naboer <= 1)
             return 0;
-        if(isAlive==1 && naboer == 2)
+        if(isAlive == 1 && naboer == 2 || naboer == 3)
             return 1;
-        if(isAlive==1 && naboer == 3)
-            return 1;
-        if(isAlive==1 && naboer >= 4)
+        if(isAlive == 1 && naboer >= 4)
             return 0;
 
         return 0;
