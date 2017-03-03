@@ -36,7 +36,7 @@
             <Slider fx:id="celleSlider" GridPane.columnIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Start" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                  <Button mnemonicParsing="false" text="Start" onAction="#startSimulation" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="16.0" />
                      </font>

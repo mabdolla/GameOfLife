@@ -29,16 +29,21 @@ public class Brett {
 
     public void testArray(){
 
-        brett[25][25]=1;
-        brett[25][26]=1;
-        brett[25][27]=1;
-        brett[26][26]=1;
+        brett[15][11]=1;
+        brett[15][12]=1;
+        brett[15][13]=1;
+        brett[16][12]=1;
+
+        brett[20][8]=1;
+        brett[20][9]=1;
+        brett[20][10]=1;
+        brett[21][9]=1;
 
     }
 
     public void background() {
 
-        gc.setFill(Color.BLACK);
+        gc.setFill(Color.YELLOWGREEN);
         gc.fillRect(0,0,brett.length*celleSTR,brett[0].length*celleSTR);
     }
 
@@ -66,7 +71,6 @@ public class Brett {
                 nesteBrett[x][y] = setCellRules(brett[x][y],getNeighbours(x,y));
             }
         }
-
 
         brett = nesteBrett;
         nesteBrett = null;
@@ -119,9 +123,6 @@ public class Brett {
         }
         return antallNaboer;
     }
-
-
-
 
     public void setCelleSTR (int CSTR) {
 
