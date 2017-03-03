@@ -28,11 +28,11 @@ public class Brett {
     }
 
     public void testArray(){
-        brett[1][1]=1;
-        brett[1][0]=1;
-        brett[0][1]=1;
-        brett[1][12]=1;
-        brett[12][1]=1;
+        brett[8][8]=1;
+        brett[8][9]=1;
+        brett[8][10]=1;
+        brett[8][11]=1;
+        brett[8][12]=1;
     }
 
     public void background() {

@@ -1,6 +1,7 @@
 package Controller;
 
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -28,6 +29,8 @@ public class Controller1 implements Initializable {
 
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+
+
         gc = canvas.getGraphicsContext2D();
         brett = new Brett(50,50,gc);
 
@@ -36,6 +39,8 @@ public class Controller1 implements Initializable {
             brett.setCelleSTR((int) celleSlider.getValue());
             clearBoard();
             brett.draw();
+
+
         }));
         System.out.println("Hehehe");
     }
@@ -55,8 +60,9 @@ public class Controller1 implements Initializable {
     }
 
     @FXML public void makeBoard() {
+
         brett.draw();
     }
-
-
+    
 }
+

@@ -6,7 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 public class Main extends Application {
+
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -14,6 +18,8 @@ public class Main extends Application {
         primaryStage.setTitle("Game Of Life");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
+
+
     }
 
 
