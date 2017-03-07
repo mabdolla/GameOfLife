@@ -46,6 +46,8 @@ public class Controller1 implements Initializable {
             brett.draw();
 
 
+
+
         }));
     }
 
@@ -74,29 +76,25 @@ public class Controller1 implements Initializable {
 
     }
 
-
+    @FXML
     public void userDrawCell(){
-        canvas.setOnMouseClicked(e-> {
+        canvas.setOnMouseDragged( e-> {
             int x = (int) (e.getX() / brett.getCelleSTR());
             int y = (int) (e.getY() / brett.getCelleSTR());
 
             if (brett.getBrett()[x][y] == 1)  {
                 brett.getBrett()[x][y] = 0;
+                brett.draw();
 
             }else{
                 brett.getBrett()[x][y] = 1;
                 brett.draw();
-                gc.fillRect(10,10,10,10);
-        }
-
-
-
+            }
         });
-
     }
 
     @FXML public void sliderSpeed(){
-        timeline.setRate(800);
+        timeline.setRate(1);
 
     }
 

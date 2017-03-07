@@ -24,7 +24,7 @@
    <children>
       <HBox fx:id="CanvasHbox" prefHeight="305.0" prefWidth="600.0">
          <children>
-            <Canvas fx:id="canvas" height="357.0" width="777.0" />
+            <Canvas fx:id="canvas" onMouseClicked="#userDrawCell" onMouseDragged="#userDrawCell" height="357.0" width="777.0" />
          </children>
       </HBox>
       <GridPane prefHeight="138.0" prefWidth="665.0">
@@ -42,7 +42,7 @@
             <Slider fx:id="celleSlider" GridPane.columnIndex="1" />
             <HBox prefHeight="43.0" prefWidth="308.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#startSimulation" prefHeight="31.0" prefWidth="91.0" text="Start" textAlignment="CENTER">
+                  <Button mnemonicParsing="false" fx:id="StartStopBtn" onAction="#startSimulation" prefHeight="31.0" prefWidth="91.0" text="Start" textAlignment="CENTER">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="16.0" />
                      </font>
@@ -77,7 +77,7 @@
                   <Font name="Arial Black" size="12.0" />
                </font>
             </TextField>
-            <Slider fx:id="sliderSpeed" onDragDetected="#sliderSpeed" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Slider fx:id="sliderSpeed"  GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

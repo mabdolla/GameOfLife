@@ -58,7 +58,7 @@ public class Brett {
                     gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
                 }else{
                     gc.setFill(Color.WHITE);
-                    gc.fillOval(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
+                    gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
                 }
 
             }
