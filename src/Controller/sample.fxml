@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -14,11 +20,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="778.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller1">
    <children>
       <HBox fx:id="CanvasHbox" prefHeight="305.0" prefWidth="600.0">
          <children>
-            <Canvas fx:id="canvas" height="250.0" width="600.0" />
+            <Canvas fx:id="canvas" height="357.0" width="777.0" />
          </children>
       </HBox>
       <GridPane prefHeight="138.0" prefWidth="665.0">
@@ -27,41 +33,51 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ColorPicker prefHeight="31.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Slider fx:id="celleSlider" GridPane.columnIndex="1" />
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="43.0" prefWidth="308.0">
                <children>
-                  <Button mnemonicParsing="false" text="Start" onAction="#startSimulation" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                  <Button mnemonicParsing="false" onAction="#startSimulation" prefHeight="31.0" prefWidth="91.0" text="Start" textAlignment="CENTER">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="16.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#startAnimation" text="Next Generation">
-                     <font>
-                        <Font name="Berlin Sans FB Demi Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#clearBoard" text="Clear Board">
+                  <Button mnemonicParsing="false" onAction="#clearBoard" prefHeight="32.0" prefWidth="127.0" text="Clear Board">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="15.0" />
                      </font>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="30.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#startAnimation" prefHeight="32.0" prefWidth="119.0" text="Next Generation">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" top="10.0" />
+                     </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <TextArea prefHeight="49.0" prefWidth="308.0" GridPane.rowIndex="1" />
-            <TextField prefHeight="55.0" prefWidth="308.0" text="Created by Hans, Mohammad and Fredrik" GridPane.rowIndex="1">
+            <TextArea prefHeight="0.0" prefWidth="308.0" GridPane.rowIndex="1" />
+            <TextField prefHeight="55.0" prefWidth="308.0" text="Created by Hans, Mohammad and Fredrik" GridPane.rowIndex="2">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
             </TextField>
+            <Slider fx:id="sliderSpeed" onDragDetected="#sliderSpeed" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

@@ -3,6 +3,8 @@ package Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
@@ -13,15 +15,20 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import sample.Module.*;
+
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.sql.Time;
 
+import static javafx.scene.input.KeyCode.T;
+
 public class Controller1 implements Initializable {
 
     @FXML public Canvas canvas;
     @FXML private Slider celleSlider;
+    @FXML private Slider sliderSpeed;
     @FXML private HBox CanvasHbox;
     public GraphicsContext gc;
     Brett brett;
@@ -37,15 +44,15 @@ public class Controller1 implements Initializable {
             brett.setCelleSTR((int) celleSlider.getValue());
             clearBoard();
             brett.draw();
-        }));
 
-        System.out.println("Hehehe");
+
+        }));
     }
+
+
 
     public void clearBoard() {
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-
-
     }
 
 
@@ -55,14 +62,42 @@ public class Controller1 implements Initializable {
         brett.nextGeneration();
     }
 
+    //Start button
     @FXML public void startSimulation(){
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(true);
 
-        KeyFrame keyvalue = new KeyFrame(new Duration(50), e -> brett.nextGeneration());
+        KeyFrame keyvalue = new KeyFrame(new Duration(100), e -> brett.nextGeneration());
         timeline.getKeyFrames().add(keyvalue);
 
         timeline.play();
+
+    }
+
+
+    public void userDrawCell(){
+        canvas.setOnMouseClicked(e-> {
+            int x = (int) (e.getX() / brett.getCelleSTR());
+            int y = (int) (e.getY() / brett.getCelleSTR());
+
+            if (brett.getBrett()[x][y] == 1)  {
+                brett.getBrett()[x][y] = 0;
+
+            }else{
+                brett.getBrett()[x][y] = 1;
+                brett.draw();
+                gc.fillRect(10,10,10,10);
+        }
+
+
+
+        });
+
+    }
+
+    @FXML public void sliderSpeed(){
+        timeline.setRate(800);
+
     }
 
 
@@ -70,5 +105,5 @@ public class Controller1 implements Initializable {
         brett.draw();
     }
     
-}
+    }
 

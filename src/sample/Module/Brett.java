@@ -4,12 +4,15 @@ package sample.Module;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.awt.event.MouseEvent;
+
 public class Brett {
     public GraphicsContext gc;
     private int rad ;
     private int kolonne;
     private int[][] brett;
     private int celleSTR = 15;
+    private int gameSpeed = 50;
 
     public Brett(int rad, int kolonne, GraphicsContext gc) {
         this.rad=rad;
@@ -23,17 +26,16 @@ public class Brett {
         */
         testArray();
         draw();
-
-
     }
 
+    //test mønster
     public void testArray(){
-
         brett[15][11]=1;
         brett[15][12]=1;
         brett[15][13]=1;
         brett[16][12]=1;
-
+        brett[15][15]=1;
+        brett[16][16]=1;
         brett[20][8]=1;
         brett[20][9]=1;
         brett[20][10]=1;
@@ -56,14 +58,18 @@ public class Brett {
                     gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
                 }else{
                     gc.setFill(Color.WHITE);
-                    gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
+                    gc.fillOval(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
                 }
+
             }
         }
     }
 
+
+
     public void nextGeneration(){
         int[][] nesteBrett = new int[rad][kolonne];
+
 
         //beregning
         for (int x = 0; x < brett.length; x++) {
@@ -71,11 +77,19 @@ public class Brett {
                 nesteBrett[x][y] = setCellRules(brett[x][y],getNeighbours(x,y));
             }
         }
-
         brett = nesteBrett;
         nesteBrett = null;
 
         draw();
+
+    }
+
+    public void setnextGeneration(int[][] nxtGen){
+        this.brett = nxtGen;
+    }
+
+    public int [][] getBrett (){
+        return brett;
     }
 
     public int setCellRules(int isAlive,int naboer){
@@ -134,5 +148,12 @@ public class Brett {
         return celleSTR;
     }
 
+    public int getGameSpeed() {
+        return gameSpeed;
+    }
+
+    public void setGameSpeed(int gameSpeed) {
+        this.gameSpeed = gameSpeed;
+    }
 }
 
