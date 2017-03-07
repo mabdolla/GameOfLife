@@ -24,7 +24,7 @@
    <children>
       <HBox fx:id="CanvasHbox" prefHeight="305.0" prefWidth="600.0">
          <children>
-            <Canvas fx:id="canvas" onMouseClicked="#userDrawCell" onMouseDragged="#userDrawCell" height="357.0" width="777.0" />
+            <Canvas fx:id="canvas" onMouseClicked="#userDrawCellClicked" onMouseDragged="#userDrawCell" height="357.0" width="777.0" />
          </children>
       </HBox>
       <GridPane prefHeight="138.0" prefWidth="665.0">

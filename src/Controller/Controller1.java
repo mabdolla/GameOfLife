@@ -39,15 +39,13 @@ public class Controller1 implements Initializable {
         gc = canvas.getGraphicsContext2D();
         brett = new Brett(50,50,gc);
 
+
+
         celleSlider.setValue(brett.getCelleSTR());
         celleSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
             brett.setCelleSTR((int) celleSlider.getValue());
             clearBoard();
             brett.draw();
-
-
-
-
         }));
     }
 
@@ -73,12 +71,28 @@ public class Controller1 implements Initializable {
         timeline.getKeyFrames().add(keyvalue);
 
         timeline.play();
-
     }
 
     @FXML
     public void userDrawCell(){
         canvas.setOnMouseDragged( e-> {
+            int x = (int) (e.getX() / brett.getCelleSTR());
+            int y = (int) (e.getY() / brett.getCelleSTR());
+
+            if (brett.getBrett()[x][y] == 1)  {
+                brett.getBrett()[x][y] = 0;
+                brett.draw();
+
+            }else{
+                brett.getBrett()[x][y] = 1;
+                brett.draw();
+            }
+        });
+    }
+
+    @FXML
+    public void userDrawCellClicked(){
+        canvas.setOnMouseClicked( e-> {
             int x = (int) (e.getX() / brett.getCelleSTR());
             int y = (int) (e.getY() / brett.getCelleSTR());
 
