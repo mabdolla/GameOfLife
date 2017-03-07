@@ -19,16 +19,12 @@ public class Brett {
         this.kolonne=kolonne;
         this.gc=gc;
         brett = new int [rad][kolonne];
-        /*brett = new int[][]
-                {{0,0,1,0,0,0,0},
-                {0,0,1,1,0,0,0},
-                {0,0,1,1,1,0,0}};
-        */
-        testArray();
+
+        getBrett();
         draw();
     }
 
-    //test mønster
+    /*test mønster
     public void testArray(){
         brett[15][11]=1;
         brett[15][12]=1;
@@ -41,12 +37,12 @@ public class Brett {
         brett[20][10]=1;
         brett[21][9]=1;
 
-    }
+    }*/
 
     public void background() {
 
         gc.setFill(Color.YELLOWGREEN);
-        gc.fillRect(0,0,brett.length*celleSTR,brett[0].length*celleSTR);
+        gc.fillOval(0,0,brett.length*celleSTR,brett[0].length*celleSTR);
     }
 
     public void draw() {
@@ -55,10 +51,10 @@ public class Brett {
             for (int i = 0; i < brett[0].length; i++) {
                 if (brett[j][i]==1){
                     gc.setFill(Color.BLACK);
-                    gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
+                    gc.fillOval(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
                 }else{
                     gc.setFill(Color.WHITE);
-                    gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
+                    gc.fillOval(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
                 }
 
             }
