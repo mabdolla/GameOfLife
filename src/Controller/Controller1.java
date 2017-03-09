@@ -1,5 +1,6 @@
 package Controller;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -71,7 +72,10 @@ public class Controller1 implements Initializable {
         KeyFrame keyvalue = new KeyFrame(new Duration(100), e -> brett.nextGeneration());
         timeline.getKeyFrames().add(keyvalue);
 
+
         timeline.play();
+
+
     }
 
     @FXML
