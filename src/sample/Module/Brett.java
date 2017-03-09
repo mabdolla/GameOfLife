@@ -9,18 +9,34 @@ import java.awt.event.MouseEvent;
 public class Brett {
     public GraphicsContext gc;
     private int rad ;
+
+    public int getRad() {
+        return rad;
+    }
+
+    public void setRad(int rad) {
+        this.rad = rad;
+    }
+
+    public int getKolonne() {
+        return kolonne;
+    }
+
+    public void setKolonne(int kolonne) {
+        this.kolonne = kolonne;
+    }
+
     private int kolonne;
     private int[][] brett;
     private int celleSTR = 15;
-    private int gameSpeed = 50;
+    private int gameSpeed = 40;
 
     public Brett(int rad, int kolonne, GraphicsContext gc) {
-        this.rad=rad;
-        this.kolonne=kolonne;
+        this.rad = rad;
+        this.kolonne = kolonne;
         this.gc=gc;
         brett = new int [rad][kolonne];
 
-        getBrett();
         draw();
     }
 
@@ -80,15 +96,15 @@ public class Brett {
 
     }
 
-    public void setnextGeneration(int[][] nxtGen){
-        this.brett = nxtGen;
-    }
-
     public int [][] getBrett (){
         return brett;
     }
 
     public int setCellRules(int isAlive,int naboer){
+
+//        int[][] rules = {{0,1,0,0,0,0,0,0,0},
+//                         {1,1,0,0,0,0,0,0,0}};
+//        return rules[isAlive][naboer];
 
         if (isAlive == 0 && naboer <= 2)
             return 0;
@@ -104,6 +120,7 @@ public class Brett {
             return 0;
 
         return 0;
+
     }
 
 
@@ -112,6 +129,7 @@ public class Brett {
         //y = kolonner
 
         int antallNaboer = 0;
+
 
         if (!(x-1==-1 || y-1==-1) && brett[x-1][y-1] == 1)antallNaboer++; // Oppe venstre
         if (!(y-1==-1) && brett[x][y-1] == 1)antallNaboer++; //Oppe midten
@@ -122,8 +140,8 @@ public class Brett {
         if (!(y+1==50) && brett[x][y+1] == 1)antallNaboer++;   //Nede midten
         if (!(x-1==-1)&& brett[x-1][y] == 1)antallNaboer++;    //Venstre midten
 
-        if (antallNaboer>0)
-            System.out.println(x+","+y+" har "+antallNaboer+" naboer");
+//        if (antallNaboer>0)
+//            System.out.println(x+","+y+" har "+antallNaboer+" naboer");
 
 
        /*try {
@@ -137,6 +155,10 @@ public class Brett {
     public void setCelleSTR (int CSTR) {
 
         this.celleSTR = CSTR;
+    }
+
+    public void setBrett(int[][] brett) {
+        this.brett = brett;
     }
 
     public int getCelleSTR () {
