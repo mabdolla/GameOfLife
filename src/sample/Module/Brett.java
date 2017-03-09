@@ -70,7 +70,7 @@ public class Brett {
         //beregning
         for (int x = 0; x < brett.length; x++) {
             for (int y = 0; y < brett[0].length; y++) {
-                nesteBrett[x][y] = setCellRules(brett[x][y],getNeighbours(x,y));
+                nesteBrett[x][y] = setCellRules (brett [x] [y],getNeighbours (x, y));
             }
         }
         brett = nesteBrett;
@@ -126,17 +126,17 @@ public class Brett {
             System.out.println(x+","+y+" har "+antallNaboer+" naboer");
 
 
-       try {
+       /*try {
 
        } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("FEILET på "+x+", "+y+" : UTTAFOR");
-        }
+        }*/
         return antallNaboer;
     }
 
     public void setCelleSTR (int CSTR) {
 
-        this.celleSTR=CSTR;
+        this.celleSTR = CSTR;
     }
 
     public int getCelleSTR () {
@@ -145,10 +145,12 @@ public class Brett {
     }
 
     public int getGameSpeed() {
+
         return gameSpeed;
     }
 
     public void setGameSpeed(int gameSpeed) {
+
         this.gameSpeed = gameSpeed;
     }
 }
