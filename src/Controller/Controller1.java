@@ -33,6 +33,7 @@ public class Controller1 implements Initializable {
     public GraphicsContext gc;
     Brett brett;
     final Timeline timeline = new Timeline();
+    final jakob
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
