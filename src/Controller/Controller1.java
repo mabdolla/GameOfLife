@@ -113,7 +113,7 @@ public class Controller1 implements Initializable {
                 brett.getBrett()[x][y] = 0;
                 brett.draw();
 
-            }else{
+            }else {
                 brett.getBrett()[x][y] = 1;
                 brett.draw();
             }

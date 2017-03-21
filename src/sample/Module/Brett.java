@@ -58,7 +58,7 @@ public class Brett {
     public void background() {
 
         gc.setFill(Color.YELLOWGREEN);
-        gc.fillOval(0,0,brett.length*celleSTR,brett[0].length*celleSTR);
+        gc.fillRect(0,0,brett.length*celleSTR,brett[0].length*celleSTR);
     }
 
     public void draw() {
@@ -67,10 +67,10 @@ public class Brett {
             for (int i = 0; i < brett[0].length; i++) {
                 if (brett[j][i]==1){
                     gc.setFill(Color.BLACK);
-                    gc.fillOval(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
+                    gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
                 }else{
                     gc.setFill(Color.WHITE);
-                    gc.fillOval(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
+                    gc.fillRect(j*celleSTR,i*celleSTR,celleSTR-1,celleSTR-1);
                 }
 
             }
@@ -102,9 +102,10 @@ public class Brett {
 
     public int setCellRules(int isAlive,int naboer){
 
-//        int[][] rules = {{0,1,0,0,0,0,0,0,0},
-//                         {1,1,0,0,0,0,0,0,0}};
-//        return rules[isAlive][naboer];
+        /*int[][] rules = {{0,1,1,0,0,0,0,0,0},
+                         {1,1,0,0,0,0,0,0,0}};
+        return rules[isAlive][naboer];
+        */
 
         if (isAlive == 0 && naboer <= 2)
             return 0;
