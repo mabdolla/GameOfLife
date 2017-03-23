@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import sample.Module.*;
 
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 import java.awt.event.ActionEvent;
@@ -34,6 +35,7 @@ public class Controller1 implements Initializable {
     @FXML private Slider sliderSpeed;
     @FXML private HBox CanvasHbox;
     @FXML private Button StartStopBtn;
+    @FXML private Button OpenFile;
     public GraphicsContext gc;
     Brett brett;
     public Timeline timeline = new Timeline();
@@ -43,7 +45,8 @@ public class Controller1 implements Initializable {
 
         gc = canvas.getGraphicsContext2D();
         brett = new Brett(50,50,gc);
-
+       brett.background();
+        brett.draw();
 //        sliderSpeed.setValue(brett.getGameSpeed());
 
         celleSlider.setValue(brett.getCelleSTR());
@@ -67,9 +70,11 @@ public class Controller1 implements Initializable {
     }
 
     public void clearBoard() {
+        System.out.println(brett.toString());
 //        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         brett.setBrett(new int[brett.getRad()][brett.getKolonne()]);
         brett.draw();
+
     }
 
     //Next generation button show only next generation at a time
@@ -120,6 +125,8 @@ public class Controller1 implements Initializable {
         });
     }
 
+
+
     @FXML
     public void userDrawCellClicked(){
         canvas.setOnMouseClicked( e-> {
@@ -139,7 +146,6 @@ public class Controller1 implements Initializable {
 
     @FXML public void sliderSpeed(){
         timeline.setRate(1);
-
     }
 
 
