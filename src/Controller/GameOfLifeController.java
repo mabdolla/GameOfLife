@@ -13,7 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
-import sample.ModuleTest.*;
+import sample.Board.Brett;
+import sample.Board.*;
 
 import java.io.File;
 
@@ -42,10 +43,7 @@ public class GameOfLifeController implements Initializable {
 
         gc = canvas.getGraphicsContext2D();
         brett = new Brett(50, 50, gc);
-        //brett.background();
         brett.draw();
-//        sliderSpeed.setValue(brett.getGameSpeed());
-
         celleSlider.setValue(brett.getCelleSTR());
         sliderSpeed.setValue(5);
 
@@ -54,13 +52,6 @@ public class GameOfLifeController implements Initializable {
             clearBoard();
             brett.draw();
         }));
-
-//        sliderSpeed.valueProperty().addListener(((observable, oldValue, newValue) -> {
-//            KeyFrame frame = new KeyFrame(Duration.millis(sliderSpeed.getValue()), event -> brett.nextGeneration());
-//            timeline.getKeyFrames().add(frame);
-//            timeline.setCycleCount(Timeline.INDEFINITE);
-//            System.out.println(newValue);
-//        }));
 
         KeyFrame frame = new KeyFrame(Duration.millis(1000), event -> {
             brett.nextGeneration();
@@ -95,7 +86,6 @@ public class GameOfLifeController implements Initializable {
 
     public void clearBoard() {
 
-//        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         brett.setBrett(new int[brett.getRad()][brett.getKolonne()]);
         brett.draw();
 
@@ -104,7 +94,7 @@ public class GameOfLifeController implements Initializable {
     //Next generation button show only next generation at a time
     @FXML
     public void startAnimation() {
-        System.out.println("halla");
+
         brett.nextGeneration();
     }
 
@@ -123,14 +113,8 @@ public class GameOfLifeController implements Initializable {
 
     @FXML
     public void AdjustSpeed() {
-//        System.out.println(sliderSpeed.getValue() +" ms");
+
         timeline.setRate(sliderSpeed.getValue());
-
-
-//        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(sliderSpeed.getValue())));
-//        sliderSpeed.getValue();
-//        KeyFrame frame = new KeyFrame(Duration.millis(sliderSpeed.getValue()), event -> brett.nextGeneration());
-//        timeline.getKeyFrames().add(frame);
     }
 
     @FXML

@@ -1,6 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import sample.ModuleTest.Brett;
+import sample.Board.Brett;
 
 
 /**

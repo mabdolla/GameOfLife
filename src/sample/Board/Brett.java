@@ -1,4 +1,4 @@
-package sample.ModuleTest;
+package sample.Board;
 
 
 import javafx.scene.canvas.GraphicsContext;
