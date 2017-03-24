@@ -2,31 +2,20 @@ package Controller;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
-import sample.Module.*;
+import sample.ModuleTest.*;
 
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.sql.Time;
-
-import static javafx.scene.input.KeyCode.T;
+import java.io.File;
 
 public class Controller1 implements Initializable {
 
@@ -35,7 +24,8 @@ public class Controller1 implements Initializable {
     @FXML private Slider sliderSpeed;
     @FXML private HBox CanvasHbox;
     @FXML private Button StartStopBtn;
-    @FXML private Button OpenFile;
+    @FXML private Button fileOpen;
+    @FXML private ListView listView;
     public GraphicsContext gc;
     Brett brett;
     public Timeline timeline = new Timeline();
@@ -45,8 +35,8 @@ public class Controller1 implements Initializable {
 
         gc = canvas.getGraphicsContext2D();
         brett = new Brett(50,50,gc);
-       brett.background();
-        brett.draw();
+        //brett.background();
+        //brett.draw();
 //        sliderSpeed.setValue(brett.getGameSpeed());
 
         celleSlider.setValue(brett.getCelleSTR());
@@ -69,8 +59,32 @@ public class Controller1 implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
+
+   public void openFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
+
+
+        FileChooser.ExtensionFilter extFilt = new FileChooser.ExtensionFilter("PlainText" ,("*.txt"));
+        fileChooser.getExtensionFilters().addAll();
+
+
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null){
+            listView.getItems().addAll(file.getName());
+        } else {
+            System.out.println("Wrong file");
+        }
+
+        System.out.println("Heisann");
+
+    }
+
+
+
     public void clearBoard() {
-        System.out.println(brett.toString());
+
 //        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         brett.setBrett(new int[brett.getRad()][brett.getKolonne()]);
         brett.draw();
@@ -85,6 +99,7 @@ public class Controller1 implements Initializable {
 
     //Start & Stop button
     @FXML public void startSimulation(){
+
         if (timeline.getStatus() == Animation.Status.RUNNING) {
             timeline.stop();
             StartStopBtn.setText("Start");
@@ -93,6 +108,7 @@ public class Controller1 implements Initializable {
             timeline.play();
             StartStopBtn.setText("Stop");
         }
+        System.out.println("Heisann");
     }
 
     @FXML
@@ -115,7 +131,7 @@ public class Controller1 implements Initializable {
             int y = (int) (e.getY() / brett.getCelleSTR());
 
             if (brett.getBrett()[x][y] == 1)  {
-                brett.getBrett()[x][y] = 0;
+                brett.getBrett()[x][y] = 1;
                 brett.draw();
 
             }else {

@@ -1,10 +1,8 @@
-package sample.Module;
+package sample.ModuleTest;
 
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
-import java.awt.event.MouseEvent;
 
 public class Brett {
     public GraphicsContext gc;
@@ -19,14 +17,17 @@ public class Brett {
         this.rad = rad;
         this.kolonne = kolonne;
         this.gc = gc;
-        brett = new int[rad][kolonne];
+        brett = new int [rad][kolonne];
         //test();
-        //draw();
+        getBrett();
+        draw();
     }
 
-    public void test(){
+
+
+   /* public void test(){
         brett[0][0]=1;
-    }
+    }*/
 
     /*test mønster
     public void testArray(){
@@ -50,7 +51,7 @@ public class Brett {
     }
 
     public void draw() {
-
+        background();
         for (int j = 0; j < brett.length; j++) {
             for (int i = 0; i < brett[0].length; i++) {
                 if (brett[j][i] == 1) {
@@ -78,6 +79,8 @@ public class Brett {
         }
         brett = nesteBrett;
         nesteBrett = null;
+
+        draw();
 
 
 
@@ -189,7 +192,7 @@ public class Brett {
 
 
     //Opprettett til BrettTest.java
-    @Override
+   /* @Override
     public String toString() {
         String msg = "";
         for (int kolonne = 0; kolonne < brett.length; kolonne++) {
@@ -202,5 +205,5 @@ public class Brett {
             }
         }
         return msg;
-    }
+    }*/
 }

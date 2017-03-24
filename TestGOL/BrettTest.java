@@ -1,12 +1,9 @@
-import Controller.Controller1;
-import javafx.scene.canvas.GraphicsContext;
-import org.junit.Ignore;
 import org.junit.Test;
-import sample.Module.Brett;
+import sample.ModuleTest.Brett;
 
 /**
  * Test Class Game of Life
- */
+ **/
 public class BrettTest  {
 
 
@@ -54,8 +51,8 @@ public class BrettTest  {
         int[][] board = {
                 { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 },
-                { 0, 0, 0, 0 },
-                { 0, 0, 0, 0 }
+                { 1, 0, 0, 0 },
+                { 0, 0, 0, 1 }
         };
 
         brett.setBrett(board);

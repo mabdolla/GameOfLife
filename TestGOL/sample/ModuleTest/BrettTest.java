@@ -1,8 +1,6 @@
-package sample.Module;
+package sample.ModuleTest;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Fredrik Kluftødegård on 21.03.2017.
