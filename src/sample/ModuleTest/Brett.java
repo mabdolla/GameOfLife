@@ -81,10 +81,8 @@ public class Brett {
         nesteBrett = null;
 
         draw();
-
-
-
     }
+
 
     public int[][] getBrett() {
         return brett;
@@ -134,7 +132,7 @@ public class Brett {
         if (!(x - 1 == -1) && brett[x - 1][y] == 1) antallNaboer++;               //Venstre midten
 
 //        if (antallNaboer>0)
-//            System.out.println(x+","+y+" har "+antallNaboer+" naboer");
+//           System.out.println(x+","+y+" har "+antallNaboer+" naboer");
 
 
        /*try {
