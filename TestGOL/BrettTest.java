@@ -1,5 +1,7 @@
+import org.junit.Assert;
 import org.junit.Test;
 import sample.ModuleTest.Brett;
+
 
 /**
  * Test Class Game of Life
@@ -9,8 +11,8 @@ public class BrettTest  {
 
 
     @Test
-    public void testNextGeneration(){
-        Brett testBrett1 = new Brett(4,4, null);
+    public void testNextGenerationEqual(){
+        Brett brett = new Brett(4,4);
 
         int[][] board = {
                 { 0, 0, 0, 0 },
@@ -19,9 +21,12 @@ public class BrettTest  {
                 { 0, 0, 0, 0 }
         };
 
-        testBrett1.setBrett(board);
-        testBrett1.nextGeneration();
-        org.junit.Assert.assertEquals(0000011001100000, testBrett1.toString());
+
+        brett.setBrett(board);
+        System.out.println(brett.toString());
+        brett.nextGeneration();
+        System.out.println(brett.toString());
+        Assert.assertArrayEquals(board, brett.getBrett());
 
     }
 
@@ -39,7 +44,7 @@ public class BrettTest  {
 
         testBrett2.setBrett(board);
         testBrett2.nextGeneration();
-        org.junit.Assert.assertEquals(0000000000000000, testBrett2.toString());
+        Assert.assertEquals(0000000000000000, testBrett2.toString());
 
     }
 

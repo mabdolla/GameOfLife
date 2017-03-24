@@ -18,9 +18,13 @@ public class Brett {
         this.kolonne = kolonne;
         this.gc = gc;
         brett = new int [rad][kolonne];
-        //test();
-        getBrett();
         draw();
+    }
+
+    public Brett(int rad, int kolonne){
+        this.rad = rad;
+        this.kolonne = kolonne;
+
     }
 
 
@@ -80,7 +84,7 @@ public class Brett {
         brett = nesteBrett;
         nesteBrett = null;
 
-        draw();
+
 
 
 
@@ -192,7 +196,7 @@ public class Brett {
 
 
     //Opprettett til BrettTest.java
-   /* @Override
+   @Override
     public String toString() {
         String msg = "";
         for (int kolonne = 0; kolonne < brett.length; kolonne++) {
@@ -205,5 +209,5 @@ public class Brett {
             }
         }
         return msg;
-    }*/
+    }
 }
