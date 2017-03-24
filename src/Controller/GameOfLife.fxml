@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="775.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="775.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameOfLifeController">
    <children>
       <HBox fx:id="CanvasHbox" prefHeight="305.0" prefWidth="600.0">
          <children>
@@ -32,7 +32,7 @@
         </rowConstraints>
          <children>
             <ColorPicker prefHeight="31.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Slider fx:id="celleSlider" GridPane.columnIndex="1" />
+            <Slider fx:id="celleSlider" min="15.0" GridPane.columnIndex="1" />
             <HBox prefHeight="39.0" prefWidth="388.0">
                <children>
                   <Button fx:id="StartStopBtn" mnemonicParsing="false" onAction="#startSimulation" prefHeight="31.0" prefWidth="91.0" text="Start" textAlignment="CENTER">

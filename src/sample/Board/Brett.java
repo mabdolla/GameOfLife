@@ -1,4 +1,4 @@
-package sample.ModuleTest;
+package sample.Board;
 
 
 import javafx.scene.canvas.GraphicsContext;
@@ -18,9 +18,13 @@ public class Brett {
         this.kolonne = kolonne;
         this.gc = gc;
         brett = new int [rad][kolonne];
-        //test();
-        getBrett();
         draw();
+    }
+
+    public Brett(int rad, int kolonne){
+        this.rad = rad;
+        this.kolonne = kolonne;
+
     }
 
 
@@ -80,9 +84,11 @@ public class Brett {
         brett = nesteBrett;
         nesteBrett = null;
 
-        draw();
-    }
 
+
+
+
+    }
 
     public int[][] getBrett() {
         return brett;
@@ -132,7 +138,7 @@ public class Brett {
         if (!(x - 1 == -1) && brett[x - 1][y] == 1) antallNaboer++;               //Venstre midten
 
 //        if (antallNaboer>0)
-//           System.out.println(x+","+y+" har "+antallNaboer+" naboer");
+//            System.out.println(x+","+y+" har "+antallNaboer+" naboer");
 
 
        /*try {
@@ -190,7 +196,7 @@ public class Brett {
 
 
     //Opprettett til BrettTest.java
-   /* @Override
+   @Override
     public String toString() {
         String msg = "";
         for (int kolonne = 0; kolonne < brett.length; kolonne++) {
@@ -203,5 +209,5 @@ public class Brett {
             }
         }
         return msg;
-    }*/
+    }
 }
