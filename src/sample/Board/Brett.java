@@ -27,30 +27,9 @@ public class Brett {
 
     }
 
-
-
-   /* public void test(){
-        brett[0][0]=1;
-    }*/
-
-    /*test mønster
-    public void testArray(){
-        brett[15][11]=1;
-        brett[15][12]=1;
-        brett[15][13]=1;
-        brett[16][12]=1;
-        brett[15][15]=1;
-        brett[16][16]=1;
-        brett[20][8]=1;
-        brett[20][9]=1;
-        brett[20][10]=1;
-        brett[21][9]=1;
-
-    }*/
-
     public void background() {
 
-        gc.setFill(Color.YELLOWGREEN);
+        gc.setFill(Color.BLUEVIOLET);
         gc.fillRect(0, 0, brett.length * celleSTR, brett[0].length * celleSTR);
     }
 
@@ -84,11 +63,11 @@ public class Brett {
         brett = nesteBrett;
         nesteBrett = null;
 
-
-
-
-
     }
+
+
+
+
 
     public int[][] getBrett() {
         return brett;
