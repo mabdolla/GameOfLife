@@ -4,6 +4,7 @@ import FileHandler.FileReader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -43,16 +44,17 @@ public class GameOfLifeController implements Initializable {
     @FXML
     public ListView listView;
     @FXML
-    private ColorPicker BackgroundColor;
+    private ColorPicker colorPicker;
     public GraphicsContext gc;
     Brett brett;
     public Timeline timeline = new Timeline();
-    final ColorPicker colorPicker = new ColorPicker();
+
 
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
         gc = canvas.getGraphicsContext2D();
+
         brett = new Brett(50, 50, gc);
         brett.draw();
 
@@ -75,9 +77,17 @@ public class GameOfLifeController implements Initializable {
     }
 
 
+
+
     public void openFile(Event e) {
 
-        FileReader.openFromFile();
+        int[][] nyBrett = FileReader.openFromFile();
+        System.out.println(nyBrett.toString());
+
+
+
+
+
 
 
 
@@ -88,7 +98,19 @@ public class GameOfLifeController implements Initializable {
 
     //colorpicker
     @FXML
-    public void BackgroundColor (){
+    public void changecolor (ActionEvent e){
+       colorPicker.getValue();
+
+
+
+       System.out.println(colorPicker.getValue());
+
+
+
+
+
+
+
 
     }
 

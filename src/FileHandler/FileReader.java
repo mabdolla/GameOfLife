@@ -35,35 +35,26 @@ public class FileReader  {
             Scanner in = new Scanner(file);
             int ylength = 0;
             int xlength = 0;
-            String length = in.nextLine(); //henter linje
+            String length = in.nextLine();
 
 
             while (in.hasNext()) {
 
-                if(in.nextLine().length()> xlength){
-                    xlength = in.nextLine().length();
+                if(in.nextLine().length()> xlength){            //henter linje for linje
+                    xlength = in.nextLine().length();           //setter antall linjer som en x verdi
 
                 }
-                /*  for(int x = 0; x < length.length();x++){
-
-                  char a = length.charAt(x);
-                    if(a == 0){
-                        brett[y][1];
-                    }else{
-
-                    }
-                }*/
                 ylength++;
             }
 
 
-            int [][] brett= new int [xlength][ylength];
+            int [][] brett= new int [xlength][ylength];        //opretter array som tar imot y og x lengde
 
             int y = 0;
             while (in.hasNext()) {
-                  for(int x = 0; x < length.length();x++){
+                  for(int x = 0; x < length.length();x++){   //løkke som leser hver linje
 
-                  char a = length.charAt(x);
+                  char a = length.charAt(x);                //er en character på linja 0, får den verdi 1(levende)
                     if(a == 0){
                         brett[y][x] = 1;
                     }else{
@@ -71,12 +62,10 @@ public class FileReader  {
                     }
                 }
                 y++;
+
             }
+
             return brett;
-
-
-
-
 
 
         } catch (FileNotFoundException e) {
@@ -89,96 +78,12 @@ public class FileReader  {
 
 
 
-       /*if (file == null) {
-            return null;
-        }else{
-       System.out.println("Filen er åpnet");
-        return file;
-
-    }*/
-
-
-   /* public static File readFile(){
-
-        try {
-            BufferedReader reader = new BufferedReader(file);
-        } catch (IOException ex){
-
-        }
-
-        String text = "";
-        String line = br.readLine;
-        while (line != null){
-            text += line;
-            line = br.re
-        }
-
-    }*/
 
 
 
 
 
 
-   /* public static Brett loadFromFile(File file, int defaultSize) {
-        String input = "";
-        int sz = defaultSize;
-        try (Scanner s = new Scanner(file)) {
-            while (s.hasNextLine()) {
-                String line = s.nextLine().replaceAll("\\s+","");
-                input += line;
-
-                sz = line.length();
-            }
-        } catch (FileNotFoundException e) {
-            // should never happen since we return on null file
-            // so if we end up here it's something really bad
-            // and so we let it blow up to runtime
-            throw new RuntimeException(e);
-        }
-
-        Brett[][] g = new Brett[sz][sz];
-        System.out.println(g);
 
 
-        int pos = 0;
-        for (int i = 0; i < sz; i++) {
-            for (int j = 0; j < sz; j++) {
-                boolean state = (input.charAt(pos) =='1');
-               // g[i][j] = new Brett(state);
-                pos++;
-            }
-        }
-
-        return new Brett(50, 50);
-    }
-
-       /* public void fileChooser (){
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open File");
-
-
-            FileChooser.ExtensionFilter extFilt = new FileChooser.ExtensionFilter("PlainText", ("*.txt"));
-            extFilt.getDescription();
-
-            System.out.println(extFilt.getDescription());
-
-            fileChooser.getExtensionFilters().add(extFilt);
-
-            File file = fileChooser.showOpenDialog(null);
-
-            /*if (file != null) {
-                GameOfLifeController.listView.getItems().addAll(file.getName(), extFilt.getDescription());
-            } else {
-                System.out.println("Filen er ikke godtatt");
-            }*/
-
-
-
-
-    /*private String readFile(File file) {
-        StringBuilder stringreader = new StringBuilder();
-        BufferedReader bufferedReader = null;
-
-    } */
 

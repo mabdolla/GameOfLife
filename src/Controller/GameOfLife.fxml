@@ -31,7 +31,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ColorPicker fx:id="BackgroundColor" onAction="#BackgroundColor" prefHeight="31.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ColorPicker fx:id="colorPicker" onAction="#changecolor" prefHeight="31.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Slider fx:id="celleSlider" min="15.0" GridPane.columnIndex="1" />
             <HBox prefHeight="39.0" prefWidth="388.0">
                <children>
