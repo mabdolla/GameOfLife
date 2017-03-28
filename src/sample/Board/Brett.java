@@ -1,6 +1,7 @@
 package sample.Board;
 
 
+import FileHandler.FileReader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -67,6 +68,18 @@ public class Brett {
 
     }
 
+    public void upDateBoard (){
+        int[][] nyBrett = FileReader.openFromFile();
+
+        for (int x = 0; x < brett.length; x++) {
+            for (int y = 0; y < brett[0].length; y++) {
+                nyBrett[x][y] = setCellRules(brett[x][y], getNeighbours(x, y));
+            }
+        }
+        brett = nyBrett;
+
+    }
+
 
 
 
@@ -118,16 +131,8 @@ public class Brett {
         if (!(y + 1 == brett.length) && brett[x][y + 1] == 1) antallNaboer++;              //Nede midten
         if (!(x - 1 == -1) && brett[x - 1][y] == 1) antallNaboer++;               //Venstre midten
 
-//        if (antallNaboer>0)
-//            System.out.println(x+","+y+" har "+antallNaboer+" naboer");
-
-
-       /*try {
-
-       } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("FEILET på "+x+", "+y+" : UTTAFOR");
-        }*/
         return antallNaboer;
+
     }
 
     public void setCelleSTR(int CSTR) {
