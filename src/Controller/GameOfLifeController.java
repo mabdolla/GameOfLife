@@ -94,21 +94,13 @@ public class GameOfLifeController implements Initializable {
     @FXML
     public void changecolor (ActionEvent e){
 
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gc.setFill(colorPicker.getValue());
         gc.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
 
-
-
-
-
-
-
-
     }
-
-
 
     public void clearBoard() {
 
