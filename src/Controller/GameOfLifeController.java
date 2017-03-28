@@ -96,7 +96,7 @@ public class GameOfLifeController implements Initializable {
 
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
+//hei på deg
         gc.setFill(colorPicker.getValue());
         gc.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
 
