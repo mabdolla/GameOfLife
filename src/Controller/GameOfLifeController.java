@@ -25,6 +25,8 @@ import sample.Board.*;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.logging.FileHandler;
 
 public class GameOfLifeController implements Initializable {
@@ -79,31 +81,23 @@ public class GameOfLifeController implements Initializable {
 
 
 
+    @FXML
     public void openFile(Event e) {
 
         int[][] nyBrett = FileReader.openFromFile();
-        System.out.println(nyBrett.toString());
 
-
-
-
-
-
-
-
-
-
+        System.out.println(Arrays.deepToString(nyBrett));
     }
 
 
     //colorpicker
     @FXML
     public void changecolor (ActionEvent e){
-       colorPicker.getValue();
 
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
-
-       System.out.println(colorPicker.getValue());
+        gc.setFill(colorPicker.getValue());
+        gc.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
 
 
 

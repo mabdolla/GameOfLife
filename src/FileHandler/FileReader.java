@@ -51,11 +51,11 @@ public class FileReader  {
             int [][] brett= new int [xlength][ylength];        //opretter array som tar imot y og x lengde
 
             int y = 0;
-            while (in.hasNext()) {
+            while (in.hasNext() ) {
                   for(int x = 0; x < length.length();x++){   //løkke som leser hver linje
 
                   char a = length.charAt(x);                //er en character på linja 0, får den verdi 1(levende)
-                    if(a == 0){
+                    if(a == '0'){
                         brett[y][x] = 1;
                     }else{
                         brett[y][x] = 0;
@@ -64,6 +64,7 @@ public class FileReader  {
                 y++;
 
             }
+
 
             return brett;
 
