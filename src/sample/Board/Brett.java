@@ -11,6 +11,7 @@ public class Brett {
     private int[][] brett;
     private int celleSTR = 15;
     private int gameSpeed = 40;
+    private Color cellcolor;
 
     //Konstruktør
     public Brett(int rad, int kolonne, GraphicsContext gc) {
@@ -27,35 +28,15 @@ public class Brett {
 
     }
 
-
-
-   /* public void test(){
-        brett[0][0]=1;
-    }*/
-
-    /*test mønster
-    public void testArray(){
-        brett[15][11]=1;
-        brett[15][12]=1;
-        brett[15][13]=1;
-        brett[16][12]=1;
-        brett[15][15]=1;
-        brett[16][16]=1;
-        brett[20][8]=1;
-        brett[20][9]=1;
-        brett[20][10]=1;
-        brett[21][9]=1;
-
-    }*/
-
     public void background() {
 
-        gc.setFill(Color.YELLOWGREEN);
+        gc.setFill(Color.GOLD);
         gc.fillRect(0, 0, brett.length * celleSTR, brett[0].length * celleSTR);
     }
 
     public void draw() {
         background();
+
         for (int j = 0; j < brett.length; j++) {
             for (int i = 0; i < brett[0].length; i++) {
                 if (brett[j][i] == 1) {
@@ -84,11 +65,11 @@ public class Brett {
         brett = nesteBrett;
         nesteBrett = null;
 
-
-
-
-
     }
+
+
+
+
 
     public int[][] getBrett() {
         return brett;

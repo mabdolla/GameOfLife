@@ -1,22 +1,31 @@
 package Controller;
 
+import FileHandler.FileReader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import sample.Board.Brett;
 import sample.Board.*;
 
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.util.logging.FileHandler;
 
 public class GameOfLifeController implements Initializable {
 
@@ -33,27 +42,33 @@ public class GameOfLifeController implements Initializable {
     @FXML
     private Button fileOpen;
     @FXML
-    private ListView listView;
+    public ListView listView;
+    @FXML
+    private ColorPicker colorPicker;
     public GraphicsContext gc;
     Brett brett;
     public Timeline timeline = new Timeline();
 
 
+
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
         gc = canvas.getGraphicsContext2D();
+
         brett = new Brett(50, 50, gc);
         brett.draw();
+
+
+
         celleSlider.setValue(brett.getCelleSTR());
         sliderSpeed.setValue(5);
 
         celleSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
             brett.setCelleSTR((int) celleSlider.getValue());
-            clearBoard();
             brett.draw();
         }));
 
-        KeyFrame frame = new KeyFrame(Duration.millis(1000), event -> {
+        KeyFrame frame = new KeyFrame(Duration.millis(500), event -> {
             brett.nextGeneration();
             brett.draw();
         });
@@ -62,26 +77,43 @@ public class GameOfLifeController implements Initializable {
     }
 
 
-    public void openFile() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open File");
 
 
-        FileChooser.ExtensionFilter extFilt = new FileChooser.ExtensionFilter("PlainText", ("*.txt"));
-        fileChooser.getExtensionFilters().addAll();
+    public void openFile(Event e) {
+
+        int[][] nyBrett = FileReader.openFromFile();
+        System.out.println(nyBrett.toString());
 
 
-        File file = fileChooser.showOpenDialog(null);
 
-        if (file != null) {
-            listView.getItems().addAll(file.getName());
-        } else {
-            System.out.println("Wrong file");
-        }
 
-        System.out.println("Heisann");
+
+
+
+
+
 
     }
+
+
+    //colorpicker
+    @FXML
+    public void changecolor (ActionEvent e){
+       colorPicker.getValue();
+
+
+
+       System.out.println(colorPicker.getValue());
+
+
+
+
+
+
+
+
+    }
+
 
 
     public void clearBoard() {
@@ -96,6 +128,7 @@ public class GameOfLifeController implements Initializable {
     public void startAnimation() {
 
         brett.nextGeneration();
+        brett.draw();
     }
 
     //Start & Stop button
