@@ -25,22 +25,14 @@ public class GameOfLifeController implements Initializable {
 
     @FXML
     public Canvas canvas;
-    @FXML
-    private Slider celleSlider;
-    @FXML
-    private Slider sliderSpeed;
-    @FXML
-    private HBox CanvasHbox;
-    @FXML
-    private Button StartStopBtn;
-    @FXML
-    private Button fileOpen;
-    @FXML
-    public ListView listView;
-    @FXML
-    private ColorPicker colorPicker;
-    @FXML
-    private ColorPicker colorpickercell;
+    @FXML private Slider celleSlider;
+    @FXML private Slider sliderSpeed;
+    @FXML private HBox CanvasHbox;
+    @FXML private Button StartStopBtn;
+    @FXML private Button fileOpen;
+    @FXML public ListView listView;
+    @FXML private ColorPicker colorPicker;
+    @FXML private ColorPicker colorpickercell;
 
     public GraphicsContext gc;
     Brett brett;
