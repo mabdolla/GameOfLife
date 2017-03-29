@@ -6,7 +6,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -17,17 +16,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import sample.Board.Brett;
-import sample.Board.*;
-
-import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.logging.FileHandler;
+
 
 public class GameOfLifeController implements Initializable {
 
@@ -47,6 +39,9 @@ public class GameOfLifeController implements Initializable {
     public ListView listView;
     @FXML
     private ColorPicker colorPicker;
+    @FXML
+    private ColorPicker colorpickercell;
+
     public GraphicsContext gc;
     Brett brett;
     public Timeline timeline = new Timeline();
@@ -58,8 +53,12 @@ public class GameOfLifeController implements Initializable {
         gc = canvas.getGraphicsContext2D();
 
         brett = new Brett(50, 50, gc);
-        brett.draw();
 
+
+        brett.setBackgroundColor(Color.AQUA);
+        brett.setCellColor(Color.BLACK);
+
+        brett.draw();
 
 
         celleSlider.setValue(brett.getCelleSTR());
@@ -94,11 +93,16 @@ public class GameOfLifeController implements Initializable {
     @FXML
     public void changecolor (ActionEvent e){
 
+        brett.setBackgroundColor(colorPicker.getValue());
+        brett.draw();
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-//hei på deg
-        gc.setFill(colorPicker.getValue());
-        gc.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    @FXML
+    public void changeColorCell (ActionEvent c){
+        brett.setCellColor(colorpickercell.getValue());
+        brett.draw();
+
 
     }
 
