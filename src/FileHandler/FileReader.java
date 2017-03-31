@@ -23,39 +23,15 @@ public class FileReader  {
         return fileChooser;
     }
 
-    public static int [][] openFromFile() {
-
-        File file = getFileChooser().showOpenDialog(null);
-
-
-        //regex regular expression
-
-        try {
-            BufferedReader bf = new BufferedReader(new java.io.FileReader(file));
-            String s;
-
-            while ((s = bf.readLine()) != null) {
-                //if (!s.startsWith("!"))
-                s = s.replaceAll("\\s", "");
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }return null;
-    }
-
-        public static int [][] openTXTfile(){
+    public static int [][] openTXTfile(){
 
             File txtfile = getFileChooser().showOpenDialog(null);
 
-
-            try {
+        try {
                 Scanner in = new Scanner(txtfile);
                 int ylength = 0;
                 int xlength = 0;
                 String length;
-
 
                 while (in.hasNext()) {
                     length = in.nextLine();
