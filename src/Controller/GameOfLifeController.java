@@ -41,6 +41,7 @@ public class GameOfLifeController implements Initializable {
     Brett brett;
     public Timeline timeline = new Timeline();
     FileReaderRLE f2 = new FileReaderRLE();
+    ///5555
 
 
 
