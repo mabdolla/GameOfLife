@@ -73,7 +73,7 @@ public class Brett {
     }
 
     public void upDateBoard (){
-        int[][] nyBrett = FileReader.openFromFile();
+        int[][] nyBrett = FileReader.openTXTfile();
 
         for (int x = 0; x < brett.length; x++) {
             for (int y = 0; y < brett[0].length; y++) {
