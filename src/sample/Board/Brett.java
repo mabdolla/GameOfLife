@@ -5,12 +5,14 @@ import FileHandler.FileReader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+
 public class Brett {
     public GraphicsContext gc;
     private int rad;
     private int kolonne;
     private int[][] brett;
-    private int celleSTR = 15;
+    private int celleSTR = 10;
     private int gameSpeed = 40;
     private Color backgroundColor;
     private Color cellColor;
@@ -37,6 +39,7 @@ public class Brett {
     }
 
     public void draw() {
+
         background();
 
         for (int j = 0; j < brett.length; j++) {
@@ -123,14 +126,14 @@ public class Brett {
         int antallNaboer = 0;
 
 
-        if (!(x - 1 == -1 || y - 1 == -1) && brett[x - 1][y - 1] == 1) antallNaboer++; //Oppe venstre
-        if (!(y - 1 == -1) && brett[x][y - 1] == 1) antallNaboer++;              //Oppe midten
-        if (!(x + 1 == brett.length || y - 1 == -1) && brett[x + 1][y - 1] == 1) antallNaboer++; //Oppe høyre
-        if (!(x + 1 == brett.length || y + 1 == brett.length) && brett[x + 1][y + 1] == 1) antallNaboer++; //Nede høyre
-        if (!(x - 1 == -1 || y + 1 == brett.length) && brett[x - 1][y + 1] == 1) antallNaboer++; //Nede venstre
-        if (!(x + 1 == brett.length) && brett[x + 1][y] == 1) antallNaboer++;              //Midten høyre
-        if (!(y + 1 == brett.length) && brett[x][y + 1] == 1) antallNaboer++;              //Nede midten
-        if (!(x - 1 == -1) && brett[x - 1][y] == 1) antallNaboer++;               //Venstre midten
+        if (!(x - 1 == -1 || y - 1 == -1) && brett[x - 1][y - 1] == 1) antallNaboer++;                      //Oppe venstre
+        if (!(y - 1 == -1) && brett[x][y - 1] == 1) antallNaboer++;                                         //Oppe midten
+        if (!(x + 1 == brett.length || y - 1 == -1) && brett[x + 1][y - 1] == 1) antallNaboer++;            //Oppe høyre
+        if (!(x + 1 == brett.length || y + 1 == brett.length) && brett[x + 1][y + 1] == 1) antallNaboer++;  //Nede høyre
+        if (!(x - 1 == -1 || y + 1 == brett.length) && brett[x - 1][y + 1] == 1) antallNaboer++;            //Nede venstre
+        if (!(x + 1 == brett.length) && brett[x + 1][y] == 1) antallNaboer++;                               //Midten høyre
+        if (!(y + 1 == brett.length) && brett[x][y + 1] == 1) antallNaboer++;                               //Nede midten
+        if (!(x - 1 == -1) && brett[x - 1][y] == 1) antallNaboer++;                                         //Venstre midten
 
         return antallNaboer;
 
