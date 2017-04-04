@@ -107,6 +107,7 @@ public class FileReaderRLE {
                 }
             }
 
+
         } catch (Exception e) {
 
             System.out.println(e.getMessage());
