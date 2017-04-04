@@ -13,48 +13,40 @@ import java.util.regex.Pattern;
  * Created by Fredrik Kluftødegård on 31.03.2017.
  */
 public class FileReaderRLE {
-    FileChooser fChooser = new FileChooser();
-    File file2;
+    FileChooser fChooser = new FileChooser(); //åpner explorer og lar bruker velge fil
+    File file2;//dette er filen, ikke enda
     java.io.FileReader fReader;
     BufferedReader bReader;
     StringBuilder lineBuilder = new StringBuilder();
+    public int[][] brett;
 
-    public void readBoard()  {
-        file2 = fChooser.showOpenDialog(null);
+    public void readBoard() {
+        file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret it file2
         if (file2 != null) {
-
-
             System.out.println("You choose this file");
         } else {
-
             System.out.println("File not found");
         }
 
         // Reading file
         try {
-
-            fReader = new FileReader(file2);
-            bReader = new BufferedReader(fReader);
-            String line;
+            bReader = new BufferedReader(new FileReader(file2));
+            String line; //midlertidig lagring av hver linje
 
             Pattern pattern = Pattern.compile("([xy]=\\d+),([xy]=\\d+),rule=(\\w\\d+)\\/(\\w\\d+)");
-            Pattern boardPattern = Pattern.compile("(\\d+)?([bo]+)\\$|(\\d+)([bo]+)!?");
 
-            String Boardinfo = "";
-            StringBuilder board = new StringBuilder();
-
-
-
+            String Boardinfo = "";//her lagres (x=??,y=??,rules=B2/S23
+            StringBuilder board = new StringBuilder(); //her lagres patternet
 
             while ((line = bReader.readLine()) != null) {
-                if (line.startsWith("#")){
-                continue;
+                if (line.startsWith("#")) {
+                    continue;
                 }
 
                 line = line.replaceAll("\\s", "");   //fjerner mellomrom
-                    lineBuilder.append(line).append("\n"); //deler linje for linje
+                lineBuilder.append(line).append("\n"); //deler linje for linje
 
-                if( pattern.matcher(line).matches())
+                if (pattern.matcher(line).matches())
                     Boardinfo = line;
                 else
                     board.append(line);
@@ -66,24 +58,54 @@ public class FileReaderRLE {
             int xlength = 0;
             int ylength = 0;
 
-            Pattern p2 = Pattern.compile("([xy])=(\\d+)");
-            Matcher m2 = p2.matcher(Boardinfo);
+            Pattern findSize = Pattern.compile("([xy])=(\\d+)");
+            Matcher sizeMatch = findSize.matcher(Boardinfo);
 
-            while(m2.find()){
-                if (m2.group(1).matches("x")) {
-                    xlength = Integer.parseInt(m2.group(2));
-                }else if(m2.group(1).matches("y")){
-                    ylength = Integer.parseInt(m2.group(2));
-
+            while (sizeMatch.find()) {
+                if (sizeMatch.group(1).matches("x")) {
+                    xlength = Integer.parseInt(sizeMatch.group(2));
+                } else if (sizeMatch.group(1).matches("y")) {
+                    ylength = Integer.parseInt(sizeMatch.group(2));
                 }
-
             }
-            int [][] brett = new int[ylength][xlength];
+
+            brett = new int[ylength][xlength];
             System.out.println(xlength);
             System.out.println(ylength);
 
-            System.out.println(Arrays.deepToString(brett));
+            int x = 0;
+            int y = 0;
 
+            Pattern pattern2 = Pattern.compile("(\\d+)?([ob\\$!])");
+            Matcher matcher2 = pattern2.matcher(board);
+            while (matcher2.find()) {
+
+                if (matcher2.group(2).matches("b")) {
+                    if (matcher2.group(1)==null) {
+                        x++;
+                    } else {
+                        x += Integer.parseInt(matcher2.group(1));
+                    }
+                } else if (matcher2.group(2).matches("o")) {
+                    if (matcher2.group(1)==null) {
+                        brett[x][y] = 1;
+                        x++;
+                    } else {
+                        for (int i = x; x < (i+Integer.parseInt(matcher2.group(1))); x++) {
+                            brett[x][y] = 1;
+                        }
+                    }
+
+                } else if (matcher2.group(2).matches("\\$")) {
+                    if (matcher2.group(1)==null) {
+                        y++;
+                        x = 0;
+                    } else {
+                        y+=Integer.parseInt(matcher2.group(1));
+                        x = 0;
+                    }
+                }
+            }
 
         } catch (Exception e) {
 

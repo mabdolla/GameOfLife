@@ -129,10 +129,10 @@ public class Brett {
         if (!(x - 1 == -1 || y - 1 == -1) && brett[x - 1][y - 1] == 1) antallNaboer++;                      //Oppe venstre
         if (!(y - 1 == -1) && brett[x][y - 1] == 1) antallNaboer++;                                         //Oppe midten
         if (!(x + 1 == brett.length || y - 1 == -1) && brett[x + 1][y - 1] == 1) antallNaboer++;            //Oppe høyre
-        if (!(x + 1 == brett.length || y + 1 == brett.length) && brett[x + 1][y + 1] == 1) antallNaboer++;  //Nede høyre
-        if (!(x - 1 == -1 || y + 1 == brett.length) && brett[x - 1][y + 1] == 1) antallNaboer++;            //Nede venstre
+        if (!(x + 1 == brett.length || y + 1 == brett[0].length) && brett[x + 1][y + 1] == 1) antallNaboer++;  //Nede høyre
+        if (!(x - 1 == -1 || y + 1 == brett[0].length) && brett[x - 1][y + 1] == 1) antallNaboer++;            //Nede venstre
         if (!(x + 1 == brett.length) && brett[x + 1][y] == 1) antallNaboer++;                               //Midten høyre
-        if (!(y + 1 == brett.length) && brett[x][y + 1] == 1) antallNaboer++;                               //Nede midten
+        if (!(y + 1 == brett[0].length) && brett[x][y + 1] == 1) antallNaboer++;                               //Nede midten
         if (!(x - 1 == -1) && brett[x - 1][y] == 1) antallNaboer++;                                         //Venstre midten
 
         return antallNaboer;
@@ -145,7 +145,6 @@ public class Brett {
     }
 
     public void setBrett(int[][] brett) {
-
         this.brett = brett;
     }
 

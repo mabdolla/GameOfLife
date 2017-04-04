@@ -79,6 +79,7 @@ public class GameOfLifeController implements Initializable {
     @FXML
     public void RLEopen() throws IOException{
         f2.readBoard();
+        brett.setBrett(f2.brett);
     }
 
     @FXML
