@@ -69,13 +69,13 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Slider fx:id="celleSlider" layoutX="3.0" layoutY="46.0" max="20.0" prefHeight="18.0" prefWidth="204.0" />
+                                    <Slider fx:id="celleSlider" layoutX="3.0" layoutY="46.0" max="20.0" min="4.0" prefHeight="18.0" prefWidth="204.0" />
                                     <Label layoutX="23.0" layoutY="16.0" prefHeight="21.0" prefWidth="96.0" text="Zoom" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Slider fx:id="sliderSpeed" layoutX="9.0" layoutY="45.0" max="15.0" min="1.0" onDragDetected="#AdjustSpeed" prefHeight="27.0" prefWidth="197.0" />
+                                    <Slider fx:id="sliderSpeed" layoutX="9.0" layoutY="45.0" max="15.0" min="1.0" onDragDetected="#AdjustSpeed" onDragDone="#AdjustSpeed" onMouseClicked="#AdjustSpeed" prefHeight="27.0" prefWidth="197.0" />
                                     <Label layoutX="23.0" layoutY="4.0" prefHeight="28.0" prefWidth="132.0" text="Change Speed" />
                                  </children>
                               </AnchorPane>

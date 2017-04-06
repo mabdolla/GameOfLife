@@ -19,9 +19,10 @@ public class FileReaderRLE {
     BufferedReader bReader;
     StringBuilder lineBuilder = new StringBuilder();
     public int[][] brett;
+    public int[][] rules;
 
     public void readBoard() {
-        file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret it file2
+        file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret i file2
         if (file2 != null) {
             System.out.println("You choose this file");
         } else {
@@ -55,6 +56,11 @@ public class FileReaderRLE {
             System.out.println(board.toString());
 
 
+
+            ///////////////////////RULES/////////////////////////////
+
+
+            /////////////////////BOARD LENGTH/////////////////////////
             int xlength = 0;
             int ylength = 0;
 
@@ -63,9 +69,9 @@ public class FileReaderRLE {
 
             while (sizeMatch.find()) {
                 if (sizeMatch.group(1).matches("x")) {
-                    xlength = 1+Integer.parseInt(sizeMatch.group(2));
+                    xlength = 1+Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
                 } else if (sizeMatch.group(1).matches("y")) {
-                    ylength = 1+Integer.parseInt(sizeMatch.group(2));
+                    ylength = 1+Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
                 }
             }
 
@@ -73,6 +79,9 @@ public class FileReaderRLE {
             System.out.println(xlength);
             System.out.println(ylength);
 
+
+
+            //////////////////////////BOARD PATTERN//////////////////////
             int x = 0;
             int y = 0;
 

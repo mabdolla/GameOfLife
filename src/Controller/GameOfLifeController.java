@@ -30,18 +30,14 @@ public class GameOfLifeController implements Initializable {
     @FXML public Canvas canvas;
     @FXML private Slider celleSlider;
     @FXML private Slider sliderSpeed;
-    @FXML private HBox CanvasHbox;
     @FXML private Button StartStopBtn;
-    @FXML private Button fileOpen;
-    @FXML public ListView listView;
-    @FXML private Button RLE;
     @FXML private ColorPicker colorPicker;
     @FXML private ColorPicker colorpickercell;
     public GraphicsContext gc;
     Brett brett;
     public Timeline timeline = new Timeline();
     FileReaderRLE f2 = new FileReaderRLE();
-    ///5555
+
 
 
 
@@ -49,7 +45,8 @@ public class GameOfLifeController implements Initializable {
 
         gc = canvas.getGraphicsContext2D();
 
-        brett = new Brett(400, 400, gc);
+
+        brett = new Brett(900, 400, gc, canvas);
 
 
         brett.setBackgroundColor(Color.AQUA);
@@ -59,10 +56,11 @@ public class GameOfLifeController implements Initializable {
 
 
         celleSlider.setValue(canvas.getWidth()/brett.getCelleSTR()/canvas.getHeight()/brett.getCelleSTR());
-        sliderSpeed.setValue(5);
+        sliderSpeed.setValue(10);
 
         celleSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
             brett.setCelleSTR((int) celleSlider.getValue());
+//            gc.clearRect(0,0,canvas.getWidth(),canvas.getWidth());
             brett.draw();
         }));
 
@@ -80,6 +78,7 @@ public class GameOfLifeController implements Initializable {
     public void RLEopen() {
         f2.readBoard();
         brett.setBrett(f2.brett);
+        brett.setRules(f2.rules);
         brett.draw();
     }
 
@@ -145,13 +144,15 @@ public class GameOfLifeController implements Initializable {
             int x = (int) (e.getX() / brett.getCelleSTR());
             int y = (int) (e.getY() / brett.getCelleSTR());
 
-            if (brett.getBrett()[x][y] == 1) {
-                brett.getBrett()[x][y] = 1;
-                brett.draw();
+            if (x < brett.getBrett().length && y < brett.getBrett()[0].length) {
+                if (brett.getBrett()[x][y] == 1) {
+                    brett.getBrett()[x][y] = 1;
+                    brett.draw();
 
-            } else {
-                brett.getBrett()[x][y] = 1;
-                brett.draw();
+                } else {
+                    brett.getBrett()[x][y] = 1;
+                    brett.draw();
+                }
             }
         });
     }
