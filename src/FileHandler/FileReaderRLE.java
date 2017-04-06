@@ -30,6 +30,7 @@ public class FileReaderRLE {
             System.out.println("File not found");
         }
 
+
         // Reading file
         try {
             bReader = new BufferedReader(new FileReader(file2));
