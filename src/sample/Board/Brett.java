@@ -5,19 +5,18 @@ import FileHandler.FileReader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.io.IOException;
-
+    //Variables
 public class Brett {
     public GraphicsContext gc;
     private int rad;
     private int kolonne;
     private int[][] brett;
-    private int celleSTR = 10;
+    private int celleSTR = 5;
     private int gameSpeed = 40;
     private Color backgroundColor;
     private Color cellColor;
 
-    //Konstruktør
+    //Constructor
     public Brett(int rad, int kolonne, GraphicsContext gc) {
         this.rad = rad;
         this.kolonne = kolonne;
@@ -77,7 +76,7 @@ public class Brett {
 
         for (int x = 0; x < brett.length; x++) {
             for (int y = 0; y < brett[0].length; y++) {
-                nyBrett[x][y] = setCellRules(brett[x][y], getNeighbours(x, y));
+                nyBrett[x][y] = setCellRules(brett[y][x], getNeighbours(x, y));
             }
         }
         brett = nyBrett;
@@ -96,8 +95,8 @@ public class Brett {
 
         //Fucked up regler for spillet
 
-        /*int[][] rules = {{0, 1, 1, 0, 0, 0, 0, 0, 0},
-                {1, 1, 0, 0, 0, 0, 0, 0, 0}};
+        /*int[][] rules = {{0, 1, 1, 1, 0, 0, 1, 0, 0},
+                {0, 1, 1, 0, 0, 1, 0, 0, 0}};
         return rules[isAlive][naboer];*/
 
 
@@ -144,8 +143,9 @@ public class Brett {
         this.celleSTR = CSTR;
     }
 
-    public void setBrett(int[][] brett) {
+    public int[][] setBrett(int[][] brett) {
         this.brett = brett;
+        return brett;
     }
 
     public int getCelleSTR() {

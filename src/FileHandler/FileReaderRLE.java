@@ -63,13 +63,13 @@ public class FileReaderRLE {
 
             while (sizeMatch.find()) {
                 if (sizeMatch.group(1).matches("x")) {
-                    xlength = Integer.parseInt(sizeMatch.group(2));
+                    xlength = 1+Integer.parseInt(sizeMatch.group(2));
                 } else if (sizeMatch.group(1).matches("y")) {
-                    ylength = Integer.parseInt(sizeMatch.group(2));
+                    ylength = 1+Integer.parseInt(sizeMatch.group(2));
                 }
             }
 
-            brett = new int[ylength][xlength];
+            brett = new int[xlength][ylength];
             System.out.println(xlength);
             System.out.println(ylength);
 
@@ -84,15 +84,15 @@ public class FileReaderRLE {
                     if (matcher2.group(1)==null) {
                         x++;
                     } else {
-                        x += Integer.parseInt(matcher2.group(1));
+                        x = Integer.parseInt(matcher2.group(1));
                     }
                 } else if (matcher2.group(2).matches("o")) {
                     if (matcher2.group(1)==null) {
-                        brett[x][y] = 1;
+                        brett[y][x] = 1;
                         x++;
                     } else {
                         for (int i = x; x < (i+Integer.parseInt(matcher2.group(1))); x++) {
-                            brett[x][y] = 1;
+                            brett[y][x] = 1;
                         }
                     }
 
@@ -101,7 +101,7 @@ public class FileReaderRLE {
                         y++;
                         x = 0;
                     } else {
-                        y+=Integer.parseInt(matcher2.group(1));
+                        y=Integer.parseInt(matcher2.group(1));
                         x = 0;
                     }
                 }
@@ -114,4 +114,3 @@ public class FileReaderRLE {
         }
     }
 }
-

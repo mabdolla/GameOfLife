@@ -49,7 +49,7 @@ public class GameOfLifeController implements Initializable {
 
         gc = canvas.getGraphicsContext2D();
 
-        brett = new Brett(100, 100, gc);
+        brett = new Brett(400, 400, gc);
 
 
         brett.setBackgroundColor(Color.AQUA);
@@ -77,9 +77,10 @@ public class GameOfLifeController implements Initializable {
 
 
     @FXML
-    public void RLEopen() throws IOException{
+    public void RLEopen() {
         f2.readBoard();
         brett.setBrett(f2.brett);
+        brett.draw();
     }
 
     @FXML

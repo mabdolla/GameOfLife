@@ -12,9 +12,6 @@ import java.util.Scanner;
  */
 public class FileReader  {
 
-
-
-
     private static FileChooser getFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load txt file");
@@ -66,13 +63,13 @@ public class FileReader  {
                 for (int[] ints : brett) {
                     System.out.println(Arrays.toString(ints));
                 }
-//                System.out.println(Arrays.deepToString(brett));
+//
 
                 return brett;
 
 
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+
 
 
             }return null;
