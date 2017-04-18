@@ -37,7 +37,7 @@
                               <items>
                                 <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open from txt file" />
                                     <MenuItem mnemonicParsing="false" onAction="#RLEopen" text="Open from RLE file" />
-                                    <MenuItem mnemonicParsing="false" text="Open file from URL" />
+                                    <MenuItem mnemonicParsing="false" onAction="#URLopen" text="Open file from URL" />
                               </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="Help">

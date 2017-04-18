@@ -1,18 +1,17 @@
 package FileHandler;
 
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 
 import java.io.*;
-import java.io.FileReader;
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Fredrik Kluftødegård on 31.03.2017.
+ * Created by Fredrik Kluftødegård on 18.04.2017.
  */
-public class FileReaderRLE {
+public class FileReaderURL {
     FileChooser fChooser = new FileChooser(); //åpner explorer og lar bruker velge fil
     File file2;//dette er filen, ikke enda
     java.io.FileReader fReader;
@@ -20,10 +19,15 @@ public class FileReaderRLE {
     StringBuilder lineBuilder = new StringBuilder();
     public int[][] brett;
     public int[][] rules = new int[2][9];
-    //5555
 
-    public void readBoard() {
-        file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret i file2
+
+    public void readBoardURL() {
+
+        TextInputDialog inputbox = new TextInputDialog("URL-adress");
+        Optional<String> result = inputbox.showAndWait();
+
+
+
         if (file2 != null) {
             System.out.println("You choose this file");
         } else {
@@ -33,7 +37,7 @@ public class FileReaderRLE {
 
         // Reading file
         try {
-            bReader = new BufferedReader(new FileReader(file2));
+            bReader = new BufferedReader(new java.io.FileReader(file2));
             String line; //midlertidig lagring av hver linje
 
             Pattern pattern = Pattern.compile("([xy]=\\d+),([xy]=\\d+),rule=(\\w\\d+)\\/(\\w\\d+)");
@@ -147,4 +151,5 @@ public class FileReaderRLE {
             System.out.println(e.getMessage());
         }
     }
+
 }

@@ -2,6 +2,7 @@ package Controller;
 
 import FileHandler.FileReader;
 import FileHandler.FileReaderRLE;
+import FileHandler.FileReaderURL;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,18 +12,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import org.junit.Test;
 import sample.Board.Brett;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 
 
 public class GameOfLifeController implements Initializable {
@@ -37,6 +39,7 @@ public class GameOfLifeController implements Initializable {
     Brett brett;
     public Timeline timeline = new Timeline();
     FileReaderRLE f2 = new FileReaderRLE();
+    FileReaderURL f3 = new FileReaderURL();
 
 
 
@@ -80,6 +83,15 @@ public class GameOfLifeController implements Initializable {
         brett.setBrett(f2.brett);
         brett.setRules(f2.rules);
         brett.draw();
+    }
+
+    @FXML
+    public void URLopen(){
+        f3.readBoardURL();
+        brett.setBrett(f3.brett);
+        brett.setRules(f3.rules);
+        brett.draw();
+
     }
 
     @FXML
