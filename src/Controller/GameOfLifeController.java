@@ -152,7 +152,7 @@ public class GameOfLifeController implements Initializable {
             int y = (int) (e.getY() / brett.getCelleSTR());
 
             if (x < brett.getBrett().length && y < brett.getBrett()[0].length) {
-                if (brett.getBrett()[x][y] == 1) {
+                if (brett.getBrett()[x][y] == 0) {
                     brett.getBrett()[x][y] = 1;
                     brett.draw();
 
