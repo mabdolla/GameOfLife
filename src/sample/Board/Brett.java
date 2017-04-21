@@ -45,7 +45,7 @@ public class Brett {
     public void draw() {
 
         background();
-
+        try{
         for (int j = 0; j < brett.length && j < canvas.getWidth()/celleSTR; j++) {
             for (int i = 0; i < brett[0].length && i < canvas.getHeight()/celleSTR; i++) {
                 if (brett[j][i] == 1) {
@@ -53,10 +53,12 @@ public class Brett {
                 } else {
                     gc.setFill(Color.WHITE);
                 }
-                gc.fillRect(j * celleSTR, i * celleSTR, celleSTR - 1, celleSTR - 1);
+                gc.fillRect(j * celleSTR, i * celleSTR, celleSTR-1 , celleSTR-1 );
             }
         }
-    }
+    } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("You cant draw here" + e);
+        }}
 
 
     public void nextGeneration() {
@@ -87,12 +89,12 @@ public class Brett {
     }
 
     public void setRules (int [][] rules){
+
         this.rules = rules;
     }
 
     public int setCellRules(int isAlive, int naboer) {
 
-        //Fucked up regler for spillet
         return rules[isAlive][naboer];
 
 /*

@@ -13,14 +13,13 @@ import java.util.regex.Pattern;
  * Created by Fredrik Kluftødegård on 31.03.2017.
  */
 public class FileReaderRLE {
-    FileChooser fChooser = new FileChooser(); //åpner explorer og lar bruker velge fil
-    File file2;//dette er filen, ikke enda
-    java.io.FileReader fReader;
-    BufferedReader bReader;
     StringBuilder lineBuilder = new StringBuilder();
-    public int[][] brett;
-    public int[][] rules = new int[2][9];
+    FileChooser fChooser = new FileChooser(); //åpner explorer og lar bruker velge fil
+    BufferedReader bReader;
+    File file2;
 
+    public int[][] rules = new int[2][9];
+    public int[][] brett;
 
     public void readBoard() {
         file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret i file2
@@ -29,7 +28,6 @@ public class FileReaderRLE {
         } else {
             System.out.println("File not found");
         }
-
 
         // Reading file
         try {
@@ -58,14 +56,13 @@ public class FileReaderRLE {
             System.out.println(board.toString());
 
 
-
             ///////////////////////RULES/////////////////////////////
 
             Pattern findRules = Pattern.compile("(\\w)(\\d+)");
             Matcher ruleMatch = findRules.matcher(Boardinfo);
 
-            while (ruleMatch.find()){
-                if (ruleMatch.group(1).equals("B")){
+            while (ruleMatch.find()) {
+                if (ruleMatch.group(1).equals("B")) {
                     System.out.println("FUNNET REGLER");
                     char[] dead = ruleMatch.group(2).toCharArray();
 
@@ -73,11 +70,11 @@ public class FileReaderRLE {
                         int i = Character.getNumericValue(c1);
                         rules[0][i] = 1;
                     }
-                }else if (ruleMatch.group(1).equals("S")) {
-                    char [] alive = ruleMatch.group(2).toCharArray();
+                } else if (ruleMatch.group(1).equals("S")) {
+                    char[] alive = ruleMatch.group(2).toCharArray();
                     for (char c2 : alive) {
                         int i = Character.getNumericValue(c2);
-                        rules [1][i] = 1;
+                        rules[1][i] = 1;
                     }
 
                 }
@@ -94,17 +91,13 @@ public class FileReaderRLE {
 
             while (sizeMatch.find()) {
                 if (sizeMatch.group(1).matches("x")) {
-                    xlength = 1+Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
+                    xlength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
                 } else if (sizeMatch.group(1).matches("y")) {
-                    ylength = 1+Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
+                    ylength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
                 }
             }
 
             brett = new int[xlength][ylength];
-            System.out.println(xlength);
-            System.out.println(ylength);
-
-
 
             //////////////////////////BOARD PATTERN//////////////////////
             int x = 0;
@@ -115,34 +108,40 @@ public class FileReaderRLE {
             while (matcher2.find()) {
 
                 if (matcher2.group(2).matches("b")) {
-                    if (matcher2.group(1)==null) {
+                    if (matcher2.group(1) == null) {
                         x++;
                     } else {
                         x = Integer.parseInt(matcher2.group(1));
                     }
                 } else if (matcher2.group(2).matches("o")) {
-                    if (matcher2.group(1)==null) {
+                    if (matcher2.group(1) == null) {
                         brett[y][x] = 1;
                         x++;
                     } else {
-                        for (int i = x; x < (i+Integer.parseInt(matcher2.group(1))); x++) {
+                        for (int i = x; x < (i + Integer.parseInt(matcher2.group(1))); x++) {
                             brett[y][x] = 1;
                         }
                     }
 
                 } else if (matcher2.group(2).matches("\\$")) {
-                    if (matcher2.group(1)==null) {
+                    if (matcher2.group(1) == null) {
                         y++;
                         x = 0;
                     } else {
-                        y=Integer.parseInt(matcher2.group(1));
+                        y = Integer.parseInt(matcher2.group(1));
                         x = 0;
                     }
                 }
             }
 
 
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
+
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+
+            System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
 
             System.out.println(e.getMessage());
         }

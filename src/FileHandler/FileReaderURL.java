@@ -1,12 +1,10 @@
 package FileHandler;
 
 import javafx.scene.control.TextInputDialog;
-import javafx.stage.FileChooser;
-
 import java.io.*;
-import java.io.FileReader;
-import java.net.MalformedURLException;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,14 +13,10 @@ import java.util.regex.Pattern;
  * Created by Fredrik Kluftødegård on 18.04.2017.
  */
 public class FileReaderURL {
-    FileChooser fChooser = new FileChooser(); //åpner explorer og lar bruker velge fil
-    File fileURL;//dette er filen, ikke enda
-    java.io.FileReader fReader;
-    BufferedReader bReader;
     StringBuilder lineBuilder = new StringBuilder();
-    public int[][] brett;
+    BufferedReader bReader;
     public int[][] rules = new int[2][9];
-
+    public int[][] brett;
 
 
     public void readBoardURL() {
@@ -35,9 +29,8 @@ public class FileReaderURL {
         if (result.isPresent()){
             System.out.println("URL-adress: " + result.get());
         } else {
-
+            System.out.println("URL-adress not found!");
         }
-
 
         // Reading file
         try {
@@ -63,7 +56,6 @@ public class FileReaderURL {
                     board.append(line);
             }
             System.out.println("RULES: " + Boardinfo);
-            System.out.println(board.toString());
 
 
 
@@ -92,7 +84,6 @@ public class FileReaderURL {
 
             }
 
-
             /////////////////////BOARD LENGTH/////////////////////////
             int xlength = 0;
             int ylength = 0;
@@ -109,9 +100,6 @@ public class FileReaderURL {
             }
 
             brett = new int[xlength][ylength];
-            System.out.println(xlength);
-            System.out.println(ylength);
-
 
 
             //////////////////////////BOARD PATTERN//////////////////////

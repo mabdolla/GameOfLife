@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
@@ -26,7 +27,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
-
 public class GameOfLifeController implements Initializable {
 
     @FXML private ColorPicker colorpickercell;
@@ -37,8 +37,8 @@ public class GameOfLifeController implements Initializable {
     @FXML public Canvas canvas;
 
     public Timeline timeline = new Timeline();
-    FileReaderRLE f2 = new FileReaderRLE();
-    FileReaderURL f3 = new FileReaderURL();
+    FileReaderRLE RLEfile = new FileReaderRLE();
+    FileReaderURL URLfile = new FileReaderURL();
     public GraphicsContext gc;
     Brett brett;
 
@@ -73,19 +73,17 @@ public class GameOfLifeController implements Initializable {
 
     @FXML
     public void RLEopen() {
-        f2.readBoard();
-        brett.setBrett(f2.brett);
-        brett.setRules(f2.rules);
+        RLEfile.readBoard();
+        brett.setBrett(RLEfile.brett);
+        brett.setRules(RLEfile.rules);
         brett.draw();
     }
 
     @FXML
     public void URLopen(){
-
-
-        f3.readBoardURL();
-        brett.setBrett(f3.brett);
-        brett.setRules(f3.rules);
+        URLfile.readBoardURL();
+        brett.setBrett(URLfile.brett);
+        brett.setRules(URLfile.rules);
         brett.draw();
 
     }
@@ -122,7 +120,7 @@ public class GameOfLifeController implements Initializable {
         brett.draw();
     }
 
-    //Next generation button show only next generation at a time
+    //Next generation button show only 1 generation at each click
     @FXML
     public void startAnimation() {
         brett.nextGeneration();
@@ -148,7 +146,8 @@ public class GameOfLifeController implements Initializable {
 
     @FXML
     public void userDrawCell() {
-        canvas.setOnMouseDragged(e -> {
+        try{
+        canvas.setOnMouseDragged((MouseEvent e) -> {
             int x = (int) (e.getX() / brett.getCelleSTR());
             int y = (int) (e.getY() / brett.getCelleSTR());
 
@@ -163,7 +162,9 @@ public class GameOfLifeController implements Initializable {
                 }
             }
         });
-    }
+    }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("You cant draw here" + e);
+        }}
 
 
     @FXML
