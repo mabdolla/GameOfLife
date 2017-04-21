@@ -37,7 +37,7 @@ public class GameOfLifeController implements Initializable {
     @FXML public Canvas canvas;
 
     public Timeline timeline = new Timeline();
-    FileReaderRLE RLEfile = new FileReaderRLE();
+    FileReaderRLE file2 = new FileReaderRLE();
     FileReaderURL URLfile = new FileReaderURL();
     public GraphicsContext gc;
     Brett brett;
@@ -72,11 +72,16 @@ public class GameOfLifeController implements Initializable {
 
 
     @FXML
-    public void RLEopen() {
-        RLEfile.readBoard();
-        brett.setBrett(RLEfile.brett);
-        brett.setRules(RLEfile.rules);
-        brett.draw();
+    public void RLEopen()  {
+        try {
+            file2.readBoard();
+            brett.setBrett(file2.brett);
+            brett.setRules(file2.rules);
+            brett.draw();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -140,19 +145,40 @@ public class GameOfLifeController implements Initializable {
     }
 
     @FXML
+    public void AboutGameofLife(){
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Game of Life");
+        alert.setContentText("About Game of Life" +
+                "+dccdc" +
+                "+cdcdc" +
+                "+dcdcd" +
+                "+dcdcd" +
+                "+dcdcdc" +
+                "+dcdccd" +
+                "+cdcdcdcd");
+
+        alert.showAndWait();
+
+    }
+
+    @FXML
     public void AdjustSpeed() {
+
         timeline.setRate(sliderSpeed.getValue());
+
     }
 
     @FXML
     public void userDrawCell() {
-        try{
+
         canvas.setOnMouseDragged((MouseEvent e) -> {
             int x = (int) (e.getX() / brett.getCelleSTR());
             int y = (int) (e.getY() / brett.getCelleSTR());
 
             if (x < brett.getBrett().length && y < brett.getBrett()[0].length) {
-                if (brett.getBrett()[x][y] == 0) {
+                if (brett.getBrett()[x][y] == 1) {
                     brett.getBrett()[x][y] = 1;
                     brett.draw();
 
@@ -162,9 +188,8 @@ public class GameOfLifeController implements Initializable {
                 }
             }
         });
-    }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("You cant draw here" + e);
-        }}
+
+        }
 
 
     @FXML

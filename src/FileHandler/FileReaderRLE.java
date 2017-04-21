@@ -21,7 +21,7 @@ public class FileReaderRLE {
     public int[][] rules = new int[2][9];
     public int[][] brett;
 
-    public void readBoard() {
+    public void readBoard() throws IOException {
         file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret i file2
         if (file2 != null) {
             System.out.println("You choose this file");
@@ -135,15 +135,9 @@ public class FileReaderRLE {
             }
 
 
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
 
             System.out.println(e.getMessage());
-        } catch (IOException e) {
 
-            System.out.println(e.getMessage());
-        } catch (NumberFormatException e) {
-
-            System.out.println(e.getMessage());
-        }
     }
-}
+}}
