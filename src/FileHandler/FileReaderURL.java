@@ -4,6 +4,9 @@ import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 
 import java.io.*;
+import java.io.FileReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +16,7 @@ import java.util.regex.Pattern;
  */
 public class FileReaderURL {
     FileChooser fChooser = new FileChooser(); //åpner explorer og lar bruker velge fil
-    File file2;//dette er filen, ikke enda
+    File fileURL;//dette er filen, ikke enda
     java.io.FileReader fReader;
     BufferedReader bReader;
     StringBuilder lineBuilder = new StringBuilder();
@@ -21,30 +24,31 @@ public class FileReaderURL {
     public int[][] rules = new int[2][9];
 
 
+
     public void readBoardURL() {
+        TextInputDialog dialog = new TextInputDialog("//");
+        dialog.setTitle("URL FileReader");
+        dialog.setHeaderText("Copy and paste url adress here");
+        dialog.setContentText("URL:");
 
-        TextInputDialog inputbox = new TextInputDialog("URL-adress");
-        Optional<String> result = inputbox.showAndWait();
-
-
-
-        if (file2 != null) {
-            System.out.println("You choose this file");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("URL-adress: " + result.get());
         } else {
-            System.out.println("File not found");
+
         }
 
 
         // Reading file
         try {
-            bReader = new BufferedReader(new java.io.FileReader(file2));
-            String line; //midlertidig lagring av hver linje
+            URL url = new URL(result.get());
+            bReader = new BufferedReader(new InputStreamReader(url.openStream()));
 
             Pattern pattern = Pattern.compile("([xy]=\\d+),([xy]=\\d+),rule=(\\w\\d+)\\/(\\w\\d+)");
 
-            String Boardinfo = "";//her lagres (x=??,y=??,rules=B2/S23
+            String Boardinfo = "";//her lagres
             StringBuilder board = new StringBuilder(); //her lagres patternet
-
+            String line;
             while ((line = bReader.readLine()) != null) {
                 if (line.startsWith("#")) {
                     continue;

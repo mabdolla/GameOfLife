@@ -20,7 +20,7 @@ public class FileReaderRLE {
     StringBuilder lineBuilder = new StringBuilder();
     public int[][] brett;
     public int[][] rules = new int[2][9];
-    //5555
+
 
     public void readBoard() {
         file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret i file2

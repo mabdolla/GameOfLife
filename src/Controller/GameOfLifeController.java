@@ -29,41 +29,34 @@ import java.util.Optional;
 
 public class GameOfLifeController implements Initializable {
 
-    @FXML public Canvas canvas;
+    @FXML private ColorPicker colorpickercell;
+    @FXML private ColorPicker colorPicker;
+    @FXML private Button StartStopBtn;
     @FXML private Slider celleSlider;
     @FXML private Slider sliderSpeed;
-    @FXML private Button StartStopBtn;
-    @FXML private ColorPicker colorPicker;
-    @FXML private ColorPicker colorpickercell;
-    public GraphicsContext gc;
-    Brett brett;
+    @FXML public Canvas canvas;
+
     public Timeline timeline = new Timeline();
     FileReaderRLE f2 = new FileReaderRLE();
     FileReaderURL f3 = new FileReaderURL();
-
-
+    public GraphicsContext gc;
+    Brett brett;
 
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
         gc = canvas.getGraphicsContext2D();
-
-
         brett = new Brett(900, 400, gc, canvas);
-
 
         brett.setBackgroundColor(Color.AQUA);
         brett.setCellColor(Color.BLACK);
-
         brett.draw();
-
 
         celleSlider.setValue(canvas.getWidth()/brett.getCelleSTR()/canvas.getHeight()/brett.getCelleSTR());
         sliderSpeed.setValue(10);
 
         celleSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
             brett.setCelleSTR((int) celleSlider.getValue());
-//            gc.clearRect(0,0,canvas.getWidth(),canvas.getWidth());
             brett.draw();
         }));
 
@@ -71,6 +64,7 @@ public class GameOfLifeController implements Initializable {
             brett.nextGeneration();
             brett.draw();
         });
+
         timeline.getKeyFrames().add(frame);
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
@@ -87,6 +81,8 @@ public class GameOfLifeController implements Initializable {
 
     @FXML
     public void URLopen(){
+
+
         f3.readBoardURL();
         brett.setBrett(f3.brett);
         brett.setRules(f3.rules);
