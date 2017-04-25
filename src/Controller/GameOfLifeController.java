@@ -48,7 +48,7 @@ public class GameOfLifeController implements Initializable {
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
         gc = canvas.getGraphicsContext2D();
-        brett = new DynamicBoard(900, 400, gc, canvas);
+        brett = new DynamicBoard(50, 50, gc, canvas);
 
         brett.setBackgroundColor(Color.AQUA);
         brett.setCellColor(Color.BLACK);

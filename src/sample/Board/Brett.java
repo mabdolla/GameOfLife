@@ -51,7 +51,7 @@ public class Brett {
                 if (brett[j][i] == 1) {
                     gc.setFill(cellColor);
                 } else {
-                    gc.setFill(Color.WHITE);
+                    gc.setFill(Color.AQUA);
                 }
                 gc.fillRect(j * celleSTR, i * celleSTR, celleSTR-1 , celleSTR-1 );
             }

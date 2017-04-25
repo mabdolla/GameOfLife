@@ -13,14 +13,14 @@ import java.util.List;
  */
 public class DynamicBoard extends Brett {
 
-    private ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(getRows());
+    private ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
     private ArrayList<ArrayList<Integer>> nextGen;
 
-    public DynamicBoard(int rad, int kolonne, GraphicsContext gc, Canvas canvas) {
-        super(rad, kolonne, gc, canvas);
+    public DynamicBoard(int rows, int columns, GraphicsContext gc, Canvas canvas) {
+        super(rows, columns, gc, canvas);
 
         for (int i = 0; i < getRows(); i++) {
-            board.add(new ArrayList<Integer>(getRows()));
+            board.add(new ArrayList<Integer>());
             for (int j = 0; j < getColumns(); j++){
                 board.get(i).add(0);
             }
@@ -47,7 +47,7 @@ public class DynamicBoard extends Brett {
                 nextGen.get(i).add(0);
             }
         }
-        System.out.println(nextGen.get(0).size());
+        System.out.println("heisann" + nextGen.get(0).size());
 
         //beregning
         for (int x = 0; x < getRows(); x++) {
@@ -56,7 +56,9 @@ public class DynamicBoard extends Brett {
             }
         }
 
+
         board = nextGen;
+        expand();
     }
 
     @Override
@@ -72,16 +74,70 @@ public class DynamicBoard extends Brett {
         if (!(x + 1 == getRows() || y + 1 == getColumns()) && getValue(x+1,y+1) == 1) antallNaboer++;     //Nede høyre
         if (!(x + 1 == getRows()) && getValue(x+1,y) == 1) antallNaboer++;                                  //Midten høyre
 
+        return antallNaboer;
+
+    }
+
+    public void expand(){
+        for (int x = 0; x < getRows(); x++) {
+            if (getValue(x,0) == 1){ // Sjeker alle på oppe
+
+                System.out.println(getRows() +" rows");
+                System.out.println(nextGen.size() +" rows 2");
+                System.out.println(getColumns() + " coll");
+                System.out.println(nextGen.get(0).size() + " coll2");
+
+
+                System.out.println("fantes oppe");
+
+                for (int j = 0; j < getRows(); j++){
+                    board.get(j).add(0,0);
+                }
+                setColumns(getColumns()+1);
+            }
+            if (getValue(x, getColumns()-1) == 1){ // Sjekker alle på nede linje
+                System.out.println("fantes nede");
+
+                for (int j = 0; j < getRows(); j++){
+                    board.get(j).add(0);
+                }
+                setColumns(getColumns()+1);
+            }
+        }
+        for (int y = 0; y < getColumns(); y++) {
+            if (getValue(0, y) == 1){
+                System.out.println("fantes venstre");
+
+                board.add(0, new ArrayList<Integer>());
+                for (int j = 0; j < getColumns(); j++){
+                    board.get(0).add(0);
+                }
+
+                setRows(getRows()+1);
+            }
+            if (getValue(getRows()-1, y) == 1){
+                System.out.println("fantes Høyre");
+
+                ArrayList<Integer> list = new ArrayList<Integer>();
+                for (int j = 0; j < getColumns(); j++){
+                    list.add(0);
+                }
+                board.add(list);
+
+                setRows(getRows() +1);
+            }
+        }
+
+        /*
         if (getValue(x,y) == 1){
             if (x==0){
+
                 //add på OPPE side
                 System.out.println(x+", "+y+" i live og VENSTRE");
 //                nextGen.add(0, new ArrayList<Integer>(getColumns()));
                 for (int j = 0; j < getColumns(); j++){
-                    nextGen.get(0).add(0);
+                    nextGen.get(j).add(0,0);
                 }
-
-
             }
             if (x == getRows()){
 //                //add linje NEDE
@@ -100,8 +156,7 @@ public class DynamicBoard extends Brett {
                 System.out.println(x+", "+y+" i live og på kansten men ikke nabo");
             }
         }
-
-        return antallNaboer;
+        */
     }
 
     @Override
