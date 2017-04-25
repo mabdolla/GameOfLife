@@ -16,25 +16,32 @@ public class FileReaderRLE {
     StringBuilder lineBuilder = new StringBuilder();
     FileChooser fChooser = new FileChooser(); //åpner explorer og lar bruker velge fil
     BufferedReader bReader;
-    File file2;
+    public File file2;
 
     public int[][] rules = new int[2][9];
     public int[][] brett;
 
+    public FileReaderRLE(File file) throws IOException {
+        this.file2 = file;
+        readBoard();
+    }
+
+    public FileReaderRLE(){}
+
     public void readBoard() throws IOException {
-        file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret i file2
-        if (file2 != null) {
-            System.out.println("You choose this file, this is the content:");
-        } else {
-            System.out.println("File not found");
-        }
+//        file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret i file2
+//        if (file2 != null) {
+//            System.out.println("You choose this file");
+//        } else {
+//            System.out.println("File not found");
+//        }
 
         // Reading file
         try {
             bReader = new BufferedReader(new FileReader(file2));
             String line; //midlertidig lagring av hver linje
 
-            Pattern pattern = Pattern.compile("([xy]=\\d+),([xy]=\\d+),rule=(\\w\\d+)\\/(\\w\\d+)");
+            Pattern pattern = Pattern.compile("[xy]=(\\d+),[xy]=(\\d+),rule=(\\w\\d+)\\/(\\w\\d+)");
 
             String Boardinfo = "";//her lagres (x=??,y=??,rules=B2/S23
             StringBuilder board = new StringBuilder(); //her lagres patternet
@@ -62,15 +69,13 @@ public class FileReaderRLE {
             Matcher ruleMatch = findRules.matcher(Boardinfo);
 
             while (ruleMatch.find()) {
-                if (ruleMatch.group(1).equals("B")) {
-                    System.out.println("FUNNET REGLER");
+                if (ruleMatch.group(1).matches("[bB]")) {
                     char[] dead = ruleMatch.group(2).toCharArray();
-
                     for (char c1 : dead) {
                         int i = Character.getNumericValue(c1);
                         rules[0][i] = 1;
                     }
-                } else if (ruleMatch.group(1).equals("S")) {
+                } else if (ruleMatch.group(1).matches("[ac-zAC-Z]")) {
                     char[] alive = ruleMatch.group(2).toCharArray();
                     for (char c2 : alive) {
                         int i = Character.getNumericValue(c2);
@@ -92,8 +97,10 @@ public class FileReaderRLE {
             while (sizeMatch.find()) {
                 if (sizeMatch.group(1).matches("x")) {
                     xlength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
+                    System.out.println("xlength"+xlength);
                 } else if (sizeMatch.group(1).matches("y")) {
                     ylength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
+                    System.out.println("yLength"+ylength);
                 }
             }
 
@@ -111,15 +118,15 @@ public class FileReaderRLE {
                     if (matcher2.group(1) == null) {
                         x++;
                     } else {
-                        x = Integer.parseInt(matcher2.group(1));
+                        x += Integer.parseInt(matcher2.group(1));
                     }
-                } else if (matcher2.group(2).matches("o")) {
+                } else if (matcher2.group(2).matches("o")) {//HVIS fant at det skal være i live
                     if (matcher2.group(1) == null) {
-                        brett[y][x] = 1;
+                        brett[x][y] = 1;
                         x++;
-                    } else {
+                    } else { //Dersom det er et tall forran "o"
                         for (int i = x; x < (i + Integer.parseInt(matcher2.group(1))); x++) {
-                            brett[y][x] = 1;
+                            brett[x][y] = 1;//for hver "o" så må hver bli satt til live
                         }
                     }
 
@@ -128,16 +135,14 @@ public class FileReaderRLE {
                         y++;
                         x = 0;
                     } else {
-                        y = Integer.parseInt(matcher2.group(1));
+                        y += Integer.parseInt(matcher2.group(1));
                         x = 0;
                     }
                 }
             }
 
-
         } catch (Exception e) {
-
             System.out.println(e.getMessage());
-
+        }
     }
-}}
+}

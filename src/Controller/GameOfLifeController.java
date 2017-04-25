@@ -14,17 +14,19 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.junit.Test;
 import sample.Board.Brett;
+import sample.Board.DynamicBoard;
 
-import javax.swing.*;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.Optional;
 
 public class GameOfLifeController implements Initializable {
@@ -37,7 +39,7 @@ public class GameOfLifeController implements Initializable {
     @FXML public Canvas canvas;
 
     public Timeline timeline = new Timeline();
-    FileReaderRLE file2 = new FileReaderRLE();
+//    FileReaderRLE file2 = new FileReaderRLE();
     FileReaderURL URLfile = new FileReaderURL();
     public GraphicsContext gc;
     Brett brett;
@@ -46,23 +48,23 @@ public class GameOfLifeController implements Initializable {
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
         gc = canvas.getGraphicsContext2D();
-        brett = new Brett(900, 400, gc, canvas);
+        brett = new DynamicBoard(900, 400, gc, canvas);
 
         brett.setBackgroundColor(Color.AQUA);
         brett.setCellColor(Color.BLACK);
-        brett.draw();
+        draw();
 
         celleSlider.setValue(canvas.getWidth()/brett.getCelleSTR()/canvas.getHeight()/brett.getCelleSTR());
         sliderSpeed.setValue(10);
 
         celleSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
             brett.setCelleSTR((int) celleSlider.getValue());
-            brett.draw();
+            draw();
         }));
 
         KeyFrame frame = new KeyFrame(Duration.millis(500), event -> {
             brett.nextGeneration();
-            brett.draw();
+            draw();
         });
 
         timeline.getKeyFrames().add(frame);
@@ -72,25 +74,66 @@ public class GameOfLifeController implements Initializable {
 
 
     @FXML
-    public void RLEopen()  {
-        try {
-            file2.readBoard();
-            brett.setBrett(file2.brett);
-            brett.setRules(file2.rules);
-            brett.draw();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void RLEopen() throws IOException {
+//        try {
+//            file2.readBoard();
+//            brett.setBrett(file2.brett);
+//            brett.setRules(file2.rules);
+//            draw();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("RLE","*.rle"));
 
+        File file = fileChooser.showOpenDialog(new Stage());
+
+        if (file != null){
+            FileReaderRLE filereaderRle = new FileReaderRLE(file);
+            brett.setBrett(filereaderRle.brett);
+            brett.setRules(filereaderRle.rules);
+            draw();
+        } else {
+            System.out.println("ingen fil funnet");
+            //TODO alert box
+        }
     }
 
     @FXML
-    public void URLopen(){
-        URLfile.readBoardURL();
-        brett.setBrett(URLfile.brett);
-        brett.setRules(URLfile.rules);
-        brett.draw();
+    public void URLopen() throws IOException {
+//        URLfile.readBoardURL();
+//        brett.setBrett(URLfile.brett);
+//        brett.setRules(URLfile.rules);
+//        draw();
 
+
+        TextInputDialog dialog = new TextInputDialog("//");
+        dialog.setTitle("URL FileReader");
+        dialog.setHeaderText("Copy and paste url adress here");
+        dialog.setContentText("URL:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()){
+            System.out.println("URL-adress: " + result.get());
+            //lage til File og sende til FileReaderRLE
+            URL website = new URL(result.get());
+            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+
+            FileOutputStream fos = new FileOutputStream("tempPattern.rle");
+            fos.getChannel().transferFrom(rbc,0,Long.MAX_VALUE);
+
+            File file = new File("temp.rle");
+            //////////
+
+            FileReaderRLE filereaderRle = new FileReaderRLE(file);
+            brett.setBrett(filereaderRle.brett);//eventuelt, sette disse tre linjene inne i FileReaderRle
+            brett.setRules(filereaderRle.rules);
+            draw();
+
+        } else {
+            System.out.println("URL-adress not found!");
+        }
     }
 
     @FXML
@@ -103,13 +146,13 @@ public class GameOfLifeController implements Initializable {
                 brett.getBrett()[x][y] = nyBrett[x][y];
             }
         }
-        brett.draw();
+        draw();
     }
 
     @FXML
     public void changecolor (ActionEvent e){
         brett.setBackgroundColor(colorPicker.getValue());
-        brett.draw();
+        draw();
 
 
     }
@@ -117,19 +160,19 @@ public class GameOfLifeController implements Initializable {
     @FXML
     public void changeColorCell (ActionEvent c){
         brett.setCellColor(colorpickercell.getValue());
-        brett.draw();
+        draw();
     }
 
     public void clearBoard() {
-        brett.setBrett(new int[brett.getRad()][brett.getKolonne()]);
-        brett.draw();
+        brett.setBrett(new int[brett.getRows()][brett.getColumns()]);
+        draw();
     }
 
     //Next generation button show only 1 generation at each click
     @FXML
     public void startAnimation() {
         brett.nextGeneration();
-        brett.draw();
+        draw();
     }
 
     //Start & Stop button
@@ -177,20 +220,36 @@ public class GameOfLifeController implements Initializable {
             int x = (int) (e.getX() / brett.getCelleSTR());
             int y = (int) (e.getY() / brett.getCelleSTR());
 
-            if (x < brett.getBrett().length && y < brett.getBrett()[0].length) {
-                if (brett.getBrett()[x][y] == 1) {
-                    brett.getBrett()[x][y] = 1;
-                    brett.draw();
-
+            if (x < brett.getRows() && y < brett.getColumns()) {
+                if (brett.getValue(x,y) == 1) {
+                    brett.setValue(x,y,1);
+                    draw();
                 } else {
-                    brett.getBrett()[x][y] = 1;
-                    brett.draw();
+                    brett.setValue(x,y,1);
+                    draw();
                 }
             }
         });
+    }
 
+    public void draw() {
+
+        brett.background();
+        try{
+            for (int j = 0; j < brett.getRows() && j < canvas.getWidth()/brett.getCelleSTR(); j++) {
+                for (int i = 0; i < brett.getColumns() && i < canvas.getHeight()/brett.getCelleSTR(); i++) {
+                    if (brett.getValue(j,i) == 1) {
+                        gc.setFill(brett.cellColor);
+                    } else {
+                        gc.setFill(Color.WHITE);
+                    }
+                    gc.fillRect(j * brett.getCelleSTR(), i * brett.getCelleSTR(), brett.getCelleSTR()-1 , brett.getCelleSTR()-1 );
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("You cant draw here" + e);
         }
-
+    }
 
     @FXML
     public void userDrawCellClicked() {
@@ -200,11 +259,11 @@ public class GameOfLifeController implements Initializable {
 
             if (brett.getBrett()[x][y] == 1) {
                 brett.getBrett()[x][y] = 0;
-                brett.draw();
+                draw();
 
             } else {
                 brett.getBrett()[x][y] = 1;
-                brett.draw();
+                draw();
             }
         });
     }

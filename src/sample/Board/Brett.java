@@ -6,39 +6,39 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-    //Variables
+//Variables
 public class Brett {
     public GraphicsContext gc;
-    private Canvas canvas;
-    private int rad;
-    private int kolonne;
+    public Canvas canvas;
+    private int rows;
+    private int columns;
     private int[][] brett;
-    private int celleSTR = 5;
+    public int celleSTR = 5;
     private int gameSpeed = 40;
     private Color backgroundColor;
-    private Color cellColor;
+    public Color cellColor;
     int[][] rules = {{0, 0, 0, 1, 0, 0, 0, 0, 0},
                      {0, 0, 1, 1, 0, 0, 0, 0, 0}};
 
     //Constructor
-    public Brett(int rad, int kolonne, GraphicsContext gc, Canvas canvas) {
-        this.rad = rad;
-        this.kolonne = kolonne;
+    public Brett(int rows, int columns, GraphicsContext gc, Canvas canvas) {
+        this.rows = rows;
+        this.columns = columns;
         this.gc = gc;
-        brett = new int [rad][kolonne];
+        brett = new int [rows][columns];
         this.canvas = canvas;
-        draw();
+//        draw();
     }
 
-    public Brett(int rad, int kolonne){
-        this.rad = rad;
-        this.kolonne = kolonne;
+    public Brett(int rows, int columns){
+        this.rows = rows;
+        this.columns = columns;
 
     }
 
     public void background() {
-
         gc.setFill(backgroundColor);
+
         gc.fillRect(0, 0, brett.length * celleSTR, brett[0].length * celleSTR);
     }
 
@@ -56,13 +56,21 @@ public class Brett {
                 gc.fillRect(j * celleSTR, i * celleSTR, celleSTR-1 , celleSTR-1 );
             }
         }
-    } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("You cant draw here" + e);
         }}
 
+    public int getValue(int x, int y){
+        return brett[x][y];
+    }
+
+    public void setValue(int x, int y, int value){
+        brett[x][y] = value;
+    }
+
 
     public void nextGeneration() {
-        int[][] nesteBrett = new int[rad][kolonne];
+        int[][] nesteBrett = new int[rows][columns];
 
 
         //beregning
@@ -147,32 +155,31 @@ public class Brett {
     }
 
     public int[][] getBrett() {
-            return brett;
-        }
+        return brett;
+    }
 
-        public int getCelleSTR() {
-
+    public int getCelleSTR() {
         return celleSTR;
     }
 
-    public int getRad() {
+    public int getRows() {
 
-        return rad;
+        return rows;
     }
 
-    public void setRad(int rad) {
+    public void setRows(int rows) {
 
-        this.rad = rad;
+        this.rows = rows;
     }
 
-    public int getKolonne() {
+    public int getColumns() {
 
-        return kolonne;
+        return columns;
     }
 
-    public void setKolonne(int kolonne) {
+    public void setColumns(int columns) {
 
-        this.kolonne = kolonne;
+        this.columns = columns;
     }
 
     public int getGameSpeed() {
@@ -201,8 +208,8 @@ public class Brett {
     public String toString() {
         String msg = "";
         for (int kolonne = 0; kolonne < brett.length; kolonne++) {
-            for (int rad =0; rad < brett[0].length; rad++) {
-                if (brett[rad][kolonne] == 0) {
+            for (int rows =0; rows < brett[0].length; rows++) {
+                if (brett[rows][kolonne] == 0) {
                     msg = msg + "0";
                 } else {
                     msg = msg + "1";

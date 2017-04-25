@@ -32,6 +32,17 @@ public class FileReaderURL {
             System.out.println("URL-adress not found!");
         }
 
+//        FileReaderRLE file2 = new FileReaderRLE();
+//        file2.file2 = noe;
+//        try {
+//            file2.readBoard();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        brett = file2.brett;
+//        rules = file2.rules;
+
+
         // Reading file
         try {
             URL url = new URL(result.get());
@@ -79,9 +90,7 @@ public class FileReaderURL {
                         int i = Character.getNumericValue(c2);
                         rules [1][i] = 1;
                     }
-
                 }
-
             }
 
             /////////////////////BOARD LENGTH/////////////////////////
@@ -114,7 +123,7 @@ public class FileReaderURL {
                     if (matcher2.group(1)==null) {
                         x++;
                     } else {
-                        x = Integer.parseInt(matcher2.group(1));
+                        x += Integer.parseInt(matcher2.group(1));
                     }
                 } else if (matcher2.group(2).matches("o")) {
                     if (matcher2.group(1)==null) {
@@ -131,7 +140,7 @@ public class FileReaderURL {
                         y++;
                         x = 0;
                     } else {
-                        y=Integer.parseInt(matcher2.group(1));
+                        y += Integer.parseInt(matcher2.group(1));
                         x = 0;
                     }
                 }
