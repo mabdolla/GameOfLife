@@ -82,6 +82,7 @@ public class DynamicBoard extends Brett {
                 }
 
 
+
             }
             if (x == getRows()){
 //                //add linje NEDE
