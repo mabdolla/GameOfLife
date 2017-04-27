@@ -183,9 +183,7 @@ public class DynamicBoard extends Brett {
         return brett;
     }
 
-//    public int[][] setBrett(ArrayList<ArrayList<Integer>> brett){
-//        return new int[][]ints;
-//    }
+
 
     @Override
     public int getRows() {
