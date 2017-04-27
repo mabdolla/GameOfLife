@@ -10,9 +10,9 @@ import javafx.scene.paint.Color;
 public class Brett {
     public GraphicsContext gc;
     public Canvas canvas;
-    private int rows;
-    private int columns;
-    private int[][] brett;
+    public int rows;
+    public int columns;
+    public int[][] brett;
     public int celleSTR = 5;
     private int gameSpeed = 40;
     private Color backgroundColor;

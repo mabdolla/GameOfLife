@@ -42,7 +42,7 @@ public class GameOfLifeController implements Initializable {
 //    FileReaderRLE file2 = new FileReaderRLE();
     FileReaderURL URLfile = new FileReaderURL();
     public GraphicsContext gc;
-    Brett brett;
+    DynamicBoard brett;
 
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -97,6 +97,7 @@ public class GameOfLifeController implements Initializable {
             System.out.println("ingen fil funnet");
             //TODO alert box
         }
+
     }
 
     @FXML
