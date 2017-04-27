@@ -3,6 +3,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.codehaus.groovy.runtime.powerassert.SourceText;
+
+import static java.lang.Thread.currentThread;
 
 public class Main extends Application {
 
@@ -12,14 +15,16 @@ public class Main extends Application {
      \\* @throws Exception
      */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Controller/GameOfLife.fxml"));
         primaryStage.setTitle("Game Of Life");
         primaryStage.setScene(new Scene(root, 1000, 640));
         primaryStage.show();
 
-
     }
+
+
+
 
 
     /**
@@ -27,5 +32,8 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+
     }
+
+
 }
