@@ -181,6 +181,37 @@ public class DynamicBoard extends Brett {
         return rows;
     }
 
+//    public void convertToLine(){
+//        ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
+//        Arrays.asList(brett);
+//    }
+
+    @Override
+    public int[][] setBrett(int[][] brett) {
+
+        ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
+        for (int x = 0; x < brett.length; x++){
+            convertList.add(new ArrayList<>());
+            for(int y = 0; y < brett[x].length; y++){
+                convertList.get(x).add(brett[x][y]);
+            }
+        }
+
+        board=convertList;
+        setRows(board.size());
+        setColumns(board.get(0).size());
+
+//        setBrett(board);
+        return brett;
+    }
+
+
+
+    @Override
+    public int getRows() {
+        return rows;
+    }
+
     @Override
     public String toString() {
         return null;
