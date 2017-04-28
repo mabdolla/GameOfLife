@@ -17,7 +17,7 @@ public class DynamicBoard extends Brett {
 
     public ArrayList<ArrayList<Integer>> board = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> nextGen;
-    public int cellSize = 7;
+    public int cellSize = 9;
 
     /**
      *

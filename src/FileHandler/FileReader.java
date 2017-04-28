@@ -26,9 +26,8 @@ public class FileReader  {
 
     public static int[][] openTXTfile(){
 
-            File txtfile = getFileChooser().showOpenDialog(null);
-
         try {
+            File txtfile = getFileChooser().showOpenDialog(null);
                 Scanner in = new Scanner(txtfile);
                 int ylength = 0;
                 int xlength = 0;
@@ -73,8 +72,9 @@ public class FileReader  {
 
 
 
-            }return null;
-        }
+            }
+        return new int[0][];
+    }
 
 }
 
