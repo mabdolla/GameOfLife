@@ -24,8 +24,8 @@ public class Brett {
     private int gameSpeed = 40;
     private Color backgroundColor;
     public Color cellColor;
-    int[][] rules = {{0, 0, 0, 1, 0, 0, 0, 0, 0},
-            {0, 0, 1, 1, 0, 0, 0, 0, 0}};
+    int[][] rules =     {{0, 0, 0, 1, 0, 0, 0, 0, 0},
+                        {0, 0, 1, 1, 0, 0, 0, 0, 0}};
 
     //Constructor
     public Brett(int rows, int columns, GraphicsContext gc, Canvas canvas) {
