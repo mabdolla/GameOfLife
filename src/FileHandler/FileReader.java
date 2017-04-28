@@ -62,6 +62,7 @@ public class FileReader {
                         } else {
                             brett[y][x] = 0;
                         }
+
                     }
                     y++;
                 }
