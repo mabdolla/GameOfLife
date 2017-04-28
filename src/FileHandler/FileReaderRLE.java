@@ -25,7 +25,10 @@ public class FileReaderRLE {
 
     public FileReaderRLE(File file) throws IOException {
         this.file2 = file;
-        readBoard();
+
+        if (file != null){
+            readBoard();
+        }
     }
 
     public void readBoard() throws IOException {
@@ -89,10 +92,10 @@ public class FileReaderRLE {
 
             while (sizeMatch.find()) {
                 if (sizeMatch.group(1).matches("x")) {
-                    xlength = Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
+                    xlength = 1+Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
                     System.out.println("xlength"+xlength);
                 } else if (sizeMatch.group(1).matches("y")) {
-                    ylength = Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
+                    ylength = 1+Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
                     System.out.println("yLength"+ylength);
                 }
             }
