@@ -4,17 +4,19 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.io.FileReader;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Fredrik Kluftødegård on 31.03.2017.
+ * The Game Of Life application created for HIOA
+ * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
+ * The class is also implementing Initializable interface.
+ *
+ * @author Fredrik, Hans-Jacob, Mohammad
+ * Studentnr : S309293,
  */
 public class FileReaderRLE {
     StringBuilder lineBuilder = new StringBuilder();
-    FileChooser fChooser = new FileChooser(); //åpner explorer og lar bruker velge fil
     BufferedReader bReader;
     public File file2;
 
@@ -26,16 +28,7 @@ public class FileReaderRLE {
         readBoard();
     }
 
-    public FileReaderRLE(){}
-
     public void readBoard() throws IOException {
-//        file2 = fChooser.showOpenDialog(null); //åpner explorer, og etter fil er valg, vil den vli lagret i file2
-//        if (file2 != null) {
-//            System.out.println("You choose this file");
-//        } else {
-//            System.out.println("File not found");
-//        }
-
         // Reading file
         try {
             bReader = new BufferedReader(new FileReader(file2));
@@ -96,10 +89,10 @@ public class FileReaderRLE {
 
             while (sizeMatch.find()) {
                 if (sizeMatch.group(1).matches("x")) {
-                    xlength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
+                    xlength = Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
                     System.out.println("xlength"+xlength);
                 } else if (sizeMatch.group(1).matches("y")) {
-                    ylength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
+                    ylength = Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
                     System.out.println("yLength"+ylength);
                 }
             }

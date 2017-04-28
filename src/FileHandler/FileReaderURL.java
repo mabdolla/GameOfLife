@@ -2,15 +2,18 @@ package FileHandler;
 
 import javafx.scene.control.TextInputDialog;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Fredrik Kluftødegård on 18.04.2017.
+ * The Game Of Life application created for HIOA
+ * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
+ * The class is also implementing Initializable interface.
+ *
+ * @author Fredrik, Hans-Jacob, Mohammad
+ * Studentnr : S309293,
  */
 public class FileReaderURL {
     StringBuilder lineBuilder = new StringBuilder();
@@ -32,18 +35,6 @@ public class FileReaderURL {
             System.out.println("URL-adress not found!");
         }
 
-//        FileReaderRLE file2 = new FileReaderRLE();
-//        file2.file2 = noe;
-//        try {
-//            file2.readBoard();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        brett = file2.brett;
-//        rules = file2.rules;
-
-
-        // Reading file
         try {
             URL url = new URL(result.get());
             bReader = new BufferedReader(new InputStreamReader(url.openStream()));

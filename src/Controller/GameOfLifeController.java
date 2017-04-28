@@ -2,23 +2,23 @@ package Controller;
 
 import FileHandler.FileReader;
 import FileHandler.FileReaderRLE;
-import FileHandler.FileReaderURL;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sample.Board.Brett;
 import sample.Board.DynamicBoard;
 
 import java.io.File;
@@ -29,6 +29,14 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Optional;
 
+/**
+ * The Game Of Life application created for HIOA
+ * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
+ * The class is also implementing Initializable interface.
+ *
+ * @author Fredrik, Hans-Jacob, Mohammad
+ * Studentnr : S309293,
+ */
 public class GameOfLifeController implements Initializable {
 
     @FXML private ColorPicker colorpickercell;
@@ -39,31 +47,37 @@ public class GameOfLifeController implements Initializable {
     @FXML public Canvas canvas;
 
     public Timeline timeline = new Timeline();
-//    FileReaderRLE file2 = new FileReaderRLE();
-    FileReaderURL URLfile = new FileReaderURL();
     public GraphicsContext gc;
-    Brett brett;
+    DynamicBoard dynamicBoard;
 
+
+    /**
+     *  Constructs and initializes the canvas and application features.
+     *  @param location .
+     *  @param resources .
+     */
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
         gc = canvas.getGraphicsContext2D();
-        brett = new DynamicBoard(50, 50, gc, canvas);
+        dynamicBoard = new DynamicBoard(90, 80, gc, canvas);
+        //MoveBoardkey();
 
-        brett.setBackgroundColor(Color.AQUA);
-        brett.setCellColor(Color.BLACK);
+        colorpickercell.setValue(Color.BLACK);
+        colorPicker.setValue(Color.AQUA);
         draw();
 
-        celleSlider.setValue(canvas.getWidth()/brett.getCelleSTR()/canvas.getHeight()/brett.getCelleSTR());
-        sliderSpeed.setValue(10);
+
+        celleSlider.setMin(10);
+        celleSlider.setMax(100);
 
         celleSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
-            brett.setCelleSTR((int) celleSlider.getValue());
+            dynamicBoard.setCellSize((int) celleSlider.getValue());
             draw();
         }));
 
         KeyFrame frame = new KeyFrame(Duration.millis(500), event -> {
-            brett.nextGeneration();
+            dynamicBoard.nextGeneration();
             draw();
         });
 
@@ -71,18 +85,12 @@ public class GameOfLifeController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
-
-
+    /**
+     * This method allows the user to upload RLE file containing board pattern from computer disk.
+     */
     @FXML
     public void RLEopen() throws IOException {
-//        try {
-//            file2.readBoard();
-//            brett.setBrett(file2.brett);
-//            brett.setRules(file2.rules);
-//            draw();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("RLE","*.rle"));
 
@@ -90,26 +98,23 @@ public class GameOfLifeController implements Initializable {
 
         if (file != null){
             FileReaderRLE filereaderRle = new FileReaderRLE(file);
-            brett.setBrett(filereaderRle.brett);
-            brett.setRules(filereaderRle.rules);
+            dynamicBoard.setBrett(filereaderRle.brett);
+            dynamicBoard.setRules(filereaderRle.rules);
             draw();
         } else {
-            System.out.println("ingen fil funnet");
-            //TODO alert box
+            alertBox();
         }
     }
 
+    /**
+     * This method allows the user to upload RLE board pattern from URL link.
+     */
     @FXML
     public void URLopen() throws IOException {
-//        URLfile.readBoardURL();
-//        brett.setBrett(URLfile.brett);
-//        brett.setRules(URLfile.rules);
-//        draw();
-
 
         TextInputDialog dialog = new TextInputDialog("//");
         dialog.setTitle("URL FileReader");
-        dialog.setHeaderText("Copy and paste url adress here");
+        dialog.setHeaderText("Copy and paste url adress here:");
         dialog.setContentText("URL:");
 
         Optional<String> result = dialog.showAndWait();
@@ -123,59 +128,96 @@ public class GameOfLifeController implements Initializable {
             FileOutputStream fos = new FileOutputStream("tempPattern.rle");
             fos.getChannel().transferFrom(rbc,0,Long.MAX_VALUE);
 
-            File file = new File("temp.rle");
-            //////////
+            File file = new File("tempPattern.rle");
 
             FileReaderRLE filereaderRle = new FileReaderRLE(file);
-            brett.setBrett(filereaderRle.brett);//eventuelt, sette disse tre linjene inne i FileReaderRle
-            brett.setRules(filereaderRle.rules);
+            dynamicBoard.setBrett(filereaderRle.brett);//eventuelt, sette disse tre linjene inne i FileReaderRle
+            dynamicBoard.setRules(filereaderRle.rules);
             draw();
 
         } else {
-            System.out.println("URL-adress not found!");
+            alertBox();
         }
     }
 
+    //////////////////////////////////Moving array with eventhandler////////////////////////
+    public void MoveBoardkey(){
+    canvas.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        public void handle(javafx.scene.input.KeyEvent event) {
+            moveBoard(event);
+        }
+    });}
+    public void moveBoard(KeyEvent event){
+        {
+            switch (event.getCode()) {
+                case UP:
+                    //moveCanvas(event);
+                    break;
+                case DOWN:
+                    //moveCanvas(event);
+                    break;
+                case A:
+
+                    dynamicBoard.moveCellsLeft(event);
+                    break;
+                case RIGHT:
+
+                    //moveCanvas(event);
+                    break;
+            }
+            draw();
+        }
+    }
+
+    /**
+     * This method allows the user to upload txt file containing board pattern.
+     */
     @FXML
     public void openFile(Event e) {
 
-        int[][] nyBrett = FileReader.openTXTfile();
+        int [][] nyBrett = FileReader.openTXTfile();
+        dynamicBoard.setBrett(nyBrett);
 
         for (int x = 0; x < nyBrett.length; x++) {
             for (int y = 0; y < nyBrett[0].length; y++) {
-                brett.getBrett()[x][y] = nyBrett[x][y];
+                dynamicBoard.getBrett()[x][y] = nyBrett[x][y];
             }
         }
         draw();
     }
 
+
+    /**
+     * This method allows user to change the color for dead cells.
+     */
     @FXML
     public void changecolor (ActionEvent e){
-        brett.setBackgroundColor(colorPicker.getValue());
+        dynamicBoard.setBackgroundColor(colorPicker.getValue());
         draw();
-
-
     }
 
+    /**
+     * This method allows userinput to change the background color with input from colorpicker.
+     * @param c is choosing color
+     */
     @FXML
     public void changeColorCell (ActionEvent c){
-        brett.setCellColor(colorpickercell.getValue());
+        dynamicBoard.setCellColor(colorpickercell.getValue());
         draw();
     }
 
+    /**
+     * This method allows user to clear canvas and creates a new empty board.
+     */
     public void clearBoard() {
-        brett.setBrett(new int[brett.getRows()][brett.getColumns()]);
+        gc = canvas.getGraphicsContext2D();
+        dynamicBoard = new DynamicBoard(dynamicBoard.getRows(), dynamicBoard.getColumns(), gc, canvas);
         draw();
     }
 
-    //Next generation button show only 1 generation at each click
-    @FXML
-    public void startAnimation() {
-        brett.nextGeneration();
-        draw();
-    }
-
-    //Start & Stop button
+    /**
+     * This method allows user to click start/stop button in the application.
+     */
     @FXML
     public void startSimulation() {
         if (timeline.getStatus() == Animation.Status.RUNNING) {
@@ -206,66 +248,109 @@ public class GameOfLifeController implements Initializable {
 
     }
 
+    /**
+     * This method allows user to change the gamespeed.
+     */
     @FXML
     public void AdjustSpeed() {
 
         timeline.setRate(sliderSpeed.getValue());
-
     }
 
-    @FXML
-    public void userDrawCell() {
+    /**
+     * This method draws the background to the canvas.
+     */
+    public void background() {
+        gc.setFill(Color.WHITE);
 
-        canvas.setOnMouseDragged((MouseEvent e) -> {
-            int x = (int) (e.getX() / brett.getCelleSTR());
-            int y = (int) (e.getY() / brett.getCelleSTR());
-
-            if (x < brett.getRows() && y < brett.getColumns()) {
-                if (brett.getValue(x,y) == 1) {
-                    brett.setValue(x,y,1);
-                    draw();
-                } else {
-                    brett.setValue(x,y,1);
-                    draw();
-                }
-            }
-        });
+        gc.fillRect(0, 0, dynamicBoard.getRows() * dynamicBoard.getCellSize() - 1, dynamicBoard.getColumns() * dynamicBoard.getCellSize() - 1);
     }
 
-    public void draw() {
+    /**
+     * This method draws the grid/cells on canvas.
+     */
+    public void draw() throws ArrayIndexOutOfBoundsException {
 
-        brett.background();
         try{
-            for (int j = 0; j < brett.getRows() && j < canvas.getWidth()/brett.getCelleSTR(); j++) {
-                for (int i = 0; i < brett.getColumns() && i < canvas.getHeight()/brett.getCelleSTR(); i++) {
-                    if (brett.getValue(j,i) == 1) {
-                        gc.setFill(brett.cellColor);
+           background();
+            for (int j = 0; j < dynamicBoard.getRows() && j < canvas.getHeight(); j++) {
+                for (int i = 0; i < dynamicBoard.getColumns() && i < canvas.getWidth(); i++) {
+                    if (dynamicBoard.getValue(j,i) == 1) {
+                        gc.setFill(colorpickercell.getValue());
+
                     } else {
-                        gc.setFill(Color.WHITE);
+                        gc.setFill(colorPicker.getValue());
                     }
-                    gc.fillRect(j * brett.getCelleSTR(), i * brett.getCelleSTR(), brett.getCelleSTR()-1 , brett.getCelleSTR()-1 );
+                    gc.fillRect(j * dynamicBoard.getCellSize(), i * dynamicBoard.getCellSize(), dynamicBoard.getCellSize()-1 , dynamicBoard.getCellSize()-1 );
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("You cant draw here" + e);
+
+
         }
     }
 
+    /**
+     * This method allows the user to fill rectangles on canvas with alive or deadcells.
+     */
     @FXML
-    public void userDrawCellClicked() {
-        canvas.setOnMouseClicked(e -> {
-            int x = (int) (e.getX() / brett.getCelleSTR());
-            int y = (int) (e.getY() / brett.getCelleSTR());
+    public void userDrawCell(MouseEvent e)throws Exception {
 
-            if (brett.getBrett()[x][y] == 1) {
-                brett.getBrett()[x][y] = 0;
-                draw();
+        try{
+            int x = (int) (e.getX() / dynamicBoard.getCellSize() );
+            int y = (int) (e.getY() / dynamicBoard.getCellSize() );
 
-            } else {
-                brett.getBrett()[x][y] = 1;
-                draw();
+            if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
+                if (dynamicBoard.getValue(x,y) == 0) {
+                    dynamicBoard.setValue(x,y,1);
+                    draw();
+
+                } else {
+                    dynamicBoard.setValue(x,y,1);
+                }
             }
-        });
+        }catch (Exception f){
+            alertBox();
+        }
     }
+
+    /**
+     * This method allows the user to fill rectangles on canvas with alive or deadcells.
+     */
+    @FXML
+    public void userDrawCellClicked(MouseEvent e) throws Exception {
+        try{
+
+            int x = (int) (e.getX() / dynamicBoard.getCellSize());
+            int y = (int) (e.getY() / dynamicBoard.getCellSize());
+
+            if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
+                if (dynamicBoard.getValue(x,y) == 1) {
+                    dynamicBoard.setValue(x,y,1);
+                    draw();
+                }
+
+                }else if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()){
+                if (dynamicBoard.getValue(x,y) == 0) {
+                    dynamicBoard.setValue(x,y,0);
+                    draw();
+                }}
+        } catch (Exception err){
+            System.out.print("Out of bounds");
+        }
+}
+
+    /**
+     * This method creates a alertbox.
+     */
+    public void alertBox (){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Game of Life");
+        alert.setContentText("Something went wrong, please try again!");
+
+        alert.showAndWait();
+        }
+
 }
 

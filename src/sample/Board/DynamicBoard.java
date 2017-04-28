@@ -2,20 +2,32 @@ package sample.Board;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-
+import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
- * Created by Mohammad Abdolla on 21.04.2017.
+ * The Game Of Life application created for HIOA
+ * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
+ * The class is also implementing Initializable interface.
+ *
+ * @author Fredrik, Hans-Jacob, Mohammad
+ * Studentnr : S309293,
  */
 public class DynamicBoard extends Brett {
 
-    private ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
-    private ArrayList<ArrayList<Integer>> nextGen;
+    public ArrayList<ArrayList<Integer>> board = new ArrayList<>();
+    public ArrayList<ArrayList<Integer>> nextGen;
+    public int cellSize = 7;
 
+    /**
+     *
+     *  Constructs and init a board with columns, rows, gc and canvas.
+     *
+     *  @param rows is the first parameter in DynamicBoard constructor.
+     *  @param columns is the second parameter in DynamicBoard constructor.
+     *  @param gc is the third parameter used for drawing.
+     *  @param canvas is the fourth parameter in DynamicBoard constructor which is used to draw onto.
+     */
     public DynamicBoard(int rows, int columns, GraphicsContext gc, Canvas canvas) {
         super(rows, columns, gc, canvas);
 
@@ -27,27 +39,17 @@ public class DynamicBoard extends Brett {
         }
     }
 
-    @Override
-    public int getValue(int x, int y){
-        return board.get(x).get(y);
-    }
-
-    @Override
-    public void setValue(int x, int y, int value){
-        board.get(x).set(y, value);
-    }
 
     @Override
     public void nextGeneration() {
-        nextGen = new ArrayList<ArrayList<Integer>>(getRows());
+        nextGen = new ArrayList<>(getRows());
         //lager blank nexGen -> ArrayList<ArrayList<Integer>>
         for (int i = 0; i < getRows(); i++) {
-            nextGen.add(new ArrayList<Integer>(getColumns()));
+            nextGen.add(new ArrayList<>(getColumns()));
             for (int j = 0; j < getColumns(); j++){
                 nextGen.get(i).add(0);
             }
         }
-        System.out.println("heisann" + nextGen.get(0).size());
 
         //beregning
         for (int x = 0; x < getRows(); x++) {
@@ -56,9 +58,9 @@ public class DynamicBoard extends Brett {
             }
         }
 
-
         board = nextGen;
         expand();
+
     }
 
     @Override
@@ -83,10 +85,9 @@ public class DynamicBoard extends Brett {
             if (getValue(x,0) == 1){ // Sjeker alle på oppe
 
                 System.out.println(getRows() +" rows");
-                System.out.println(nextGen.size() +" rows 2");
+                System.out.println(nextGen.get(0) +" rows 2");
                 System.out.println(getColumns() + " coll");
                 System.out.println(nextGen.get(0).size() + " coll2");
-
 
                 System.out.println("fantes oppe");
 
@@ -126,41 +127,94 @@ public class DynamicBoard extends Brett {
 
                 setRows(getRows() +1);
             }
-        }
+        }}
 
-        /*
-        if (getValue(x,y) == 1){
-            if (x==0){
+        ///////////////TRYING TO MOVE ARRAYLIST ACCORDING TO KEY PRESSED
 
-                //add på OPPE side
-                System.out.println(x+", "+y+" i live og VENSTRE");
-//                nextGen.add(0, new ArrayList<Integer>(getColumns()));
-                for (int j = 0; j < getColumns(); j++){
-                    nextGen.get(j).add(0,0);
+        public ArrayList<ArrayList<Integer>> moveCellsLeft(KeyEvent event){
+
+            ArrayList<ArrayList<Integer>> moveCellsLeft = new ArrayList<ArrayList<Integer>>();
+
+        for (int i = 0; i < getRows()-1; i++) {
+            board.add(new ArrayList<Integer>());
+            for (int j = 0; j < getColumns(); j++){
+                board.get(i).add(0);
+            }
+        }return moveCellsLeft(event);
+
                 }
-            }
-            if (x == getRows()){
-//                //add linje NEDE
-//                System.out.println(x+", "+y+" i live og på kansten men ikke nabo");
-//                nextGen.add(new ArrayList<Integer>(getColumns()));
-//                for (int j = 0; j < getColumns(); j++){
-//                    nextGen.get(getRows()).add(0);
-//                }
-            }
-            if (y == 0){
-                //add linje VENSTRE
-                System.out.println(x+", "+y+" i live og på kansten men ikke nabo");
-            }
-            if (y == getColumns()){
-                //add linje HØYRE
-                System.out.println(x+", "+y+" i live og på kansten men ikke nabo");
+
+
+    @Override
+    public int getValue(int x, int y){
+        return board.get(x).get(y);
+    }
+
+    @Override
+    public void setValue(int x, int y, int value){
+        board.get(x).set(y, value);
+    }
+    @Override
+    public int[][] setBrett(int[][] brett) {
+
+        ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
+        for (int x = 0; x < brett.length; x++){
+            convertList.add(new ArrayList<>());
+            for(int y = 0; y < brett[x].length; y++){
+                convertList.get(x).add(brett[x][y]);
             }
         }
-        */
+
+        board = convertList;
+        setRows(board.size());
+        setColumns(board.get(0).size());
+
+        return brett;
+    }
+
+    /**
+     * This method returning board rows
+     * @return rows
+     */
+    @Override
+    public int getRows() {
+        return rows;
     }
 
     @Override
     public String toString() {
         return null;
     }
+
+
+    public ArrayList<ArrayList<Integer>> getBoard() {
+        return board;
+    }
+
+
+    public ArrayList<ArrayList<Integer>> getNextGen() {
+        return nextGen;
+    }
+
+    public void setNextGen(ArrayList<ArrayList<Integer>> nextGen) {
+        this.nextGen = nextGen;
+    }
+
+    /**
+     * This method returning cellSize
+     * @return cellSize
+     */
+    @Override
+    public int getCellSize() {
+        return cellSize;
+    }
+
+    /**
+     * @param cellSize parameter is assigned to the cellSize for this class
+     */
+    @Override
+    public void setCellSize(int cellSize) {
+        this.cellSize = cellSize;
+    }
+
 }

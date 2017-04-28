@@ -11,121 +11,99 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameOfLifeController">
-   <children>
-      <StackPane prefHeight="682.0" prefWidth="992.0">
-         <children>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <top>
-                  <VBox>
-                     <children>
-                        <MenuBar BorderPane.alignment="CENTER">
-                          <menus>
-                            <Menu mnemonicParsing="false" text="File">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
-                              </items>
-                            </Menu>
-                            <Menu mnemonicParsing="false" text="Load Pattern">
-                              <items>
-                                <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open from txt file" />
-                                    <MenuItem mnemonicParsing="false" onAction="#RLEopen" text="Open from RLE file" />
-                                    <MenuItem mnemonicParsing="false" onAction="#URLopen" text="Open file from URL" />
-                              </items>
-                            </Menu>
-                            <Menu mnemonicParsing="false" text="Help">
-                              <items>
-                                <MenuItem mnemonicParsing="false" onAction="#AboutGameofLife" text="About" />
-                              </items>
-                            </Menu>
-                          </menus>
-                        </MenuBar>
-                     </children>
-                  </VBox>
-               </top>
-               <center>
-                  <Canvas fx:id="canvas" height="560.0" onMouseClicked="#userDrawCellClicked" onMouseDragged="#userDrawCell" width="775.0" BorderPane.alignment="CENTER" />
-               </center>
-               <left>
-                  <VBox prefHeight="650.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-               </left>
-               <right>
-                  <VBox prefHeight="560.0" prefWidth="218.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                          </items>
-                        </SplitPane>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+<AnchorPane prefHeight="682.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameOfLifeController">
+  <children>
+    <StackPane prefHeight="682.0" prefWidth="992.0">
+      <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0">
+          <top>
+            <VBox>
+              <children>
+                <MenuBar BorderPane.alignment="CENTER">
+                  <menus>
+                    <Menu mnemonicParsing="false" text="File">
+                      <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                      </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Load Pattern">
+                      <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open from txt file" />
+                        <MenuItem mnemonicParsing="false" onAction="#RLEopen" text="Open from RLE file" />
+                        <MenuItem mnemonicParsing="false" onAction="#URLopen" text="Open file from URL" />
+                      </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Help">
+                      <items>
+                        <MenuItem mnemonicParsing="false" onAction="#AboutGameofLife" text="About" />
+                      </items>
+                    </Menu>
+                  </menus>
+                </MenuBar>
+              </children>
+            </VBox>
+          </top>
+          <center>
+            <Canvas fx:id="canvas" height="650.0" onKeyPressed="#moveBoard" onMouseClicked="#userDrawCellClicked" onMouseDragged="#userDrawCell" width="775.0" BorderPane.alignment="CENTER" />
+          </center>
+          <left>
+            <VBox prefHeight="650.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+          </left>
+          <right>
+            <VBox prefHeight="651.0" prefWidth="218.0" BorderPane.alignment="CENTER">
+              <children>
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                  <items>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Slider fx:id="celleSlider" layoutX="3.0" layoutY="46.0" max="20.0" min="4.0" prefHeight="18.0" prefWidth="204.0" />
-                                    <Label layoutX="23.0" layoutY="16.0" prefHeight="21.0" prefWidth="96.0" text="Zoom" />
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                          <Button fx:id="StartStopBtn" mnemonicParsing="false" onAction="#startSimulation" prefHeight="43.0" prefWidth="216.0" text="Start" />
+                                 </children></AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Slider fx:id="sliderSpeed" layoutX="9.0" layoutY="45.0" max="15.0" min="1.0" onDragDetected="#AdjustSpeed" onDragDone="#AdjustSpeed" onMouseClicked="#AdjustSpeed" prefHeight="27.0" prefWidth="197.0" />
-                                    <Label layoutX="23.0" layoutY="4.0" prefHeight="28.0" prefWidth="132.0" text="Change Speed" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <ColorPicker fx:id="colorPicker" layoutX="39.0" layoutY="33.0" onAction="#changecolor" prefHeight="49.0" prefWidth="125.0" promptText="Change Background" />
-                                    <Label layoutX="39.0" layoutY="3.0" prefHeight="22.0" prefWidth="148.0" text="Background Color" />
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <ColorPicker fx:id="colorpickercell" layoutX="42.0" layoutY="39.0" onAction="#changeColorCell" prefHeight="49.0" prefWidth="120.0" />
-                                    <Label layoutX="42.0" layoutY="4.0" prefHeight="21.0" prefWidth="133.0" text="Change Cell Color" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                  </VBox>
-               </right>
-               <bottom>
-                  <GridPane BorderPane.alignment="CENTER">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <HBox prefHeight="23.0" prefWidth="480.0">
-                           <children>
-                              <Button fx:id="StartStopBtn" mnemonicParsing="false" onAction="#startSimulation" prefHeight="52.0" prefWidth="137.0" text="Start" />
-                              <Button mnemonicParsing="false" onAction="#clearBoard" prefHeight="61.0" prefWidth="165.0" text="Clear Board" />
-                              <Button fx:id="NextGenBtn" mnemonicParsing="false" onAction="#startAnimation" prefHeight="46.0" prefWidth="162.0" text="Next Generation" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="14.0" prefWidth="496.0" GridPane.rowIndex="1" />
-                        <HBox prefHeight="0.0" prefWidth="496.0" GridPane.rowIndex="2" />
-                     </children>
-                  </GridPane>
-               </bottom>
-            </BorderPane>
-         </children>
-      </StackPane>
-   </children>
+                          <Button mnemonicParsing="false" onAction="#clearBoard" prefHeight="44.0" prefWidth="216.0" text="Clear Board" />
+                                 </children></AnchorPane>
+                  </items>
+                </SplitPane>
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                  <items>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <children>
+                        <Slider fx:id="celleSlider" layoutX="3.0" layoutY="46.0" max="10.0" prefHeight="18.0" prefWidth="204.0" />
+                        <Label layoutX="23.0" layoutY="16.0" prefHeight="21.0" prefWidth="96.0" text="Zoom" />
+                      </children>
+                    </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <children>
+                        <Slider fx:id="sliderSpeed" layoutX="9.0" layoutY="45.0" max="15.0" min="1.0" onDragDetected="#AdjustSpeed" onDragDone="#AdjustSpeed" onDragEntered="#AdjustSpeed" onMouseClicked="#AdjustSpeed" prefHeight="27.0" prefWidth="197.0" />
+                        <Label layoutX="23.0" layoutY="4.0" prefHeight="28.0" prefWidth="132.0" text="Change Speed" />
+                      </children>
+                    </AnchorPane>
+                  </items>
+                </SplitPane>
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                  <items>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <children>
+                        <ColorPicker fx:id="colorPicker" layoutX="39.0" layoutY="33.0" onAction="#changecolor" prefHeight="49.0" prefWidth="125.0" promptText="Change Background" />
+                        <Label layoutX="39.0" layoutY="3.0" prefHeight="22.0" prefWidth="148.0" text="Background Color" />
+                      </children>
+                    </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <children>
+                        <ColorPicker fx:id="colorpickercell" layoutX="42.0" layoutY="39.0" onAction="#changeColorCell" prefHeight="49.0" prefWidth="120.0" />
+                        <Label layoutX="42.0" layoutY="4.0" prefHeight="21.0" prefWidth="133.0" text="Change Cell Color" />
+                      </children>
+                    </AnchorPane>
+                  </items>
+                </SplitPane>
+              </children>
+            </VBox>
+          </right>
+        </BorderPane>
+      </children>
+    </StackPane>
+  </children>
 </AnchorPane>

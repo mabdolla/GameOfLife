@@ -2,13 +2,17 @@ package FileHandler;
 import javafx.stage.FileChooser;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
 
 
 /**
- * Created by Fredrik Kluftødegård on 24.03.2017.
+ * The Game Of Life application created for HIOA
+ * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
+ * The class is also implementing Initializable interface.
+ *
+ * @author Fredrik, Hans-Jacob, Mohammad
+ * Studentnr : S309293,
  */
 public class FileReader  {
 
@@ -20,7 +24,7 @@ public class FileReader  {
         return fileChooser;
     }
 
-    public static int [][] openTXTfile(){
+    public static int[][] openTXTfile(){
 
             File txtfile = getFileChooser().showOpenDialog(null);
 
@@ -63,9 +67,6 @@ public class FileReader  {
                 for (int[] ints : brett) {
                     System.out.println(Arrays.toString(ints));
                 }
-//
-
-                return brett;
 
 
             } catch (FileNotFoundException e) {

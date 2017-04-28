@@ -6,19 +6,26 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-//Variables
+/**
+ * The Game Of Life application created for HIOA
+ * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
+ * The class is also implementing Initializable interface.
+ *
+ * @author Fredrik, Hans-Jacob, Mohammad
+ * Studentnr : S309293,
+ */
 public class Brett {
     public GraphicsContext gc;
     public Canvas canvas;
-    private int rows;
-    private int columns;
-    private int[][] brett;
-    public int celleSTR = 5;
+    public int rows;
+    public int columns;
+    public int[][] brett;
+    public int cellSize = 7;
     private int gameSpeed = 40;
     private Color backgroundColor;
     public Color cellColor;
     int[][] rules = {{0, 0, 0, 1, 0, 0, 0, 0, 0},
-                     {0, 0, 1, 1, 0, 0, 0, 0, 0}};
+            {0, 0, 1, 1, 0, 0, 0, 0, 0}};
 
     //Constructor
     public Brett(int rows, int columns, GraphicsContext gc, Canvas canvas) {
@@ -39,23 +46,23 @@ public class Brett {
     public void background() {
         gc.setFill(backgroundColor);
 
-        gc.fillRect(0, 0, brett.length * celleSTR, brett[0].length * celleSTR);
+        gc.fillRect(0, 0, brett.length * cellSize, brett[0].length * cellSize);
     }
 
     public void draw() {
 
         background();
         try{
-        for (int j = 0; j < brett.length && j < canvas.getWidth()/celleSTR; j++) {
-            for (int i = 0; i < brett[0].length && i < canvas.getHeight()/celleSTR; i++) {
-                if (brett[j][i] == 1) {
-                    gc.setFill(cellColor);
-                } else {
-                    gc.setFill(Color.AQUA);
+            for (int j = 0; j < brett.length && j < canvas.getWidth()/ cellSize; j++) {
+                for (int i = 0; i < brett[0].length && i < canvas.getHeight()/ cellSize; i++) {
+                    if (brett[j][i] == 1) {
+                        gc.setFill(cellColor);
+                    } else {
+                        gc.setFill(Color.AQUA);
+                    }
+                    gc.fillRect(j * cellSize, i * cellSize, cellSize -1 , cellSize -1 );
                 }
-                gc.fillRect(j * celleSTR, i * celleSTR, celleSTR-1 , celleSTR-1 );
             }
-        }
         } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("You cant draw here" + e);
         }}
@@ -118,7 +125,6 @@ public class Brett {
             return 1;
         if(isAlive == 1 && naboer >= 4)
             return 0;
-
         return 0;*/
 
     }
@@ -144,9 +150,9 @@ public class Brett {
 
     }
 
-    public void setCelleSTR(int CSTR) {
+    public void setCellSize(int CSTR) {
 
-        this.celleSTR = CSTR;
+        this.cellSize = CSTR;
     }
 
     public int[][] setBrett(int[][] brett) {
@@ -158,8 +164,8 @@ public class Brett {
         return brett;
     }
 
-    public int getCelleSTR() {
-        return celleSTR;
+    public int getCellSize() {
+        return cellSize;
     }
 
     public int getRows() {
@@ -204,7 +210,7 @@ public class Brett {
 
 
     //Opprettett til BrettTest.java
-   @Override
+    @Override
     public String toString() {
         String msg = "";
         for (int kolonne = 0; kolonne < brett.length; kolonne++) {
