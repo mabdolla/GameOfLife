@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * The class is also implementing Initializable interface.
  *
  * @author Fredrik, Hans-Jacob, Mohammad
- * Studentnr : S309293,
+ * Studentnr : S309293, s
  */
 public class DynamicBoard extends Brett {
 
