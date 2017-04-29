@@ -1,4 +1,5 @@
 package FileHandler;
+
 import javafx.stage.FileChooser;
 
 import java.io.*;
@@ -12,67 +13,66 @@ import java.util.Scanner;
  * The class is also implementing Initializable interface.
  *
  * @author Fredrik, Hans-Jacob, Mohammad
- * Studentnr : S309293,
+ *         Studentnr : S309293,
  */
-public class FileReader  {
+public class FileReader {
 
     private static FileChooser getFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load txt file");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(("PlainText"),("RLE"), ("*.rle"),( "*.txt")));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(("PlainText"), ("RLE"), ("*.rle"), ("*.txt")));
 
         return fileChooser;
     }
 
-    public static int[][] openTXTfile(){
+    public static int[][] openTXTfile() {
 
         try {
             File txtfile = getFileChooser().showOpenDialog(null);
-                Scanner in = new Scanner(txtfile);
-                int ylength = 0;
-                int xlength = 0;
-                String length;
+            Scanner in = new Scanner(txtfile);
+            int ylength = 0;
+            int xlength = 0;
+            String length;
 
-                while (in.hasNext()) {
-                    length = in.nextLine();
-                    if((length.length()) > ylength){            //henter linje for linje
-                        if (!length.startsWith("!"))
-                            ylength = length.length();           //setter antall linjer som en x verdi
-                    }
-                    xlength++;
-
+            while (in.hasNext()) {
+                length = in.nextLine();
+                if ((length.length()) > ylength) {            //henter linje for linje
+                    if (!length.startsWith("!"))
+                        ylength = length.length();           //setter antall linjer som en x verdi
                 }
-
-                System.out.println(xlength+" x length, "+ylength+" y length");
-                int [][] brett= new int [xlength][ylength];        //opretter array som tar imot y og x lengde
-
-                in = new Scanner(txtfile);
-                int y = 0;
-                while (in.hasNext()) {
-                    length = in.nextLine();
-                    if (!length.startsWith("!")){
-                        for (int x = 0; x < length.length(); x++) {   //løkke som leser hver linje
-
-                            char a = length.charAt(x);   //er en character på linja 0, får den verdi 1(levende)
-                            if (a == 'O') {
-                                brett[y][x] = 1;
-                            } else {
-                                brett[y][x] = 0;
-                            }
-                        }
-                        y++;
-                    }
-                }
-                for (int[] ints : brett) {
-                    System.out.println(Arrays.toString(ints));
-                }
-
-
-            } catch (FileNotFoundException e) {
-
-
+                xlength++;
 
             }
+
+            System.out.println(xlength + " x length, " + ylength + " y length");
+            int[][] brett = new int[xlength][ylength];        //opretter array som tar imot y og x lengde
+
+            in = new Scanner(txtfile);
+            int y = 0;
+            while (in.hasNext()) {
+                length = in.nextLine();
+                if (!length.startsWith("!")) {
+                    for (int x = 0; x < length.length(); x++) {   //løkke som leser hver linje
+
+                        char a = length.charAt(x);   //er en character på linja 0, får den verdi 1(levende)
+                        if (a == 'O') {
+                            brett[y][x] = 1;
+                        } else {
+                            brett[y][x] = 0;
+                        }
+                    }
+                    y++;
+                }
+            }
+            for (int[] ints : brett) {
+                System.out.println(Arrays.toString(ints));
+            }
+
+
+        } catch (FileNotFoundException e) {
+
+
+        }
         return new int[0][];
     }
 

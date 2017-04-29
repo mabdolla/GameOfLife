@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
  * The class is also implementing Initializable interface.
  *
  * @author Fredrik, Hans-Jacob, Mohammad
- * Studentnr : S309293,
+ *         Studentnr : S309293,
  */
 public class Brett {
     public GraphicsContext gc;
@@ -32,12 +32,12 @@ public class Brett {
         this.rows = rows;
         this.columns = columns;
         this.gc = gc;
-        brett = new int [rows][columns];
+        brett = new int[rows][columns];
         this.canvas = canvas;
 //        draw();
     }
 
-    public Brett(int rows, int columns){
+    public Brett(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
 
@@ -52,26 +52,27 @@ public class Brett {
     public void draw() {
 
         background();
-        try{
-            for (int j = 0; j < brett.length && j < canvas.getWidth()/ cellSize; j++) {
-                for (int i = 0; i < brett[0].length && i < canvas.getHeight()/ cellSize; i++) {
+        try {
+            for (int j = 0; j < brett.length && j < canvas.getWidth() / cellSize; j++) {
+                for (int i = 0; i < brett[0].length && i < canvas.getHeight() / cellSize; i++) {
                     if (brett[j][i] == 1) {
                         gc.setFill(cellColor);
                     } else {
                         gc.setFill(Color.AQUA);
                     }
-                    gc.fillRect(j * cellSize, i * cellSize, cellSize -1 , cellSize -1 );
+                    gc.fillRect(j * cellSize, i * cellSize, cellSize - 1, cellSize - 1);
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("You cant draw here" + e);
-        }}
+        }
+    }
 
-    public int getValue(int x, int y){
+    public int getValue(int x, int y) {
         return brett[x][y];
     }
 
-    public void setValue(int x, int y, int value){
+    public void setValue(int x, int y, int value) {
         brett[x][y] = value;
     }
 
@@ -91,7 +92,7 @@ public class Brett {
 
     }
 
-    public void upDateBoard (){
+    public void upDateBoard() {
         int[][] nyBrett = FileReader.openTXTfile();
 
         for (int x = 0; x < brett.length; x++) {
@@ -103,7 +104,7 @@ public class Brett {
 
     }
 
-    public void setRules (int [][] rules){
+    public void setRules(int[][] rules) {
 
         this.rules = rules;
     }
@@ -137,14 +138,21 @@ public class Brett {
         int antallNaboer = 0;
 
 
-        if (!(x - 1 == -1 || y - 1 == -1) && brett[x - 1][y - 1] == 1) antallNaboer++;                      //Oppe venstre
-        if (!(y - 1 == -1) && brett[x][y - 1] == 1) antallNaboer++;                                         //Oppe midten
+        if (!(x - 1 == -1 || y - 1 == -1) && brett[x - 1][y - 1] == 1)
+            antallNaboer++;                      //Oppe venstre
+        if (!(y - 1 == -1) && brett[x][y - 1] == 1)
+            antallNaboer++;                                         //Oppe midten
         if (!(x + 1 == brett.length || y - 1 == -1) && brett[x + 1][y - 1] == 1) antallNaboer++;            //Oppe høyre
-        if (!(x + 1 == brett.length || y + 1 == brett[0].length) && brett[x + 1][y + 1] == 1) antallNaboer++;  //Nede høyre
-        if (!(x - 1 == -1 || y + 1 == brett[0].length) && brett[x - 1][y + 1] == 1) antallNaboer++;            //Nede venstre
-        if (!(x + 1 == brett.length) && brett[x + 1][y] == 1) antallNaboer++;                               //Midten høyre
-        if (!(y + 1 == brett[0].length) && brett[x][y + 1] == 1) antallNaboer++;                               //Nede midten
-        if (!(x - 1 == -1) && brett[x - 1][y] == 1) antallNaboer++;                                         //Venstre midten
+        if (!(x + 1 == brett.length || y + 1 == brett[0].length) && brett[x + 1][y + 1] == 1)
+            antallNaboer++;  //Nede høyre
+        if (!(x - 1 == -1 || y + 1 == brett[0].length) && brett[x - 1][y + 1] == 1)
+            antallNaboer++;            //Nede venstre
+        if (!(x + 1 == brett.length) && brett[x + 1][y] == 1)
+            antallNaboer++;                               //Midten høyre
+        if (!(y + 1 == brett[0].length) && brett[x][y + 1] == 1)
+            antallNaboer++;                               //Nede midten
+        if (!(x - 1 == -1) && brett[x - 1][y] == 1)
+            antallNaboer++;                                         //Venstre midten
 
         return antallNaboer;
 
@@ -214,7 +222,7 @@ public class Brett {
     public String toString() {
         String msg = "";
         for (int kolonne = 0; kolonne < brett.length; kolonne++) {
-            for (int rows =0; rows < brett[0].length; rows++) {
+            for (int rows = 0; rows < brett[0].length; rows++) {
                 if (brett[rows][kolonne] == 0) {
                     msg = msg + "0";
                 } else {

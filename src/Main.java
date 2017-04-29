@@ -8,11 +8,11 @@ public class Main extends Application {
 
 
     /**
-     \\* @param primaryStage
-     \\* @throws Exception
+     * \\* @param primaryStage
+     * \\* @throws Exception
      */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Controller/GameOfLife.fxml"));
         primaryStage.setTitle("Game Of Life");
         primaryStage.setScene(new Scene(root, 1180, 750));

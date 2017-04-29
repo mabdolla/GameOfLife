@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * The class is also implementing Initializable interface.
  *
  * @author Fredrik, Hans-Jacob, Mohammad
- * Studentnr : S309293,
+ *         Studentnr : S309293,
  */
 public class FileReaderRLE {
     StringBuilder lineBuilder = new StringBuilder();
@@ -26,7 +26,7 @@ public class FileReaderRLE {
     public FileReaderRLE(File file) throws IOException {
         this.file2 = file;
 
-        if (file != null){
+        if (file != null) {
             readBoard();
         }
     }
@@ -92,11 +92,11 @@ public class FileReaderRLE {
 
             while (sizeMatch.find()) {
                 if (sizeMatch.group(1).matches("x")) {
-                    xlength = 1+Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
-                    System.out.println("xlength"+xlength);
+                    xlength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
+                    System.out.println("xlength" + xlength);
                 } else if (sizeMatch.group(1).matches("y")) {
-                    ylength = 1+Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
-                    System.out.println("yLength"+ylength);
+                    ylength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
+                    System.out.println("yLength" + ylength);
                 }
             }
 

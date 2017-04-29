@@ -15,6 +15,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -66,6 +68,8 @@ public class GameOfLifeController implements Initializable {
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
+        startUpSound();
+
         gc = canvas.getGraphicsContext2D();
         dynamicBoard = new DynamicBoard(90, 80, gc, canvas);
         //MoveBoardkey();
@@ -76,10 +80,12 @@ public class GameOfLifeController implements Initializable {
 
         celleSlider.setValue(dynamicBoard.getCellSize());
         celleSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
-            dynamicBoard.setCellSize((int)celleSlider.getValue());
-            if ((double)newValue < (double)oldValue) {
+            dynamicBoard.setCellSize((int) celleSlider.getValue());
+            if ((double) newValue < (double) oldValue) {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             }
+            //canvas.setScaleX(newValue.doubleValue() / 20);
+            //canvas.setScaleY(newValue.doubleValue() / 20);
             draw();
         }));
 
@@ -224,6 +230,7 @@ public class GameOfLifeController implements Initializable {
      * This method allows user to clear canvas and creates a new empty board.
      */
     public void resetBoard() {
+        btnSound();
         gc = canvas.getGraphicsContext2D();
         dynamicBoard = new DynamicBoard(dynamicBoard.getRows(), dynamicBoard.getColumns(), gc, canvas);
         draw();
@@ -234,6 +241,7 @@ public class GameOfLifeController implements Initializable {
      */
     @FXML
     public void startSimulation() {
+        btnSound();
         if (timeline.getStatus() == Animation.Status.RUNNING) {
             timeline.stop();
             StartStopBtn.setText("Start");
@@ -275,7 +283,7 @@ public class GameOfLifeController implements Initializable {
      * This method draws the background to the canvas.
      */
     public void background() {
-        gc.setFill(Color.WHITE);
+        gc.setFill(Color.DARKGRAY);
 
         gc.fillRect(0, 0, dynamicBoard.getRows() * dynamicBoard.getCellSize() - 1, dynamicBoard.getColumns() * dynamicBoard.getCellSize() - 1);
     }
@@ -320,13 +328,13 @@ public class GameOfLifeController implements Initializable {
             if (x == oldChangeX && y == getOldChangeY)
                 return;
 
-                if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
-                    boolean value = dynamicBoard.getValue(x, y) == 0;
-                    dynamicBoard.setValue(x, y, value ? 1 : 0); //ternary operator
-                    oldChangeX = x;
-                    getOldChangeY = y;
-                    draw();
-                }
+            if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
+                boolean value = dynamicBoard.getValue(x, y) == 0;
+                dynamicBoard.setValue(x, y, value ? 1 : 0); //ternary operator
+                oldChangeX = x;
+                getOldChangeY = y;
+                draw();
+            }
         } catch (Exception f) {
             alertBox();
         }
@@ -335,29 +343,27 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to fill rectangles on canvas with alive or deadcells.
      */
+    int oldChangeClick_X;
+    int getoldChangeClick_Y;
+
     @FXML
     public void userDrawCellClicked(MouseEvent e) throws Exception {
-        if (e.isDragDetect())
-            return;
-        try {
 
+        try {
             int x = (int) (e.getX() / dynamicBoard.getCellSize());
             int y = (int) (e.getY() / dynamicBoard.getCellSize());
+            if (x == oldChangeClick_X && y == getoldChangeClick_Y)
+                return;
 
             if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
-                if (dynamicBoard.getValue(x, y) == 1) {
-                    dynamicBoard.setValue(x, y, 1);
-                    draw();
-                }
-
-            } else if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
-                if (dynamicBoard.getValue(x, y) == 0) {
-                    dynamicBoard.setValue(x, y, 0);
-                    draw();
-                }
+                boolean value = dynamicBoard.getValue(x, y) == 0;
+                dynamicBoard.setValue(x, y, value ? 1 : 0); //ternary operator
+                oldChangeClick_X = x;
+                getoldChangeClick_Y = y;
+                draw();
             }
-        } catch (Exception err) {
-            System.out.print("Out of bounds");
+        } catch (Exception f) {
+            alertBox();
         }
     }
 
@@ -372,6 +378,21 @@ public class GameOfLifeController implements Initializable {
 
         alert.showAndWait();
     }
+
+    public void btnSound() {
+        String buttonSound = "btnclick.wav";
+        Media btnSound = new Media(new File(buttonSound).toURI().toString());
+        MediaPlayer mPlayer = new MediaPlayer(btnSound);
+        mPlayer.play();
+    }
+
+    public void startUpSound() {
+        String buttonSound = "golstartup.wav";
+        Media btnSound = new Media(new File(buttonSound).toURI().toString());
+        MediaPlayer mPlayer = new MediaPlayer(btnSound);
+        mPlayer.play();
+    }
+
 
 }
 
