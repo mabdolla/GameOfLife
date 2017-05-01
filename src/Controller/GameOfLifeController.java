@@ -343,8 +343,16 @@ public class GameOfLifeController implements Initializable {
                 getoldChangeClick_Y = y;
                 draw();
             }
-        } catch (Exception f) {
+            else if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
 
+                if (dynamicBoard.getValue(x, y) == 0) {
+                dynamicBoard.setValue(x, y, 0);
+                draw();
+                 }
+             }
+
+        } catch (Exception err) {
+            System.out.print("Out of bounds");
         }
     }
 

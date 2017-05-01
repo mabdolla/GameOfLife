@@ -27,6 +27,8 @@ public class Brett {
     int[][] rules =     {{0, 0, 0, 1, 0, 0, 0, 0, 0},
                         {0, 0, 1, 1, 0, 0, 0, 0, 0}};
 
+    public Brett(){}
+
     //Constructor
     public Brett(int rows, int columns, GraphicsContext gc, Canvas canvas) {
         this.rows = rows;
