@@ -11,12 +11,12 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="682.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/8.0.112"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameOfLifeController">
+<AnchorPane prefHeight="682.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameOfLifeController">
     <children>
         <StackPane prefHeight="682.0" prefWidth="992.0">
             <children>
@@ -24,133 +24,122 @@
                     <top>
                         <VBox>
                             <children>
-                                <MenuBar BorderPane.alignment="CENTER">
-                                    <menus>
-                                        <Menu mnemonicParsing="false" text="File">
-                                            <items>
-                                                <MenuItem mnemonicParsing="false" text="Close"/>
-                                            </items>
-                                        </Menu>
-                                        <Menu mnemonicParsing="false" text="Load Pattern">
-                                            <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#openFile"
-                                                          text="Open from txt file"/>
-                                                <MenuItem mnemonicParsing="false" onAction="#RLEopen"
-                                                          text="Open from RLE file"/>
-                                                <MenuItem mnemonicParsing="false" onAction="#URLopen"
-                                                          text="Open file from URL"/>
-                                            </items>
-                                        </Menu>
-                                        <Menu mnemonicParsing="false" text="Help">
-                                            <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#AboutGameofLife"
-                                                          text="About"/>
-                                            </items>
-                                        </Menu>
-                                    </menus>
-                                </MenuBar>
+                        <AnchorPane prefHeight="0.0" prefWidth="1179.0">
+                           <children>
+                              <HBox prefHeight="32.0" prefWidth="1179.0">
+                                 <children>
+                                            <MenuBar prefHeight="32.0" prefWidth="1182.0" HBox.hgrow="ALWAYS">
+                                                <menus>
+                                                    <Menu mnemonicParsing="false" text="File">
+                                                        <items>
+                                                            <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonAction" text="Close" />
+                                                        </items>
+                                                    </Menu>
+                                                    <Menu mnemonicParsing="false" text="Load Pattern">
+                                                        <items>
+                                                            <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open from txt file" />
+                                                            <MenuItem mnemonicParsing="false" onAction="#RLEopen" text="Open from RLE file" />
+                                                            <MenuItem mnemonicParsing="false" onAction="#URLopen" text="Open file from URL" />
+                                                        </items>
+                                                    </Menu>
+                                                    <Menu mnemonicParsing="false" text="Help">
+                                                        <items>
+                                                            <MenuItem mnemonicParsing="false" onAction="#AboutGameofLife" text="About" />
+                                                        </items>
+                                                    </Menu>
+                                                </menus>
+                                            </MenuBar>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
                             </children>
                         </VBox>
                     </top>
                     <center>
-                        <Canvas fx:id="canvas" height="868.0" onKeyPressed="#moveBoard"
-                                onMouseClicked="#userDrawCellClicked" onMouseDragged="#userDrawCell" width="961.0"
-                                BorderPane.alignment="CENTER"/>
+                        <Canvas fx:id="canvas" height="868.0" onMouseClicked="#userDrawCellClicked" onMouseDragged="#userDrawCell" width="961.0" BorderPane.alignment="CENTER" />
                     </center>
                     <left>
-                        <VBox prefHeight="650.0" prefWidth="0.0" BorderPane.alignment="CENTER"/>
+                        <VBox prefHeight="650.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
                     </left>
                     <right>
                         <VBox prefHeight="864.0" prefWidth="218.0" BorderPane.alignment="CENTER">
                             <children>
-                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0"
-                                           prefWidth="160.0">
+                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                             <children>
-                                                <Button fx:id="StartStopBtn" layoutY="37.0" mnemonicParsing="false"
-                                                        onAction="#startSimulation" prefHeight="58.0" prefWidth="216.0"
-                                                        text="Start">
+                                                <Button fx:id="StartStopBtn" layoutY="37.0" mnemonicParsing="false" onAction="#startSimulation" prefHeight="58.0" prefWidth="216.0" text="Start">
                                                     <font>
-                                                        <Font name="System Bold Italic" size="15.0"/>
+                                                        <Font name="System Bold Italic" size="15.0" />
                                                     </font>
                                                 </Button>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                             <children>
-                                                <Button layoutY="1.0" mnemonicParsing="false" onAction="#resetBoard"
-                                                        prefHeight="57.0" prefWidth="216.0" text="Clear Board">
+                                                <Button layoutY="1.0" mnemonicParsing="false" onAction="#resetBoard" prefHeight="57.0" prefWidth="216.0" text="Clear Board">
                                                     <font>
-                                                        <Font name="System Bold" size="15.0"/>
+                                                        <Font name="System Bold" size="15.0" />
                                                     </font>
                                                 </Button>
                                             </children>
                                         </AnchorPane>
                                     </items>
                                 </SplitPane>
-                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0"
-                                           prefWidth="160.0">
+                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                             <children>
-                                                <Slider fx:id="celleSlider"  showTickMarks="true" layoutX="3.0" layoutY="46.0" prefHeight="18.0" prefWidth="204.0"/>
-                                                <Label layoutX="23.0" layoutY="16.0" prefHeight="21.0" prefWidth="96.0"
-                                                       text="Zoom">
+                                                <Slider fx:id="celleSlider" layoutX="3.0" layoutY="46.0" max="30.0" prefHeight="18.0" prefWidth="204.0" showTickMarks="true" />
+                                                <Label layoutX="23.0" layoutY="16.0" prefHeight="21.0" prefWidth="96.0" text="Zoom">
                                                     <font>
-                                                        <Font name="System Bold Italic" size="15.0"/>
+                                                        <Font name="System Bold Italic" size="15.0" />
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                             <children>
-                                                <Slider fx:id="sliderSpeed" layoutX="9.0" layoutY="45.0" max="15.0"
-                                                        min="1.0" onDragDetected="#AdjustSpeed"
-                                                        onDragDone="#AdjustSpeed" onDragEntered="#AdjustSpeed"
-                                                        onMouseClicked="#AdjustSpeed" prefHeight="27.0"
-                                                        prefWidth="197.0"/>
-                                                <Label layoutX="23.0" layoutY="4.0" prefHeight="28.0" prefWidth="132.0"
-                                                       text="Change Speed">
+                                                <Slider fx:id="sliderSpeed" blockIncrement="15.0" layoutX="9.0" layoutY="45.0" max="20.0" onDragDetected="#AdjustSpeed" onDragDone="#AdjustSpeed" onDragEntered="#AdjustSpeed" onMouseClicked="#AdjustSpeed" prefHeight="27.0" prefWidth="197.0" showTickMarks="true" />
+                                                <Label layoutX="23.0" layoutY="4.0" prefHeight="28.0" prefWidth="132.0" text="Change Speed">
                                                     <font>
-                                                        <Font name="System Bold" size="15.0"/>
+                                                        <Font name="System Bold" size="15.0" />
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
                                     </items>
                                 </SplitPane>
-                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0"
-                                           prefWidth="160.0">
+                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="108.0" prefWidth="216.0">
                                             <children>
-                                                <ColorPicker fx:id="colorPicker" layoutX="39.0" layoutY="33.0"
-                                                             onAction="#changecolor" prefHeight="49.0" prefWidth="125.0"
-                                                             promptText="Change Background"/>
-                                                <Label layoutX="39.0" layoutY="3.0" prefHeight="22.0" prefWidth="148.0"
-                                                       text="Background Color">
+                                                <ColorPicker fx:id="colorPicker" layoutX="39.0" layoutY="33.0" onAction="#changecolor" prefHeight="49.0" prefWidth="125.0" promptText="Change Background" />
+                                                <Label layoutX="39.0" layoutY="3.0" prefHeight="22.0" prefWidth="148.0" text="Background Color">
                                                     <font>
-                                                        <Font name="System Bold Italic" size="15.0"/>
+                                                        <Font name="System Bold Italic" size="15.0" />
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="105.0" prefWidth="216.0">
                                             <children>
-                                                <ColorPicker fx:id="colorpickercell" layoutX="42.0" layoutY="39.0"
-                                                             onAction="#changeColorCell" prefHeight="49.0"
-                                                             prefWidth="120.0"/>
-                                                <Label layoutX="42.0" layoutY="4.0" prefHeight="21.0" prefWidth="133.0"
-                                                       text="Change Cell Color">
+                                                <ColorPicker fx:id="colorpickercell" layoutX="42.0" layoutY="39.0" onAction="#changeColorCell" prefHeight="49.0" prefWidth="120.0" />
+                                                <Label layoutX="42.0" layoutY="4.0" prefHeight="21.0" prefWidth="133.0" text="Change Cell Color">
                                                     <font>
-                                                        <Font name="System Bold" size="15.0"/>
+                                                        <Font name="System Bold" size="15.0" />
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
                                     </items>
                                 </SplitPane>
+                        <AnchorPane prefHeight="58.0" prefWidth="218.0">
+                           <children>
+                              <Label fx:id="labelGen" layoutX="54.0" layoutY="19.0"  prefHeight="24.0" prefWidth="98.0" text="Label" />
+                           </children>
+                        </AnchorPane>
                             </children>
                         </VBox>
                     </right>

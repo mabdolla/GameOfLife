@@ -18,6 +18,7 @@ public class DynamicBoard extends Brett {
 
     public ArrayList<ArrayList<Integer>> board = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> nextGen;
+    public int counter = 0;
     public int cellSize = 9;
 
     /**
@@ -40,6 +41,10 @@ public class DynamicBoard extends Brett {
     }
 
 
+
+
+    //counts number of times this method is called
+
     @Override
     public void nextGeneration() {
         nextGen = new ArrayList<>(getRows());
@@ -48,10 +53,11 @@ public class DynamicBoard extends Brett {
             nextGen.add(new ArrayList<>(getColumns()));
             for (int j = 0; j < getColumns(); j++) {
                 nextGen.get(i).add(0);
+
             }
         }
 
-        //beregning
+        //Calculating
         for (int x = 0; x < getRows(); x++) {
             for (int y = 0; y < getColumns(); y++) {
                 nextGen.get(x).set(y, setCellRules(getValue(x, y), getNeighbours(x, y)));
@@ -60,6 +66,8 @@ public class DynamicBoard extends Brett {
 
         board = nextGen;
         expand();
+        counter++;
+        //System.out.println(counter);
 
     }
 
@@ -235,5 +243,6 @@ public class DynamicBoard extends Brett {
     public void setCellSize(int cellSize) {
         this.cellSize = cellSize;
     }
+
 
 }

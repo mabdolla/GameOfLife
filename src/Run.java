@@ -14,7 +14,10 @@ public class Run {
             System.out.println("Ran thread " +
                     Thread.currentThread().getId());
         });
-        thread.start();}
+
+        thread.start();
+
+    }
 
         public void nextGenPrintPerformance() {
         long start = System.currentTimeMillis();
