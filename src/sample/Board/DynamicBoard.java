@@ -191,6 +191,7 @@ public class DynamicBoard extends Brett {
         return brett;
     }
 
+
     /**
      * This method returning board rows
      *
