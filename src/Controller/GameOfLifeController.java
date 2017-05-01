@@ -42,7 +42,7 @@ import java.util.Optional;
  *         Studentnr : S309293,
  */
 public class GameOfLifeController implements Initializable {
-
+    //new change
     @FXML
     private ColorPicker colorpickercell;
     @FXML
