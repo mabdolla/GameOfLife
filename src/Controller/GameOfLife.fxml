@@ -21,6 +21,9 @@
         <StackPane prefHeight="682.0" prefWidth="992.0">
             <children>
                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                    <center>
+                        <Canvas fx:id="canvas" height="868.0" onMouseClicked="#userDrawCellClicked" onMouseDragged="#userDrawCell" width="961.0" BorderPane.alignment="CENTER" />
+                    </center>
                     <top>
                         <VBox>
                             <children>
@@ -42,7 +45,7 @@
                                                             <MenuItem mnemonicParsing="false" onAction="#URLopen" text="Open file from URL" />
                                                         </items>
                                                     </Menu>
-                                                    <Menu mnemonicParsing="false" text="Help">
+                                                    <Menu mnemonicParsing="false" text="Information">
                                                         <items>
                                                             <MenuItem mnemonicParsing="false" onAction="#AboutGameofLife" text="About" />
                                                         </items>
@@ -56,9 +59,6 @@
                             </children>
                         </VBox>
                     </top>
-                    <center>
-                        <Canvas fx:id="canvas" height="868.0" onMouseClicked="#userDrawCellClicked" onMouseDragged="#userDrawCell" width="961.0" BorderPane.alignment="CENTER" />
-                    </center>
                     <left>
                         <VBox prefHeight="650.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
                     </left>
@@ -137,7 +137,7 @@
                                 </SplitPane>
                         <AnchorPane prefHeight="58.0" prefWidth="218.0">
                            <children>
-                              <Label fx:id="labelGen" layoutX="54.0" layoutY="19.0"  prefHeight="24.0" prefWidth="98.0" text="Label" />
+                              <Label fx:id="labelGen" layoutX="54.0" layoutY="19.0" prefHeight="24.0" prefWidth="98.0" text="Label" />
                            </children>
                         </AnchorPane>
                             </children>

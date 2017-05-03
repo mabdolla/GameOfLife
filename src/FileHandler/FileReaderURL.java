@@ -9,13 +9,13 @@ import java.util.regex.Pattern;
 
 /**
  * The Game Of Life application created for HIOA
- * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
- * The class is also implementing Initializable interface.
+ * The FileReader class is no longer in use.
+ * @see new Class FileReaderRLE
  *
  * @author Fredrik, Hans-Jacob, Mohammad
  * Studentnr : S309293,
  */
-public class FileReaderURL {
+/*public class FileReaderURL {
     StringBuilder lineBuilder = new StringBuilder();
     BufferedReader bReader;
     public int[][] rules = new int[2][9];
@@ -145,3 +145,4 @@ public class FileReaderURL {
     }
 
 }
+*/

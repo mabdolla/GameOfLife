@@ -2,22 +2,20 @@ package Controller;
 
 import FileHandler.FileReader;
 import FileHandler.FileReaderRLE;
+import InterfaceSounds.Sounds;
+import Threads.WorkerThread;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -25,13 +23,21 @@ import javafx.util.Duration;
 import sample.Board.DynamicBoard;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Optional;
+
+import static Dialog.Dialogboxes.drawError;
+import static Dialog.Dialogboxes.filenotFoundError;
+import static Dialog.Dialogboxes.gameInformation;
+import static InterfaceSounds.Sounds.btnSound;
+import static InterfaceSounds.Sounds.errorSound;
+import static InterfaceSounds.Sounds.startUpSound;
+
 
 /**
  * The Game Of Life application created for HIOA
@@ -42,7 +48,7 @@ import java.util.Optional;
  *         Studentnr : S309293,
  */
 public class GameOfLifeController implements Initializable {
-    //new change gggg
+
     @FXML
     private ColorPicker colorpickercell;
     @FXML
@@ -60,6 +66,12 @@ public class GameOfLifeController implements Initializable {
     public Timeline timeline = new Timeline();
     public GraphicsContext gc;
     DynamicBoard dynamicBoard;
+    WorkerThread thread;
+
+    int oldChangeX;
+    int getOldChangeY;
+    private double mouseX;
+    private double mouseY;
 
 
     /**
@@ -70,16 +82,34 @@ public class GameOfLifeController implements Initializable {
      */
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        int numbofWorkers = Runtime.getRuntime().availableProcessors();
-        System.out.println("Available processors:" + numbofWorkers);
 
-        startUpSound();
+
+        //startUpSound();
 
         gc = canvas.getGraphicsContext2D();
+
         dynamicBoard = new DynamicBoard(90, 70, gc, canvas);
 
-        //MoveBoardkey();
+       /* canvas.setOnDragDetected(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                 drag was detected, start drag-and-drop gesture
+                System.out.println("onDragDetected");
+                mouseX = canvas.getScaleX();
+                mouseY = canvas.getScaleY();
 
+
+
+                canvas.setScaleX(canvas.getScaleX() - mouseX);
+                canvas.setScaleY(canvas.getScaleY() - mouseY);
+
+                canvas.setTranslateX(canvas.getScaleX());
+                canvas.setTranslateY(canvas.getScaleY());
+
+                System.out.println(TransferMode.MOVE + " hei");
+            }
+
+        });*/
 
 
         colorpickercell.setValue(Color.BLACK);
@@ -92,8 +122,8 @@ public class GameOfLifeController implements Initializable {
             if ((double) newValue < (double) oldValue) {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             }
-            canvas.setScaleX(newValue.doubleValue() / 10);
-            canvas.setScaleY(newValue.doubleValue() / 10);
+            canvas.setScaleX(newValue.doubleValue() / dynamicBoard.cellSize);
+            canvas.setScaleY(newValue.doubleValue() / dynamicBoard.cellSize);
             draw();
         }));
 
@@ -126,7 +156,8 @@ public class GameOfLifeController implements Initializable {
             draw();
 
         } else {
-            alertBox();
+            errorSound();
+
         }
     }
 
@@ -143,28 +174,32 @@ public class GameOfLifeController implements Initializable {
 
         Optional<String> result = dialog.showAndWait();
 
-        try{ if(result.isPresent()) {
-            System.out.println("URL-adress: " + result.get());
-            //lage til File og sende til FileReaderRLE
-            URL website = new URL(result.get());
-            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+        try {
+            if (result.isPresent()) {
+                System.out.println("URL-adress: " + result.get());
+                //lage til File og sende til FileReaderRLE
+                URL website = new URL(result.get());
+                ReadableByteChannel rbc = Channels.newChannel(website.openStream());
 
-            FileOutputStream fos = new FileOutputStream("tempPattern.rle");
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                FileOutputStream fos = new FileOutputStream("tempPattern.rle");
+                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 
-            File file = new File("tempPattern.rle");
+                File file = new File("tempPattern.rle");
 
-            FileReaderRLE filereaderRle = new FileReaderRLE(file);
-            dynamicBoard.setBrett(filereaderRle.brett);//eventuelt, sette disse tre linjene inne i FileReaderRle
-            dynamicBoard.setRules(filereaderRle.rules);
-            draw();
+                FileReaderRLE filereaderRle = new FileReaderRLE(file);
+                dynamicBoard.setBrett(filereaderRle.brett);
+                dynamicBoard.setRules(filereaderRle.rules);
+                draw();
 
-        } {
+            }
+            {
 
+            }
+        } catch (Exception e) {
+            errorSound();
+           filenotFoundError();
         }
-    }catch (Exception e) {
-            alertBox();
-        }}
+    }
 
     /**
      * This method allows the user to upload txt file containing board pattern.
@@ -196,7 +231,6 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows userinput to change the background color with input from colorpicker.
-     *
      * @param c is choosing color
      */
     @FXML
@@ -234,19 +268,7 @@ public class GameOfLifeController implements Initializable {
     @FXML
     public void AboutGameofLife() {
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText("Game of Life");
-        alert.setContentText("About Game of Life" +
-                "+dccdc" +
-                "+cdcdc" +
-                "+dcdcd" +
-                "+dcdcd" +
-                "+dcdcdc" +
-                "+dcdccd" +
-                "+cdcdcdcd");
-
-        alert.showAndWait();
+        gameInformation();
 
     }
 
@@ -294,8 +316,6 @@ public class GameOfLifeController implements Initializable {
         }
     }
 
-    int oldChangeX;
-    int getOldChangeY;
 
     /**
      * This method allows the user to fill rectangles on canvas with alive or deadcells.
@@ -317,7 +337,8 @@ public class GameOfLifeController implements Initializable {
                 draw();
             }
         } catch (Exception f) {
-
+            errorSound();
+            drawError();
         }
     }
 
@@ -342,62 +363,32 @@ public class GameOfLifeController implements Initializable {
                 oldChangeClick_X = x;
                 getoldChangeClick_Y = y;
                 draw();
-            }
-            else if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
+            } else if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
 
                 if (dynamicBoard.getValue(x, y) == 0) {
-                dynamicBoard.setValue(x, y, 0);
-                draw();
-                 }
-             }
+                    dynamicBoard.setValue(x, y, 0);
+                    draw();
+                }
+            }
 
         } catch (Exception err) {
-            System.out.print("Out of bounds");
+            errorSound();
+            drawError();
         }
     }
 
-    /**
-     * This method creates a alertbox.
-     */
-    public void alertBox() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText("Game of Life");
-        alert.setContentText("Something went wrong, please try again!");
 
-        alert.showAndWait();
-    }
 
-    /**
-     * This method creates a sound that plays when a button is clicked.
-     * Public domain. Source:http://soundbible.com/1280-Click-On.html
-     */
-    public static void btnSound() {
-        String buttonSound = "btnclick.wav";
-        Media btnSound = new Media(new File(buttonSound).toURI().toString());
-        MediaPlayer mPlayer = new MediaPlayer(btnSound);
-        mPlayer.play();
-    }
-
-    /**
-     * This method creates a sound that plays when application starts up.
-     * Public domain. Source:http://soundbible.com/1589-Computer-Start-Up.html.
-     */
-    public void startUpSound() {
-        String buttonSound = "golstartup.wav";
-        Media btnSound = new Media(new File(buttonSound).toURI().toString());
-        MediaPlayer mPlayer = new MediaPlayer(btnSound);
-        mPlayer.play();
-    }
 
     /**
      * This method creates close the application when button Exit is pressed.
      */
     @FXML
-    public void closeButtonAction (){
+    public void closeButtonAction() {
         Platform.exit();
 
     }
+
 
 }
 

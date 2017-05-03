@@ -1,18 +1,18 @@
 import org.junit.Assert;
 import org.junit.Test;
-import sample.Board.Brett;
+import sample.Board.StaticBoard;
 
 
 /**
  * Test Class Game of Life
  **/
-public class BrettTest  {
+public class StaticBoardTest {
 
 
 
     @Test
     public void testNextGenerationEqual(){
-        Brett brett = new Brett(4,4);
+        StaticBoard staticBoard = new StaticBoard(4,4);
 
         int[][] board = {
                 { 0, 0, 0, 0 },
@@ -21,16 +21,16 @@ public class BrettTest  {
                 { 0, 0, 0, 0 }
         };
 
-        brett.setBrett(board);
-        brett.nextGeneration();
-        Assert.assertEquals("0000011001100000", brett.toString());
+        staticBoard.setBrett(board);
+        staticBoard.nextGeneration();
+        Assert.assertEquals("0000011001100000", staticBoard.toString());
 
     }
 
 
     @Test
     public void testBrett2(){
-        Brett testBrett2 = new Brett(4,4);
+        StaticBoard testStaticBoard2 = new StaticBoard(4,4);
 
         int[][] board = {
                 { 0, 0, 0, 0 },
@@ -46,13 +46,17 @@ public class BrettTest  {
                 { 0, 0, 0, 0 }
         };
 
-        testBrett2.setBrett(board);
-        testBrett2.nextGeneration();
-        Assert.assertArrayEquals(board2,testBrett2.getBrett());
-        Assert.assertEquals("0010001000100000", testBrett2.toString());
+        testStaticBoard2.setBrett(board);
+        testStaticBoard2.nextGeneration();
+        Assert.assertArrayEquals(board2, testStaticBoard2.getBrett());
+        Assert.assertEquals("0010001000100000", testStaticBoard2.toString());
 
     }
 
+    /*
+    @Test
+    //Test utvidelse av brett expand method
+*/
 
 }
 

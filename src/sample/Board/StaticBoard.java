@@ -8,13 +8,12 @@ import javafx.scene.paint.Color;
 
 /**
  * The Game Of Life application created for HIOA
- * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
- * The class is also implementing Initializable interface.
+ * The Static board class contains constructor and methods for creating and using a 2d array as board.
  *
  * @author Fredrik, Hans-Jacob, Mohammad
  *         Studentnr : S309293,
  */
-public class Brett {
+public class StaticBoard {
     public GraphicsContext gc;
     public Canvas canvas;
     public int rows;
@@ -27,10 +26,10 @@ public class Brett {
     int[][] rules =     {{0, 0, 0, 1, 0, 0, 0, 0, 0},
                         {0, 0, 1, 1, 0, 0, 0, 0, 0}};
 
-    public Brett(){}
+    public StaticBoard(){}
 
     //Constructor
-    public Brett(int rows, int columns, GraphicsContext gc, Canvas canvas) {
+    public StaticBoard(int rows, int columns, GraphicsContext gc, Canvas canvas) {
         this.rows = rows;
         this.columns = columns;
         this.gc = gc;
@@ -39,7 +38,7 @@ public class Brett {
 //        draw();
     }
 
-    public Brett(int rows, int columns) {
+    public StaticBoard(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
 
