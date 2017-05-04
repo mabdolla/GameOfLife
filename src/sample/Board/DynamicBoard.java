@@ -2,6 +2,7 @@ package sample.Board;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,8 +124,8 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returning the number of neighbour cells for each cell.
-     * @param x
-     * @param y
+     * @param x is the first parameter in the getNeighbours method
+     * @param y is the second parameter in the getNeighbours method
      * @return value as number of cells around one single cell
      */
     @Override
