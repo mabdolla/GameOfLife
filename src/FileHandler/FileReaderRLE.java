@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
  * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
  * The class is also implementing Initializable interface.
  *
- * @author Fredrik, Hans-Jacob, Mohammad
- *         Studentnr : S309293,
+ * @author Fredrik, Hans Jacob, Mohammad
+ *         Studentnr : S309293, s305064, s309856
  */
 public class FileReaderRLE {
     StringBuilder lineBuilder = new StringBuilder();
@@ -32,6 +32,10 @@ public class FileReaderRLE {
         }
     }
 
+    /**
+     * Reads a file from the computer.
+     * @throws IOException
+     */
     public void readBoard() throws IOException {
         // Reading file
         try {

@@ -8,8 +8,10 @@ public class Main extends Application {
 
 
     /**
-     * \\* @param primaryStage
-     * \\* @throws Exception
+     *Opens the window that contains the Game Of Life.
+     *
+     * @author Fredrik, Hans Jacob, Mohammad
+     *         Studentnr : S309293, s305064, s309856
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -21,6 +23,10 @@ public class Main extends Application {
 
     }
 
+    /**
+     * launches program.
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

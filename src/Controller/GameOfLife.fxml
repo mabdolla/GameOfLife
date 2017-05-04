@@ -27,35 +27,35 @@
                     <top>
                         <VBox>
                             <children>
-                        <AnchorPane prefHeight="0.0" prefWidth="1179.0">
-                           <children>
-                              <HBox prefHeight="32.0" prefWidth="1179.0">
-                                 <children>
-                                            <MenuBar prefHeight="32.0" prefWidth="1182.0" HBox.hgrow="ALWAYS">
-                                                <menus>
-                                                    <Menu mnemonicParsing="false" text="File">
-                                                        <items>
-                                                            <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonAction" text="Close" />
-                                                        </items>
-                                                    </Menu>
-                                                    <Menu mnemonicParsing="false" text="Load Pattern">
-                                                        <items>
-                                                            <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open from txt file" />
-                                                            <MenuItem mnemonicParsing="false" onAction="#RLEopen" text="Open from RLE file" />
-                                                            <MenuItem mnemonicParsing="false" onAction="#URLopen" text="Open file from URL" />
-                                                        </items>
-                                                    </Menu>
-                                                    <Menu mnemonicParsing="false" text="Information">
-                                                        <items>
-                                                            <MenuItem mnemonicParsing="false" onAction="#AboutGameofLife" text="About" />
-                                                        </items>
-                                                    </Menu>
-                                                </menus>
-                                            </MenuBar>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
+                                <AnchorPane prefHeight="0.0" prefWidth="1179.0">
+                                    <children>
+                                        <HBox prefHeight="32.0" prefWidth="1179.0">
+                                            <children>
+                                                <MenuBar prefHeight="32.0" prefWidth="1182.0" HBox.hgrow="ALWAYS">
+                                                    <menus>
+                                                        <Menu mnemonicParsing="false" text="File">
+                                                            <items>
+                                                                <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonAction" text="Close" />
+                                                            </items>
+                                                        </Menu>
+                                                        <Menu mnemonicParsing="false" text="Load Pattern">
+                                                            <items>
+                                                                <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open from txt file" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#RLEopen" text="Open from RLE file" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#URLopen" text="Open file from URL" />
+                                                            </items>
+                                                        </Menu>
+                                                        <Menu mnemonicParsing="false" text="Information">
+                                                            <items>
+                                                                <MenuItem mnemonicParsing="false" onAction="#AboutGameofLife" text="About" />
+                                                            </items>
+                                                        </Menu>
+                                                    </menus>
+                                                </MenuBar>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </AnchorPane>
                             </children>
                         </VBox>
                     </top>
@@ -135,7 +135,7 @@
                                         </AnchorPane>
                                     </items>
                                 </SplitPane>
-                        <AnchorPane prefHeight="58.0" prefWidth="218.0" />
+                                <AnchorPane prefHeight="58.0" prefWidth="218.0" />
                             </children>
                         </VBox>
                     </right>

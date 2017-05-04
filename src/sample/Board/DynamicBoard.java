@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 /**
  * The Game Of Life application created for HIOA
- * The DynamicBoard class is the methods for constructing and creating
+ * The DynamicBoard class are the methods for constructing and creating
  * a gameboard.
  * The class is also extending StaticBoard.
- *
- * @author Fredrik Kluftødegård, Hans-Jacob, Mohammad
- * Studentnr : S309293, s
+ *<p>
+ * @author Fredrik Kluftødegård, Hans Jacob, Mohammad
+ * Studentnr : S309293, s305064, s309856
  */
 public class DynamicBoard extends StaticBoard  {
 
@@ -49,7 +49,9 @@ public class DynamicBoard extends StaticBoard  {
     }
 
 
-
+    /**
+     * calculates the next generation and updates the board.
+     */
     @Override
     public void nextGeneration() {
         long start = System.currentTimeMillis();
@@ -85,8 +87,9 @@ public class DynamicBoard extends StaticBoard  {
 
     /**
      * This method print to console time used to performe nextgeneration method
-     * @param start time =
-     * @return value as number of cells around one single cell
+     * @param start
+     * @param end
+     * @return value as number of cells around one single cell, and calculate the time spent to execute the code.
      */
     public void PrintNextGenerationPerformance(long start, long end ){
         long time= end -start;
@@ -119,7 +122,7 @@ public class DynamicBoard extends StaticBoard  {
 
     /**
      * This method is checking if a cell is at the edge of the arraylist.
-     * And if it is, it expands the arraylist to needed size for all cells.
+     * And if it is, it expands the arraylist to the minimum size needed to contain all cells.
      */
     public void expand(){
 

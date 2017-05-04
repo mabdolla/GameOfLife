@@ -39,11 +39,12 @@ import static InterfaceSounds.Sounds.errorSound;
  * The Game Of Life application created for HIOA
  * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
  * The class is also implementing Initializable interface.
- *
- * @author Fredrik, Hans-Jacob, Mohammad
- *         Studentnr : S309293,
+ *<p>
+ * @author Fredrik, Hans Jacob, Mohammad
+ * Studentnr : S309293, s305064, s309856
  */
 public class GameOfLifeController implements Initializable {
+
 
     @FXML
     private ColorPicker colorpickercell;
@@ -73,11 +74,9 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * Constructs and initializes the canvas and application features.
-     *
-     * @param location  .
-     * @param resources .
+     * @param location
+     * @param resources
      */
-
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
 
@@ -178,6 +177,7 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows the user to upload txt file containing board pattern.
+     * @param e
      */
     @FXML
     public void openFile(Event e) {
@@ -197,6 +197,7 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows user to change the color for dead cells.
+     * @param e
      */
     @FXML
     public void changecolor(ActionEvent e) {
@@ -293,7 +294,7 @@ public class GameOfLifeController implements Initializable {
 
 
     /**
-     * This method allows the user to fill rectangles on canvas with alive or deadcells.
+     * This method allows the user to fill rectangles on canvas with alive or dead cells.
      */
     @FXML
     public void userDrawCell(MouseEvent e) throws Exception {
@@ -318,10 +319,16 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * This method allows the user to fill rectangles on canvas with alive or deadcells.
+     * This method allows the user to fill rectangles on canvas with alive or dead cells.
      */
 
 
+
+    /**
+     *
+     * @param e
+     * @throws Exception
+     */
     @FXML
     public void userDrawCellClicked(MouseEvent e) throws Exception {
 
