@@ -19,11 +19,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.Board.DynamicBoard;
-import sample.Board.StaticBoard;
-
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -42,7 +39,7 @@ import static InterfaceSounds.Sounds.startUpSound;
  * The class is also implementing Initializable interface.
  * <p>
  *
- * @author Fredrik, Hans Jacob, Mohammad
+ * @author Fredrik Kluftødegård, Hans Jacob, Mohammad
  *         Studentnr : S309293, s305064, s309856
  */
 public class GameOfLifeController implements Initializable {
@@ -96,7 +93,7 @@ public class GameOfLifeController implements Initializable {
 
         }));
 
-        KeyFrame frame = new KeyFrame(Duration.millis(1000), (ActionEvent event) -> {
+        KeyFrame frame = new KeyFrame(Duration.millis(500), (ActionEvent event) -> {
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             zoomable();
             dynamicBoard.nextGenerationConcurrent();
@@ -109,33 +106,41 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows the user to upload RLE file containing board pattern from computer disk.
+     *
+     * @Throws Exeption if user uploads wrong file format, or invalid file.
+     * If error occurs a alertbox will show.
      */
     @FXML
-    public void RLEopen() throws IOException {
+    public void RLEopen() throws Exception {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("RLE", "*.rle"));
 
         File file = fileChooser.showOpenDialog(new Stage());
 
-        if (file != null) {
-            FileReaderRLE filereaderRle = new FileReaderRLE(file);
-            dynamicBoard.setBrett(filereaderRle.brett);
-            dynamicBoard.setRules(filereaderRle.rules);
+        try {
+            if (file != null) {
+                FileReaderRLE filereaderRle = new FileReaderRLE(file);
+                dynamicBoard.setBrett(filereaderRle.brett);
+                dynamicBoard.setRules(filereaderRle.rules);
 
-            draw();
+                draw();
+            }
 
-        } else {
+        } catch (Exception e) {
             errorSound();
-
+            filenotFoundError();
         }
     }
 
     /**
      * This method allows the user to upload RLE board pattern from URL link.
+     *
+     * @Throws Exeption if user uploads wrong file format, or invalid file.
+     * If error occurs a alertbox will show.
      */
     @FXML
-    public void URLopen() throws IOException {
+    public void URLopen() throws Exception {
 
         TextInputDialog dialog = new TextInputDialog("//");
         dialog.setTitle("URL FileReader");
@@ -160,30 +165,26 @@ public class GameOfLifeController implements Initializable {
                 dynamicBoard.setBrett(filereaderRle.brett);
                 dynamicBoard.setRules(filereaderRle.rules);
                 draw();
-
             }
-            {
 
-            }
         } catch (Exception e) {
             errorSound();
             filenotFoundError();
         }
     }
 
-
     /**
      * This method makes the zoom auto zoom when game is running
      */
-    private void zoomable(){
-        if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()){
-                celleSlider.setValue(celleSlider.getValue() - 0.1);
-                dynamicBoard.setCellSize((int)(celleSlider.getValue() - 0.1));
-            }
-            if (dynamicBoard.board.get(0).size() > canvas.getHeight() / dynamicBoard.getCellSize()){
-                celleSlider.setValue(celleSlider.getValue() - 0.1);
-                dynamicBoard.setCellSize((int)(celleSlider.getValue() - 0.1));
-            }
+    private void zoomable() {
+        if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()) {
+            celleSlider.setValue(celleSlider.getValue() - 0.1);
+            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.1));
+        }
+        if (dynamicBoard.board.get(0).size() > canvas.getHeight() / dynamicBoard.getCellSize()) {
+            celleSlider.setValue(celleSlider.getValue() - 0.1);
+            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.1));
+        }
     }
 
     /**
@@ -256,6 +257,9 @@ public class GameOfLifeController implements Initializable {
         }
     }
 
+    /**
+     * This method calls a method that show a alert box with information about game of life.
+     */
     @FXML
     public void AboutGameofLife() {
 
@@ -287,17 +291,10 @@ public class GameOfLifeController implements Initializable {
      */
     public void draw() throws ArrayIndexOutOfBoundsException {
 
+        background();
+
         try {
 
-//            if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()){
-//                celleSlider.setValue(celleSlider.getValue() - 0.01);
-//                dynamicBoard.setCellSize((int)(celleSlider.getValue() - 0.1));
-//            }
-//            if (dynamicBoard.board.get(0).size() > canvas.getHeight() / dynamicBoard.getCellSize()){
-//                celleSlider.setValue(celleSlider.getValue() - 0.1);
-//                dynamicBoard.setCellSize((int)(celleSlider.getValue() - 0.1));
-//            }
-            background();
             for (int j = 0; j < dynamicBoard.getRows() && j < canvas.getHeight(); j++) {
 
                 for (int i = 0; i < dynamicBoard.getColumns() && i < canvas.getWidth(); i++) {
@@ -351,8 +348,8 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to fill rectangles on canvas with alive or dead cells.
      *
-     * @param e
-     * @throws Exception
+     * @param e name of mouseevent
+     * @throws Exception if something in the draw method used by user goes wrong.
      */
     int oldChangeClick_X;
     int getoldChangeClick_Y;
@@ -388,7 +385,7 @@ public class GameOfLifeController implements Initializable {
 
 
     /**
-     * This method creates close the application when button Exit is pressed.
+     * This method close the application when button Exit is pressed.
      */
     @FXML
     public void closeButtonAction() {

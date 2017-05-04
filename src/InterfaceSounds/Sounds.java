@@ -11,10 +11,10 @@ import java.io.File;
  * The Sound interface contains methods creating sound used in application.
  *
  * @author Fredrik, Hans-Jacob, Mohammad
- * Studentnr : S309293, s
+ *         Studentnr : S309293, s
  */
 
-public interface Sounds  {
+public interface Sounds {
 
     /**
      * This method creates a sound that plays when a button is clicked.
@@ -42,13 +42,12 @@ public interface Sounds  {
      * This method creates a error sound that plays when something dont work or error occure.
      * Public domain.  https://www.myinstants.com/instant/windows-xp-error/.
      */
-    static void errorSound(){
+    static void errorSound() {
         String errorSound = "erro.mp3";
         Media btnSound = new Media(new File(errorSound).toURI().toString());
         MediaPlayer mPlayer = new MediaPlayer(btnSound);
         mPlayer.play();
     }
-
 
 
 }

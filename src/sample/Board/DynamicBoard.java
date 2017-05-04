@@ -2,6 +2,7 @@ package sample.Board;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class DynamicBoard extends StaticBoard {
         }
 
         for (int i = 0; i < proseccors; i++) {
-            int min = i * getRows() /proseccors;
+            int min = i * getRows() / proseccors;
             int max = (i + 1) * getRows() / proseccors;
             workers.add(new Thread(() -> {
                 for (int x = min; x < max; x++) {
@@ -81,7 +82,7 @@ public class DynamicBoard extends StaticBoard {
                 }
             }));
 
-        //Dividing threads to workers
+            //Dividing threads to workers
         }
         for (Thread t : workers) {
             t.start();
@@ -130,21 +131,26 @@ public class DynamicBoard extends StaticBoard {
     public int getNeighbours(int x, int y) {
         int antallNaboer = 0;
 
-        if (!(x - 1 == -1) && getValue(x - 1, y) == 1) antallNaboer++;                                         //CHECKING LEFT CENTER
+        if (!(x - 1 == -1) && getValue(x - 1, y) == 1)
+            antallNaboer++;                                         //CHECKING LEFT CENTER
 
-        if (!(y - 1 == -1) && getValue(x, y - 1) == 1) antallNaboer++;                                         //CHECKING UP CENTER
+        if (!(y - 1 == -1) && getValue(x, y - 1) == 1)
+            antallNaboer++;                                         //CHECKING UP CENTER
 
         if (!(x - 1 == -1 || y - 1 == -1) && getValue(x - 1, y - 1) == 1) antallNaboer++;                    //UP LEFT
 
         if (!(x - 1 == -1 || y + 1 == getColumns()) && getValue(x - 1, y + 1) == 1) antallNaboer++;          //DOWN LEFT
 
-        if (!(y + 1 == getColumns()) && getValue(x, y + 1) == 1) antallNaboer++;                               //DOWN CENTER
+        if (!(y + 1 == getColumns()) && getValue(x, y + 1) == 1)
+            antallNaboer++;                               //DOWN CENTER
 
         if (!(x + 1 == getRows() || y - 1 == -1) && getValue(x + 1, y - 1) == 1) antallNaboer++;             //UP RIGHT
 
-        if (!(x + 1 == getRows() || y + 1 == getColumns()) && getValue(x + 1, y + 1) == 1) antallNaboer++;   //DOWN RIGHT
+        if (!(x + 1 == getRows() || y + 1 == getColumns()) && getValue(x + 1, y + 1) == 1)
+            antallNaboer++;   //DOWN RIGHT
 
-        if (!(x + 1 == getRows()) && getValue(x + 1, y) == 1) antallNaboer++;                                  //CENTER RIGHT
+        if (!(x + 1 == getRows()) && getValue(x + 1, y) == 1)
+            antallNaboer++;                                  //CENTER RIGHT
 
         return antallNaboer;
 
@@ -162,7 +168,6 @@ public class DynamicBoard extends StaticBoard {
 
 
             if (getValue(x, 0) == 1) {
-
 
 
                 //System.out.println("Found cells on top");

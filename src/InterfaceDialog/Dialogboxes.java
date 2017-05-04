@@ -7,23 +7,23 @@ import javafx.scene.control.Alert;
  */
 public interface Dialogboxes {
 
-   static void gameInformation() {
+    static void gameInformation() {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About Game of Life");
         alert.setHeaderText("Game of life rules");
         alert.setContentText("Source Wikipedia:\n\n" +
                 "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.\n" +
-                "The \"game\" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input."+
+                "The \"game\" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input." +
                 "You can interact in this java version of the game by drawing alive cells on the screen and see how they evolve." +
-                "\n\n"+
-                "Every cell thats drawn interacts with its eight neighbours that each cell has based on these rules the cells evolves into further generations:"+
+                "\n\n" +
+                "Every cell thats drawn interacts with its eight neighbours that each cell has based on these rules the cells evolves into further generations:" +
 
-                "\n\n RULES:\n\n"+
-                        "1: Any live cell with fewer than two alive neighbours dies, as if caused by underpopulation.\n\n" +
-                        "2: Any live cell with two or three alive neighbours lives on to the next drawGeneration.\n\n" +
-                        "3: Any live cell with more than three alive neighbours dies, as if by overpopulation.\n\n" +
-                        "4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.+" +
+                "\n\n RULES:\n\n" +
+                "1: Any live cell with fewer than two alive neighbours dies, as if caused by underpopulation.\n\n" +
+                "2: Any live cell with two or three alive neighbours lives on to the next drawGeneration.\n\n" +
+                "3: Any live cell with more than three alive neighbours dies, as if by overpopulation.\n\n" +
+                "4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.+" +
                 "" +
                 "\n\n Source URL link: " + "https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life");
 
@@ -47,7 +47,7 @@ public interface Dialogboxes {
      * This method creates a alertbox for handling exeption in RLEopen open method
      * and URLopen methods in GameofLifeController.
      */
-    static void filenotFoundError(){
+    static void filenotFoundError() {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");

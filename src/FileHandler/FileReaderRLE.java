@@ -1,8 +1,5 @@
 package FileHandler;
 
-import javafx.scene.control.Alert;
-import javafx.stage.FileChooser;
-
 import java.io.*;
 import java.io.FileReader;
 import java.util.regex.Matcher;
@@ -10,8 +7,8 @@ import java.util.regex.Pattern;
 
 /**
  * The Game Of Life application created for HIOA
- * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
- * The class is also implementing Initializable interface.
+ * The FileReaderRLE class parses both rle files from computer and rle files from url adress
+ * and creates an arraylist that will be the new board pattern
  *
  * @author Fredrik, Hans Jacob, Mohammad
  *         Studentnr : S309293, s305064, s309856
@@ -37,34 +34,40 @@ public class FileReaderRLE {
      * @throws IOException
      */
     public void readBoard() throws IOException {
-        // Reading file
+
+
+        // Starts the process reading the file
         try {
             bReader = new BufferedReader(new FileReader(file2));
             String line; //midlertidig lagring av hver linje
 
             Pattern pattern = Pattern.compile("[xy]=(\\d+),[xy]=(\\d+),rule=(\\w\\d+)\\/(\\w\\d+)");
 
-            String Boardinfo = "";//her lagres (x=??,y=??,rules=B2/S23
-            StringBuilder board = new StringBuilder(); //her lagres patternet
+            String Boardinfo = "";
+            StringBuilder board = new StringBuilder();       //This will save the pattern temporarily
 
             while ((line = bReader.readLine()) != null) {
                 if (line.startsWith("#")) {
                     continue;
                 }
 
-                line = line.replaceAll("\\s", "");   //fjerner mellomrom
-                lineBuilder.append(line).append("\n"); //deler linje for linje
+                line = line.replaceAll("\\s", "");          //Removes space between letters in the file
+                lineBuilder.append(line).append("\n");      //Dividing line by line
 
                 if (pattern.matcher(line).matches())
                     Boardinfo = line;
                 else
                     board.append(line);
             }
-            //System.out.println("RULES: " + Boardinfo);
-            //System.out.println(board.toString());
+
+            //Printed out info from RLE file, boardsize x length and y length.
+            //System.out.println("INFO: " + Boardinfo);
+
 
 
             ///////////////////////RULES/////////////////////////////
+
+            //Here are the rules from RLE files parsed into and array with rules.
 
             Pattern findRules = Pattern.compile("(\\w)(\\d+)");
             Matcher ruleMatch = findRules.matcher(Boardinfo);
@@ -89,6 +92,9 @@ public class FileReaderRLE {
 
 
             /////////////////////BOARD LENGTH/////////////////////////
+
+            //Finding the needed size on array for the board from the RLE file.
+
             int xlength = 0;
             int ylength = 0;
 
@@ -98,10 +104,10 @@ public class FileReaderRLE {
             while (sizeMatch.find()) {
                 if (sizeMatch.group(1).matches("x")) {
                     xlength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
-                    //System.out.println("xlength" + xlength);
+
                 } else if (sizeMatch.group(1).matches("y")) {
                     ylength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
-                    //System.out.println("yLength" + ylength);
+
                 }
             }
 
@@ -121,13 +127,18 @@ public class FileReaderRLE {
                     } else {
                         x += Integer.parseInt(matcher2.group(1));
                     }
-                } else if (matcher2.group(2).matches("o")) {//HVIS fant at det skal være i live
+                        //if "o" is found, the cell would be alive
+
+                } else if (matcher2.group(2).matches("o")) {
                     if (matcher2.group(1) == null) {
                         brett[x][y] = 1;
                         x++;
-                    } else { //Dersom det er et tall forran "o"
+                    } else {
+
+                        //If it is a number in the front of "o", thats the number of cells that would be alive
+
                         for (int i = x; x < (i + Integer.parseInt(matcher2.group(1))); x++) {
-                            brett[x][y] = 1;//for hver "o" så må hver bli satt til live
+                            brett[x][y] = 1; //setting the "o" alive to the array
                         }
                     }
 
