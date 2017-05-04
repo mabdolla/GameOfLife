@@ -9,8 +9,9 @@ import javafx.scene.paint.Color;
 /**
  * The Game Of Life application created for HIOA
  * The Static board class contains constructor and methods for creating and using a 2d array as board.
+ * It also includes methods and algorithms thats used for static board.
  *
- * @author Fredrik, Hans-Jacob, Mohammad
+ * @author Fredrik, Hans Jacob, Mohammad
  *         Studentnr : S309293,
  */
 public class StaticBoard {

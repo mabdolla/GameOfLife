@@ -17,8 +17,7 @@ public interface Dialogboxes {
                 "The \"game\" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input."+
                 "You can interact in this java version of the game by drawing alive cells on the screen and see how they evolve." +
                 "\n\n"+
-                "Every cell thats drawn interacts with its eight neighbours that each cell has"+
-                "Based on this rules the cells evolves into further generations:"+
+                "Every cell thats drawn interacts with its eight neighbours that each cell has based on these rules the cells evolves into further generations:"+
 
                 "RULES:\n\n"+
                         "1: Any live cell with fewer than two alive neighbours dies, as if caused by underpopulation.\n\n" +
@@ -30,9 +29,10 @@ public interface Dialogboxes {
     }
 
     /**
-     * This method creates a alertbox.
+     * This method creates a alertbox for exeption in userDrawcell method in controller.
      */
     static void drawError() {
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText("Oooops!");
@@ -41,7 +41,12 @@ public interface Dialogboxes {
         alert.showAndWait();
     }
 
+    /**
+     * This method creates a alertbox for handling exeption in RLEopen open method
+     * and URLopen methods in GameofLifeController.
+     */
     static void filenotFoundError(){
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText("ERROR!");

@@ -2,7 +2,6 @@ package Controller;
 
 import FileHandler.FileReader;
 import FileHandler.FileReaderRLE;
-import InterfaceSounds.Sounds;
 import Threads.WorkerThread;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -23,7 +22,6 @@ import javafx.util.Duration;
 import sample.Board.DynamicBoard;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -36,8 +34,6 @@ import static Dialog.Dialogboxes.filenotFoundError;
 import static Dialog.Dialogboxes.gameInformation;
 import static InterfaceSounds.Sounds.btnSound;
 import static InterfaceSounds.Sounds.errorSound;
-import static InterfaceSounds.Sounds.startUpSound;
-
 
 /**
  * The Game Of Life application created for HIOA
@@ -66,12 +62,13 @@ public class GameOfLifeController implements Initializable {
     public Timeline timeline = new Timeline();
     public GraphicsContext gc;
     DynamicBoard dynamicBoard;
-    WorkerThread thread;
+
 
     int oldChangeX;
     int getOldChangeY;
-    private double mouseX;
-    private double mouseY;
+    int oldChangeClick_X;
+    int getoldChangeClick_Y;
+
 
 
     /**
@@ -90,28 +87,6 @@ public class GameOfLifeController implements Initializable {
 
         dynamicBoard = new DynamicBoard(90, 70, gc, canvas);
 
-       /* canvas.setOnDragDetected(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                 drag was detected, start drag-and-drop gesture
-                System.out.println("onDragDetected");
-                mouseX = canvas.getScaleX();
-                mouseY = canvas.getScaleY();
-
-
-
-                canvas.setScaleX(canvas.getScaleX() - mouseX);
-                canvas.setScaleY(canvas.getScaleY() - mouseY);
-
-                canvas.setTranslateX(canvas.getScaleX());
-                canvas.setTranslateY(canvas.getScaleY());
-
-                System.out.println(TransferMode.MOVE + " hei");
-            }
-
-        });*/
-
-
         colorpickercell.setValue(Color.BLACK);
         colorPicker.setValue(Color.AQUA);
         draw();
@@ -128,7 +103,7 @@ public class GameOfLifeController implements Initializable {
         }));
 
         KeyFrame frame = new KeyFrame(Duration.millis(500), event -> {
-            dynamicBoard.nextGeneration();
+            // byttes ut : dynamicBoard.nextGeneration();
             celleSlider.getValue();
             draw();
         });
@@ -345,8 +320,7 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to fill rectangles on canvas with alive or deadcells.
      */
-    int oldChangeClick_X;
-    int getoldChangeClick_Y;
+
 
     @FXML
     public void userDrawCellClicked(MouseEvent e) throws Exception {

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Fredrik Kluftødegård, Hans-Jacob, Mohammad
  * Studentnr : S309293, s
  */
-public class DynamicBoard extends StaticBoard {
+public class DynamicBoard extends StaticBoard  {
 
     public ArrayList<ArrayList<Integer>> board = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> nextGen;
@@ -82,6 +82,7 @@ public class DynamicBoard extends StaticBoard {
 
     }
 
+
     /**
      * This method print to console time used to performe nextgeneration method
      * @param start time =
@@ -103,14 +104,14 @@ public class DynamicBoard extends StaticBoard {
     public int getNeighbours(int x, int y) {
         int antallNaboer = 0;
 
-        if (!(x - 1 == -1) && getValue(x-1,y) == 1) antallNaboer++;                                         //Venstre midten
-        if (!(y - 1 == -1) && getValue(x,y-1) == 1) antallNaboer++;                                         //Oppe midten
-        if (!(x - 1 == -1 || y - 1 == -1) && getValue(x-1,y-1) == 1) antallNaboer++;                      //Oppe venstre
-        if (!(x - 1 == -1 || y + 1 == getColumns()) && getValue(x-1,y+1) == 1) antallNaboer++;            //Nede venstre
-        if (!(y + 1 == getColumns()) && getValue(x,y+1) == 1) antallNaboer++;                               //Nede midten
-        if (!(x + 1 == getRows() || y - 1 == -1) && getValue(x+1,y-1) == 1) antallNaboer++;               //Oppe høyre
-        if (!(x + 1 == getRows() || y + 1 == getColumns()) && getValue(x+1,y+1) == 1) antallNaboer++;     //Nede høyre
-        if (!(x + 1 == getRows()) && getValue(x+1,y) == 1) antallNaboer++;                                  //Midten høyre
+        if (!(x - 1 == -1) && getValue(x-1,y) == 1) antallNaboer++;                                         //LEFT CENTER
+        if (!(y - 1 == -1) && getValue(x,y-1) == 1) antallNaboer++;                                         //UP CENTER
+        if (!(x - 1 == -1 || y - 1 == -1) && getValue(x-1,y-1) == 1) antallNaboer++;                      //UP LEFT
+        if (!(x - 1 == -1 || y + 1 == getColumns()) && getValue(x-1,y+1) == 1) antallNaboer++;            //DOWN LEFT
+        if (!(y + 1 == getColumns()) && getValue(x,y+1) == 1) antallNaboer++;                               //DOWN CENTER
+        if (!(x + 1 == getRows() || y - 1 == -1) && getValue(x+1,y-1) == 1) antallNaboer++;               //UP RIGHT
+        if (!(x + 1 == getRows() || y + 1 == getColumns()) && getValue(x+1,y+1) == 1) antallNaboer++;     //DOWN RIGHT
+        if (!(x + 1 == getRows()) && getValue(x+1,y) == 1) antallNaboer++;                                  //CENTER RIGHT
 
         return antallNaboer;
 
@@ -288,7 +289,6 @@ public class DynamicBoard extends StaticBoard {
 
         this.boardSplit = (int) Math.ceil(board.size()/proseccors);
     }
-
 
 
 

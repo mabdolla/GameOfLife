@@ -9,7 +9,6 @@ import sample.Board.StaticBoard;
 public class StaticBoardTest {
 
 
-
     @Test
     public void testNextGenerationEqual(){
         StaticBoard staticBoard = new StaticBoard(4,4);
