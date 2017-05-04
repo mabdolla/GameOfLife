@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
  * @author Fredrik, Hans Jacob, Mohammad
  *         Studentnr : S309293, s305064, s309856
  */
+
+@Deprecated
 public class StaticBoard {
     public GraphicsContext gc;
     public Canvas canvas;

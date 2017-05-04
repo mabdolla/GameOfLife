@@ -241,11 +241,13 @@ public class DynamicBoard extends StaticBoard {
 
         ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
         for (int x = 0; x < brett.length; x++){
-            convertList.add(new ArrayList<>());
+            ArrayList<Integer> temp = new ArrayList<>();
             for(int y = 0; y < brett[x].length; y++){
-                convertList.get(x).add(brett[x][y]);
+                temp.add(brett[x][y]);
             }
+            convertList.add(temp);
         }
+
 
         board = convertList;
         setRows(board.size());

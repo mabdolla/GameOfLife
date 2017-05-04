@@ -19,6 +19,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.Board.DynamicBoard;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
@@ -61,6 +62,7 @@ public class GameOfLifeController implements Initializable {
     public Timeline timeline = new Timeline();
     public GraphicsContext gc;
     DynamicBoard dynamicBoard;
+    private int iterasjoner = 0;
 
     /**
      * Constructs and initializes the canvas and application features.
@@ -98,6 +100,7 @@ public class GameOfLifeController implements Initializable {
 
             dynamicBoard.nextGenerationConcurrent();
             draw();
+            iterasjoner++;
         });
 
         timeline.getKeyFrames().add(frame);
@@ -204,8 +207,8 @@ public class GameOfLifeController implements Initializable {
         }
 
         dynamicBoard.setBrett(nyBrett);
-        dynamicBoard.nextGeneration();
-
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        background();
         draw();
     }
 
@@ -311,7 +314,6 @@ public class GameOfLifeController implements Initializable {
                     gc.fillRect(j * CellSize, i * CellSize, CellSize - 0.5, CellSize - 0.5);
 
                 }
-
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             drawError();

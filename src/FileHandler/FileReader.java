@@ -1,8 +1,10 @@
 package FileHandler;
 
 import javafx.stage.FileChooser;
+import sample.Board.StaticBoard;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -15,7 +17,7 @@ import java.util.Scanner;
  * @author Fredrik, Hans Jacob, Mohammad
  *         Studentnr : S309293, s305064, s309856
  */
-public class FileReader {
+public class FileReader{
 
     private static FileChooser getFileChooser() {
         FileChooser fileChooser = new FileChooser();
@@ -72,13 +74,32 @@ public class FileReader {
                 System.out.println(Arrays.toString(ints));
             }
 
+            return brett;
 
         } catch (FileNotFoundException e) {
 
 
         }
-        return new int[0][];
+        return new int[0][0];
     }
+
+
+//    public int[][] setBrett(int[][] newBoard) {
+//
+//        ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
+//        for (int x = 0; x < newBoard.length; x++){
+//            convertList.add(new ArrayList<>());
+//            for(int y = 0; y < newBoard[x].length; y++){
+//                convertList.get(x).add(newBoard[x][y]);
+//            }
+//        }
+//
+//        boardForFiles = convertList;
+//        setRows(boardForFiles.size());
+//        setColumns(boardForFiles.get(0).size());
+//
+//        return newBoard;
+//    }
 
 }
 
