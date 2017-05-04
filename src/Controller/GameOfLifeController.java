@@ -8,44 +8,42 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.Board.DynamicBoard;
+import sample.Board.StaticBoard;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Optional;
 
-import static Dialog.Dialogboxes.drawError;
-import static Dialog.Dialogboxes.filenotFoundError;
-import static Dialog.Dialogboxes.gameInformation;
+import static InterfaceDialog.Dialogboxes.drawError;
+import static InterfaceDialog.Dialogboxes.filenotFoundError;
+import static InterfaceDialog.Dialogboxes.gameInformation;
 import static InterfaceSounds.Sounds.btnSound;
 import static InterfaceSounds.Sounds.errorSound;
+import static InterfaceSounds.Sounds.startUpSound;
 
 /**
  * The Game Of Life application created for HIOA
  * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
  * The class is also implementing Initializable interface.
- *<p>
+ * <p>
+ *
  * @author Fredrik, Hans Jacob, Mohammad
- * Studentnr : S309293, s305064, s309856
+ *         Studentnr : S309293, s305064, s309856
  */
 public class GameOfLifeController implements Initializable {
 
@@ -68,16 +66,9 @@ public class GameOfLifeController implements Initializable {
     public GraphicsContext gc;
     DynamicBoard dynamicBoard;
 
-
-    int oldChangeX;
-    int getOldChangeY;
-    int oldChangeClick_X;
-    int getoldChangeClick_Y;
-
-
-
     /**
      * Constructs and initializes the canvas and application features.
+     *
      * @param location
      * @param resources
      */
@@ -86,15 +77,10 @@ public class GameOfLifeController implements Initializable {
         int numbofWorkers = Runtime.getRuntime().availableProcessors();
         System.out.println("Available processors:" + numbofWorkers);
 
-
-        //startUpSound();
+        startUpSound();
 
         gc = canvas.getGraphicsContext2D();
         dynamicBoard = new DynamicBoard(90, 70, gc, canvas);
-
-        //MoveBoardkey();
-
-
 
         colorpickercell.setValue(Color.BLACK);
         colorPicker.setValue(Color.AQUA);
@@ -105,27 +91,15 @@ public class GameOfLifeController implements Initializable {
             dynamicBoard.setCellSize((int) celleSlider.getValue());
             if ((double) newValue < (double) oldValue) {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                draw();
             }
-            canvas.setScaleX(newValue.doubleValue() / dynamicBoard.cellSize);
-            canvas.setScaleY(newValue.doubleValue() / dynamicBoard.cellSize);
-            draw();
+
         }));
 
-        KeyFrame frame = new KeyFrame(Duration.millis(500), (ActionEvent event) -> {
-//            treThread.createWorkers();
-//            treThread.setTask();
-            //Threading
-
-//            try {
-//                treThread.runWorkers();                                                                  //Threading
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-
-//            dynamicBoard.nextGeneration();
+        KeyFrame frame = new KeyFrame(Duration.millis(1000), (ActionEvent event) -> {
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            zoomable();
             dynamicBoard.nextGenerationConcurrent();
-
-            celleSlider.getValue();
             draw();
         });
 
@@ -193,12 +167,28 @@ public class GameOfLifeController implements Initializable {
             }
         } catch (Exception e) {
             errorSound();
-           filenotFoundError();
+            filenotFoundError();
         }
+    }
+
+
+    /**
+     * This method makes the zoom auto zoom when game is running
+     */
+    private void zoomable(){
+        if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()){
+                celleSlider.setValue(celleSlider.getValue() - 0.1);
+                dynamicBoard.setCellSize((int)(celleSlider.getValue() - 0.1));
+            }
+            if (dynamicBoard.board.get(0).size() > canvas.getHeight() / dynamicBoard.getCellSize()){
+                celleSlider.setValue(celleSlider.getValue() - 0.1);
+                dynamicBoard.setCellSize((int)(celleSlider.getValue() - 0.1));
+            }
     }
 
     /**
      * This method allows the user to upload txt file containing board pattern.
+     *
      * @param e
      */
     @FXML
@@ -213,12 +203,14 @@ public class GameOfLifeController implements Initializable {
         }*/
 
         dynamicBoard.setBrett(nyBrett);
+
         draw();
     }
 
 
     /**
      * This method allows user to change the color for dead cells.
+     *
      * @param e
      */
     @FXML
@@ -286,7 +278,8 @@ public class GameOfLifeController implements Initializable {
     public void background() {
         gc.setFill(Color.DARKGRAY);
 
-        gc.fillRect(0, 0, dynamicBoard.getRows() * dynamicBoard.getCellSize() - 1, dynamicBoard.getColumns() * dynamicBoard.getCellSize() - 1);
+        double cellsize1 = dynamicBoard.getCellSize();
+        gc.fillRect(0, 0, dynamicBoard.getRows() * cellsize1 - 0.5, dynamicBoard.getColumns() * cellsize1 - 0.5);
     }
 
     /**
@@ -295,8 +288,18 @@ public class GameOfLifeController implements Initializable {
     public void draw() throws ArrayIndexOutOfBoundsException {
 
         try {
+
+//            if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()){
+//                celleSlider.setValue(celleSlider.getValue() - 0.01);
+//                dynamicBoard.setCellSize((int)(celleSlider.getValue() - 0.1));
+//            }
+//            if (dynamicBoard.board.get(0).size() > canvas.getHeight() / dynamicBoard.getCellSize()){
+//                celleSlider.setValue(celleSlider.getValue() - 0.1);
+//                dynamicBoard.setCellSize((int)(celleSlider.getValue() - 0.1));
+//            }
             background();
             for (int j = 0; j < dynamicBoard.getRows() && j < canvas.getHeight(); j++) {
+
                 for (int i = 0; i < dynamicBoard.getColumns() && i < canvas.getWidth(); i++) {
                     if (dynamicBoard.getValue(j, i) == 1) {
                         gc.setFill(colorpickercell.getValue());
@@ -304,22 +307,25 @@ public class GameOfLifeController implements Initializable {
                     } else {
                         gc.setFill(colorPicker.getValue());
                     }
-                    int CellSize = dynamicBoard.getCellSize();
-                    gc.fillRect(j * CellSize, i * CellSize, CellSize - 1, CellSize - 1);
+
+                    double CellSize = dynamicBoard.getCellSize();
+
+                    gc.fillRect(j * CellSize, i * CellSize, CellSize - 0.5, CellSize - 0.5);
 
                 }
+
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-
-
+            drawError();
         }
     }
-
-
 
     /**
      * This method allows the user to fill rectangles on canvas with alive or dead cells.
      */
+    int oldChangeX;
+    int getOldChangeY;
+
     @FXML
     public void userDrawCell(MouseEvent e) throws Exception {
 
@@ -344,16 +350,13 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows the user to fill rectangles on canvas with alive or dead cells.
-     */
-
-
-
-
-    /**
      *
      * @param e
      * @throws Exception
      */
+    int oldChangeClick_X;
+    int getoldChangeClick_Y;
+
     @FXML
     public void userDrawCellClicked(MouseEvent e) throws Exception {
 
@@ -382,8 +385,6 @@ public class GameOfLifeController implements Initializable {
             drawError();
         }
     }
-
-
 
 
     /**

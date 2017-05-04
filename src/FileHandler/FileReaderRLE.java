@@ -60,8 +60,8 @@ public class FileReaderRLE {
                 else
                     board.append(line);
             }
-            System.out.println("RULES: " + Boardinfo);
-            System.out.println(board.toString());
+            //System.out.println("RULES: " + Boardinfo);
+            //System.out.println(board.toString());
 
 
             ///////////////////////RULES/////////////////////////////
@@ -98,10 +98,10 @@ public class FileReaderRLE {
             while (sizeMatch.find()) {
                 if (sizeMatch.group(1).matches("x")) {
                     xlength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array x to 1 for adding space
-                    System.out.println("xlength" + xlength);
+                    //System.out.println("xlength" + xlength);
                 } else if (sizeMatch.group(1).matches("y")) {
                     ylength = 1 + Integer.parseInt(sizeMatch.group(2));//adding start point of array y to 1 for adding space
-                    System.out.println("yLength" + ylength);
+                    //System.out.println("yLength" + ylength);
                 }
             }
 

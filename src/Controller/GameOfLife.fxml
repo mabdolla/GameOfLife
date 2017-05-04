@@ -22,7 +22,7 @@
             <children>
                 <BorderPane prefHeight="200.0" prefWidth="200.0">
                     <center>
-                        <Canvas fx:id="canvas" height="868.0" onMouseClicked="#userDrawCellClicked" onMouseDragged="#userDrawCell" width="961.0" BorderPane.alignment="CENTER" />
+                        <Canvas fx:id="canvas" height="648.0" onMouseClicked="#userDrawCellClicked" onMouseDragged="#userDrawCell" width="956.0" BorderPane.alignment="CENTER" />
                     </center>
                     <top>
                         <VBox>
@@ -47,6 +47,7 @@
                                                         </Menu>
                                                         <Menu mnemonicParsing="false" text="Information">
                                                             <items>
+                                              <MenuItem mnemonicParsing="false" text="How to play" />
                                                                 <MenuItem mnemonicParsing="false" onAction="#AboutGameofLife" text="About" />
                                                             </items>
                                                         </Menu>
@@ -97,16 +98,20 @@
                                                         <Font name="System Bold Italic" size="15.0" />
                                                     </font>
                                                 </Label>
+                                    <Label layoutX="14.0" layoutY="71.0" text="Min" />
+                                    <Label layoutX="172.0" layoutY="71.0" text="Max" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                             <children>
-                                                <Slider fx:id="sliderSpeed" blockIncrement="15.0" layoutX="9.0" layoutY="45.0" max="20.0" onDragDetected="#AdjustSpeed" onDragDone="#AdjustSpeed" onDragEntered="#AdjustSpeed" onMouseClicked="#AdjustSpeed" prefHeight="27.0" prefWidth="197.0" showTickMarks="true" />
+                                                <Slider fx:id="sliderSpeed" blockIncrement="15.0" layoutX="9.0" layoutY="45.0" max="20.0" onDragDetected="#AdjustSpeed" onDragDone="#AdjustSpeed" onDragEntered="#AdjustSpeed" onMouseClicked="#AdjustSpeed" prefHeight="27.0" prefWidth="197.0" showTickMarks="true" value="10.0" />
                                                 <Label layoutX="23.0" layoutY="4.0" prefHeight="28.0" prefWidth="132.0" text="Change Speed">
                                                     <font>
                                                         <Font name="System Bold" size="15.0" />
                                                     </font>
                                                 </Label>
+                                    <Label layoutX="14.0" layoutY="71.0" text="Min" />
+                                    <Label layoutX="167.0" layoutY="71.0" text="Max" />
                                             </children>
                                         </AnchorPane>
                                     </items>

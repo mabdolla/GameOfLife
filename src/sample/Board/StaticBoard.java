@@ -19,7 +19,7 @@ public class StaticBoard {
     public int rows;
     public int columns;
     public int[][] brett;
-    public int cellSize = 7;
+    public double cellSize = 7;
     private int gameSpeed = 40;
     private Color backgroundColor;
     public Color cellColor;
@@ -230,7 +230,7 @@ public class StaticBoard {
      * Gets cell Size.
      * @return cell size.
      */
-    public int getCellSize() {
+    public double getCellSize() {
         return cellSize;
     }
 

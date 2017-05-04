@@ -1,4 +1,4 @@
-package Dialog;
+package InterfaceDialog;
 
 import javafx.scene.control.Alert;
 
@@ -19,11 +19,13 @@ public interface Dialogboxes {
                 "\n\n"+
                 "Every cell thats drawn interacts with its eight neighbours that each cell has based on these rules the cells evolves into further generations:"+
 
-                "RULES:\n\n"+
+                "\n\n RULES:\n\n"+
                         "1: Any live cell with fewer than two alive neighbours dies, as if caused by underpopulation.\n\n" +
                         "2: Any live cell with two or three alive neighbours lives on to the next drawGeneration.\n\n" +
                         "3: Any live cell with more than three alive neighbours dies, as if by overpopulation.\n\n" +
-                        "4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.\n\n URL link: " + "https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life");
+                        "4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.+" +
+                "" +
+                "\n\n Source URL link: " + "https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life");
 
         alert.showAndWait();
     }
