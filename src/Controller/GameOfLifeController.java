@@ -37,7 +37,6 @@ import static InterfaceSounds.Sounds.startUpSound;
  * The Game Of Life application created for HIOA
  * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
  * The class is also implementing Initializable interface.
- * <p>
  *
  * @author Fredrik Kluftødegård, Hans Jacob, Mohammad
  *         Studentnr : S309293, s305064, s309856
@@ -77,7 +76,7 @@ public class GameOfLifeController implements Initializable {
         startUpSound();
 
         gc = canvas.getGraphicsContext2D();
-        dynamicBoard = new DynamicBoard(90, 70, gc, canvas);
+        dynamicBoard = new DynamicBoard(120, 80, gc, canvas);
 
         colorpickercell.setValue(Color.BLACK);
         colorPicker.setValue(Color.AQUA);
@@ -112,7 +111,7 @@ public class GameOfLifeController implements Initializable {
      * If error occurs a alertbox will show.
      */
     @FXML
-    public void RLEopen() throws Exception {
+    private void RLEopen() throws Exception {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("RLE", "*.rle"));
@@ -141,7 +140,7 @@ public class GameOfLifeController implements Initializable {
      * If error occurs a alertbox will show.
      */
     @FXML
-    public void URLopen() throws Exception {
+    private void URLopen() throws Exception {
 
         TextInputDialog dialog = new TextInputDialog("//");
         dialog.setTitle("URL FileReader");
@@ -217,7 +216,7 @@ public class GameOfLifeController implements Initializable {
      * @param e
      */
     @FXML
-    public void changecolor(ActionEvent e) {
+    private void changecolor(ActionEvent e) {
         dynamicBoard.setBackgroundColor(colorPicker.getValue());
         draw();
     }
@@ -228,7 +227,7 @@ public class GameOfLifeController implements Initializable {
      * @param c is choosing color
      */
     @FXML
-    public void changeColorCell(ActionEvent c) {
+    private void changeColorCell(ActionEvent c) {
         dynamicBoard.setCellColor(colorpickercell.getValue());
         draw();
     }
@@ -297,7 +296,7 @@ public class GameOfLifeController implements Initializable {
 
         try {
 
-            for (int j = 0; j < dynamicBoard.getRows() && j < canvas.getHeight(); j++) {
+            for (int j = 0; j < dynamicBoard.getRows() && j < canvas.getWidth(); j++) {
 
                 for (int i = 0; i < dynamicBoard.getColumns() && i < canvas.getWidth(); i++) {
                     if (dynamicBoard.getValue(j, i) == 1) {

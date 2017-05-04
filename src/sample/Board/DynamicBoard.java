@@ -2,17 +2,17 @@ package sample.Board;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The Game Of Life application created for HIOA
- * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
- * The class is also implementing Initializable interface.
+ * The DynamicBoard class contains constructor and methods for creating and using arraylist as board.
+ * Next generation method updating the board according to rules you will find in this class.
+ * Next generation method is also running on Threads based on x number of processors from your computer.
  *
- * @author Fredrik, Hans-Jacob, Mohammad
- * Studentnr : S309293, s305064, s309856
+ * @author Fredrik, Hans Jacob, Mohammad
+ *         Studentnr : S309293, s305064, s309856
  */
 public class DynamicBoard extends StaticBoard {
 
