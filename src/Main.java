@@ -9,7 +9,6 @@ public class Main extends Application {
 
     /**
      *Opens the window that contains the Game Of Life.
-     *
      * @author Fredrik, Hans Jacob, Mohammad
      *         Studentnr : S309293, s305064, s309856
      */
