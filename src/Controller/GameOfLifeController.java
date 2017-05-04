@@ -107,6 +107,7 @@ public class GameOfLifeController implements Initializable {
             draw();
         });
 
+
         timeline.getKeyFrames().add(frame);
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
