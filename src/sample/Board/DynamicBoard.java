@@ -2,34 +2,39 @@ package sample.Board;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-
+import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Game Of Life application created for HIOA
- * The DynamicBoard class are the methods for constructing and creating
- * a gameboard.
- * The class is also extending StaticBoard.
- *<p>
- * @author Fredrik Kluftødegård, Hans Jacob, Mohammad
- * Studentnr : S309293, s305064, s309856
+ * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
+ * The class is also implementing Initializable interface.
+ *
+ * @author Fredrik, Hans-Jacob, Mohammad
+ * Studentnr : S309293, s
  */
-public class DynamicBoard extends StaticBoard  {
+public class DynamicBoard extends StaticBoard {
 
     public ArrayList<ArrayList<Integer>> board = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> nextGen;
-
-    int boardSplit ;
     public int cellSize = 9;
     final int proseccors = Runtime.getRuntime().availableProcessors();
+    int boardSplit ;
+
+    public DynamicBoard (int rows, int columns){
+        super(rows, columns);
+        for (int i = 0; i < getRows(); i++) {
+            board.add(new ArrayList<Integer>());
+            for (int j = 0; j < getColumns(); j++){
+                board.get(i).add(0);
+            }
+        }
+    }
 
 
     /**
-     *  Constructs an empty DynamicBoard constructor.
-     */
-    public DynamicBoard (){}
-
-    /**
+     *
      *  Constructs and init a board with columns, rows, gc and canvas.
      *  @see #StaticBoard (int, int, GraphicsContext, Canvas) (String)
      *  @param rows is the first parameter in DynamicBoard constructor.
@@ -52,12 +57,53 @@ public class DynamicBoard extends StaticBoard  {
     /**
      * calculates the next generation and updates the board.
      */
-    @Override
-    public void nextGeneration() {
-        long start = System.currentTimeMillis();
-        nextGen = new ArrayList<>(getRows());
+//    @Override
+//    public synchronized void nextGeneration() {
+//        long start = System.currentTimeMillis();
+//        nextGen = new ArrayList<>(getRows());
+//
+//        //Constructs empty arraylist nexGen -> ArrayList<ArrayList<Integer>>
+//        for (int i = 0; i < getRows(); i++) {
+//            nextGen.add(new ArrayList<>(getColumns()));
+//            for (int j = 0; j < getColumns(); j++){
+//                nextGen.get(i).add(0);
+//            }
+//        }
+//
+//        //Calculation
+////setBoardSplitt();
+////
+////        //beregning
+//        for (int x = 0; x < getRows(); x++) {
+//            for (int y = 0; y < getColumns(); y++) {
+//                nextGen.get(x).set(y, setCellRules(getValue(x,y), getNeighbours(x, y)));
+//            }
+//        }
+//
+//
+//
+//        board = nextGen;
+//        expand();
+//
+//        //Printing time used to performe method nextgeneration method
+//        PrintNextGenerationPerformance(start, System.currentTimeMillis());
+//        System.out.println("boarsplitt = " + boardSplit);
+//        System.out.println("processor : " + proseccors);
+//        System.out.println("boar size : " + board.size());
+////        System.out.println(TreThread.f();
+//
+//    }
 
-        //Constructs empty arraylist nexGen -> ArrayList<ArrayList<Integer>>
+    //public static List<Thread> workers = new ArrayList<Thread>();
+
+    /**
+     *
+     */
+    public void nextGenerationConcurrent() {
+        List<Thread> workers = new ArrayList<Thread>();
+        //lag nextGenBoard = new array-.---..
+        nextGen = new ArrayList<>(getRows());
+        //lager blank nexGen -> ArrayList<ArrayList<Integer>>
         for (int i = 0; i < getRows(); i++) {
             nextGen.add(new ArrayList<>(getColumns()));
             for (int j = 0; j < getColumns(); j++){
@@ -65,18 +111,39 @@ public class DynamicBoard extends StaticBoard  {
             }
         }
 
-        //Calculation
-        for (int x = 0; x < getRows(); x++) {
-            for (int y = 0; y < getColumns(); y++) {
-                nextGen.get(x).set(y, setCellRules(getValue(x,y), getNeighbours(x, y)));
+        for (int i = 0; i < Runtime.getRuntime().availableProcessors(); i++) {
+            int min = i * getRows() / Runtime.getRuntime().availableProcessors();
+            int max = (i+1) * getRows()/ Runtime.getRuntime().availableProcessors();
+            workers.add(new Thread(() -> {
+                for (int x = min; x < max; x++) {
+                    for (int y = 0; y < getColumns(); y++) {
+                        nextGen.get(x).set(y, setCellRules(getValue(x,y), getNeighbours(x, y)));
+                        System.out.println(min+ " "+ max);
+
+                    }
+                }
+            }));
+//            workers.add();
+
+        }
+        for (Thread t : workers) {
+            t.start();
+        }
+// vent på at alle trådene har kjørt ferdig før vi returnerer
+        for (Thread t : workers) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 
         board = nextGen;
-
         expand();
+        setBoardSplitt();
 
-        //Printing time used to performe method nextgeneration method
+        long start = System.currentTimeMillis();
+
         PrintNextGenerationPerformance(start, System.currentTimeMillis());
         System.out.println("boarsplitt = " + boardSplit);
         System.out.println("processor : " + proseccors);
@@ -96,6 +163,9 @@ public class DynamicBoard extends StaticBoard  {
         System.out.println("Next generation time counter is :" + time);
     }
 
+//    public void setBoardSplitt(){
+//        this.boardSplit = (int) Math.ceil(board.size()/proseccors);
+//    }
 
     /**
      * This method returning the number of neighbour cells for each cell.
@@ -185,6 +255,7 @@ public class DynamicBoard extends StaticBoard  {
             }
         }}
 
+        ///////////////TRYING TO MOVE ARRAYLIST ACCORDING TO KEY PRESSED
 
     /**
      * This method returning value in arraylist. Returning if cell is alive or dead.
@@ -242,6 +313,10 @@ public class DynamicBoard extends StaticBoard  {
         return rows;
     }
 
+//    public void convertToLine(){
+//        ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
+//        Arrays.asList(brett);
+//    }
 
     /**
      * This method returning toString method for class board
@@ -277,6 +352,7 @@ public class DynamicBoard extends StaticBoard  {
      * This method returning cellSize
      * @return cellSize
      */
+    @Override
     public int getCellSize() {
         return cellSize;
     }
@@ -284,6 +360,7 @@ public class DynamicBoard extends StaticBoard  {
     /**
      * @param cellSize parameter is assigned to the cellSize for this class
      */
+    @Override
     public void setCellSize(int cellSize) {
         this.cellSize = cellSize;
     }

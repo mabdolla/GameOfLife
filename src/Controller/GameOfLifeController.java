@@ -2,18 +2,21 @@ package Controller;
 
 import FileHandler.FileReader;
 import FileHandler.FileReaderRLE;
-import Threads.WorkerThread;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -24,6 +27,7 @@ import sample.Board.DynamicBoard;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -77,14 +81,20 @@ public class GameOfLifeController implements Initializable {
      * @param location
      * @param resources
      */
+
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+        int numbofWorkers = Runtime.getRuntime().availableProcessors();
+        System.out.println("Available processors:" + numbofWorkers);
 
 
         //startUpSound();
 
         gc = canvas.getGraphicsContext2D();
-
         dynamicBoard = new DynamicBoard(90, 70, gc, canvas);
+
+        //MoveBoardkey();
+
+
 
         colorpickercell.setValue(Color.BLACK);
         colorPicker.setValue(Color.AQUA);
@@ -101,12 +111,23 @@ public class GameOfLifeController implements Initializable {
             draw();
         }));
 
-        KeyFrame frame = new KeyFrame(Duration.millis(500), event -> {
-            // byttes ut : dynamicBoard.nextGeneration();
+        KeyFrame frame = new KeyFrame(Duration.millis(500), (ActionEvent event) -> {
+//            treThread.createWorkers();
+//            treThread.setTask();
+            //Threading
+
+//            try {
+//                treThread.runWorkers();                                                                  //Threading
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+
+//            dynamicBoard.nextGeneration();
+            dynamicBoard.nextGenerationConcurrent();
+
             celleSlider.getValue();
             draw();
         });
-
 
         timeline.getKeyFrames().add(frame);
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -208,6 +229,7 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows userinput to change the background color with input from colorpicker.
+     *
      * @param c is choosing color
      */
     @FXML
@@ -294,6 +316,7 @@ public class GameOfLifeController implements Initializable {
     }
 
 
+
     /**
      * This method allows the user to fill rectangles on canvas with alive or dead cells.
      */
@@ -322,6 +345,7 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to fill rectangles on canvas with alive or dead cells.
      */
+
 
 
 
@@ -370,7 +394,6 @@ public class GameOfLifeController implements Initializable {
         Platform.exit();
 
     }
-
 
 }
 
