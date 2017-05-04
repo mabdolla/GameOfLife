@@ -25,17 +25,6 @@ public class DynamicBoard extends StaticBoard {
     double cellSize = 9;
     int boardSplit;
 
-    public DynamicBoard(int rows, int columns) {
-        super(rows, columns);
-        for (int i = 0; i < getRows(); i++) {
-            board.add(new ArrayList<Integer>());
-            for (int j = 0; j < getColumns(); j++) {
-                board.get(i).add(0);
-            }
-        }
-    }
-
-
     /**
      * Constructs and init a board with columns, rows, gc and canvas.
      *
@@ -59,48 +48,6 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * calculates the next generation and updates the board.
-     */
-//    @Override
-//    public synchronized void nextGeneration() {
-//        long start = System.currentTimeMillis();
-//        nextGen = new ArrayList<>(getRows());
-//
-//        //Constructs empty arraylist nexGen -> ArrayList<ArrayList<Integer>>
-//        for (int i = 0; i < getRows(); i++) {
-//            nextGen.add(new ArrayList<>(getColumns()));
-//            for (int j = 0; j < getColumns(); j++){
-//                nextGen.get(i).add(0);
-//            }
-//        }
-//
-//        //Calculation
-////setBoardSplitt();
-////
-////        //beregning
-//        for (int x = 0; x < getRows(); x++) {
-//            for (int y = 0; y < getColumns(); y++) {
-//                nextGen.get(x).set(y, setCellRules(getValue(x,y), getNeighbours(x, y)));
-//            }
-//        }
-//
-//
-//
-//        board = nextGen;
-//        expand();
-//
-//        //Printing time used to performe method nextgeneration method
-//        PrintNextGenerationPerformance(start, System.currentTimeMillis());
-//        System.out.println("boarsplitt = " + boardSplit);
-//        System.out.println("processor : " + proseccors);
-//        System.out.println("boar size : " + board.size());
-////        System.out.println(TreThread.f();
-//
-//    }
-
-    //public static List<Thread> workers = new ArrayList<Thread>();
-
-    /**
-     *
      */
     public void nextGenerationConcurrent() {
         List<Thread> workers = new ArrayList<Thread>();
@@ -148,12 +95,13 @@ public class DynamicBoard extends StaticBoard {
         expand();
         setBoardSplitt();
 
-        long start = System.currentTimeMillis();
+
+        /*long start = System.currentTimeMillis();
 
         PrintNextGenerationPerformance(start, System.currentTimeMillis());
         System.out.println("boarsplitt = " + boardSplit);
         System.out.println("processor : " + proseccors);
-        System.out.println("boar size : " + board.size());
+        System.out.println("boar size : " + board.size());*/
 
     }
 
@@ -314,11 +262,6 @@ public class DynamicBoard extends StaticBoard {
     public int getRows() {
         return rows;
     }
-
-//    public void convertToLine(){
-//        ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
-//        Arrays.asList(brett);
-//    }
 
     /**
      * This method returning toString method for class board

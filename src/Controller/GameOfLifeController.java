@@ -88,14 +88,15 @@ public class GameOfLifeController implements Initializable {
             dynamicBoard.setCellSize((int) celleSlider.getValue());
             if ((double) newValue < (double) oldValue) {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                draw();
             }
 
+            draw();
         }));
 
         KeyFrame frame = new KeyFrame(Duration.millis(500), (ActionEvent event) -> {
-            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             zoomable();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
             dynamicBoard.nextGenerationConcurrent();
             draw();
         });
@@ -178,12 +179,12 @@ public class GameOfLifeController implements Initializable {
      */
     private void zoomable() {
         if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()) {
-            celleSlider.setValue(celleSlider.getValue() - 0.1);
-            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.1));
+            celleSlider.setValue(celleSlider.getValue() - 0.01);
+            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.01));
         }
         if (dynamicBoard.board.get(0).size() > canvas.getHeight() / dynamicBoard.getCellSize()) {
-            celleSlider.setValue(celleSlider.getValue() - 0.1);
-            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.1));
+            celleSlider.setValue(celleSlider.getValue() - 0.01);
+            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.01));
         }
     }
 
@@ -197,13 +198,14 @@ public class GameOfLifeController implements Initializable {
 
         int[][] nyBrett = FileReader.openTXTfile();
 
-        /*for (int x = 0; x < nyBrett.length; x++) {
+        for (int x = 0; x < nyBrett.length; x++) {
             for (int y = 0; y < nyBrett[0].length; y++) {
-                //dynamicBoard.getBrett()[x][y] = nyBrett[x][y];
+                dynamicBoard.getBrett()[x][y] = nyBrett[x][y];
             }
-        }*/
+        }
 
         dynamicBoard.setBrett(nyBrett);
+        dynamicBoard.nextGeneration();
 
         draw();
     }
@@ -280,10 +282,10 @@ public class GameOfLifeController implements Initializable {
      * This method draws the background to the canvas.
      */
     public void background() {
-        gc.setFill(Color.DARKGRAY);
+        gc.setFill(Color.GRAY);
 
         double cellsize1 = dynamicBoard.getCellSize();
-        gc.fillRect(0, 0, dynamicBoard.getRows() * cellsize1 - 0.5, dynamicBoard.getColumns() * cellsize1 - 0.5);
+        gc.fillRect(0, 0, dynamicBoard.getRows() * cellsize1, dynamicBoard.getColumns() * cellsize1);
     }
 
     /**
