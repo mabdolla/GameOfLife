@@ -31,10 +31,10 @@ public class StaticBoard {
 
     /**
      * Constructs and initializes a board with rows, columns, gc and canvas
-     * @param rows
-     * @param columns
-     * @param gc
-     * @param canvas
+     * @param rows is the first parameter int the StaticBoard constructor
+     * @param columns is the second parameter int the StaticBoard constructor
+     * @param gc is the third parameter int the StaticBoard constructor
+     * @param canvas is the fourth parameter int the StaticBoard constructor
      */
     //Constructor
     public StaticBoard(int rows, int columns, GraphicsContext gc, Canvas canvas) {
@@ -48,8 +48,8 @@ public class StaticBoard {
 
     /**
      * Static board.
-     * @param rows
-     * @param columns
+     * @param rows is the first parameter in the StaticBoard method
+     * @param columns is the second parameter in the StaticBoard method
      */
     public StaticBoard(int rows, int columns) {
         this.rows = rows;
@@ -90,24 +90,26 @@ public class StaticBoard {
 
     /**
      * Gets the value of a grid.
-     * @param x
-     * @param y
-     * @return brett
+     * @param x is the first parameter in the getValue method
+     * @param y is the second parameter in the getValue method
+     * @return brett is the third parameter in the getValue method
      */
     public int getValue(int x, int y) {
         return brett[x][y];
     }
 
-    /**
-     * @param x
-     * @param y
-     * @param value
+    /** Sets the value of a grid.
+     * @param x is the first parameter in the setValue method
+     * @param y is the second parameter in the setValue method
+     * @param value is the third parameter in the setValue method
      */
     public void setValue(int x, int y, int value) {
         brett[x][y] = value;
     }
 
-
+    /**
+     *
+     */
     public void nextGeneration() {
         int[][] nesteBrett = new int[rows][columns];
 
@@ -137,13 +139,19 @@ public class StaticBoard {
 
     /**
      * Gets rules.
-     * @param rules
+     * @param rules is the only parameter in the setRules method
      */
     public void setRules(int[][] rules) {
 
         this.rules = rules;
     }
 
+    /**
+     *
+     * @param isAlive is the first parameter in the setCellRules method
+     * @param naboer is the second parameter in the setCellRules method
+     * @return rules
+     */
     public int setCellRules(int isAlive, int naboer) {
 
         return rules[isAlive][naboer];
@@ -168,8 +176,8 @@ public class StaticBoard {
 
     /**
      * Declares the rules of the board.
-     * @param x
-     * @param y
+     * @param x is the first parameter in the getNeighbours method
+     * @param y is the second parameter in the getNeighbours method
      * @return antall naboer (neighbours).
      */
     public int getNeighbours(int x, int y) {
@@ -202,7 +210,7 @@ public class StaticBoard {
 
     /**
      * Gets cell size.
-     * @param CSTR
+     * @param CSTR is the only parameter in the setCellSize method
      */
     public void setCellSize(int CSTR) {
 
@@ -210,7 +218,7 @@ public class StaticBoard {
     }
 
     /**
-     * @param brett
+     * @param brett is the only parameter in the setBrett method
      * @return brett
      */
     public int[][] setBrett(int[][] brett) {
@@ -245,7 +253,7 @@ public class StaticBoard {
 
     /**
      * Gets rows.
-     * @param rows
+     * @param rows is the only parameter in the setRows method
      */
     public void setRows(int rows) {
 
@@ -263,7 +271,7 @@ public class StaticBoard {
 
     /**
      * Sets columns.
-     * @param columns
+     * @param columns is the only parameter in the setColumns method
      */
     public void setColumns(int columns) {
 
@@ -272,7 +280,7 @@ public class StaticBoard {
 
     /**
      * Gets game speed.
-     * @return
+     * @return gameSpeed
      */
     public int getGameSpeed() {
 
@@ -281,7 +289,7 @@ public class StaticBoard {
 
     /**
      * Sets game speed
-     * @param gameSpeed
+     * @param gameSpeed is the only parameter int the setGameSpeed method
      */
     public void setGameSpeed(int gameSpeed) {
 
@@ -290,7 +298,7 @@ public class StaticBoard {
 
     /**
      * Sets background color.
-     * @param backgroundColor
+     * @param backgroundColor is the only parameter in the setBackgroundVColor method
      */
     public void setBackgroundColor(Color backgroundColor) {
 
@@ -299,7 +307,7 @@ public class StaticBoard {
 
     /**
      * Sets grid color.
-     * @param cellColor
+     * @param cellColor is the only parameter in the setCellColor method
      */
     public void setCellColor(Color cellColor) {
 
@@ -308,6 +316,11 @@ public class StaticBoard {
 
 
     //Opprettett til BrettTest.java
+
+    /**
+     *
+     * @return message
+     */
     @Override
     public String toString() {
         String msg = "";

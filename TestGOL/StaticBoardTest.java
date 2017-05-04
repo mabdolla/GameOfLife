@@ -126,7 +126,7 @@ public class StaticBoardTest extends StaticBoard {
     }
 
     /**
-     * This test is supposed to fail.
+     * This test is supposed to fail. We did this to see if the test succeed, even if we do not expect it to.
      **/
 
     @Test

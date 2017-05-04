@@ -2,7 +2,7 @@ package sample.Board;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-
+import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * The class is also implementing Initializable interface.
  *
  * @author Fredrik, Hans-Jacob, Mohammad
- *         Studentnr : S309293, s
+ * Studentnr : S309293, s305064, s309856
  */
 public class DynamicBoard extends StaticBoard {
 
@@ -35,6 +35,7 @@ public class DynamicBoard extends StaticBoard {
         }
     }
 
+
     /**
      * Constructs and init a board with columns, rows, gc and canvas.
      *
@@ -55,11 +56,55 @@ public class DynamicBoard extends StaticBoard {
         }
     }
 
+
+    /**
+     * calculates the next generation and updates the board.
+     */
+//    @Override
+//    public synchronized void nextGeneration() {
+//        long start = System.currentTimeMillis();
+//        nextGen = new ArrayList<>(getRows());
+//
+//        //Constructs empty arraylist nexGen -> ArrayList<ArrayList<Integer>>
+//        for (int i = 0; i < getRows(); i++) {
+//            nextGen.add(new ArrayList<>(getColumns()));
+//            for (int j = 0; j < getColumns(); j++){
+//                nextGen.get(i).add(0);
+//            }
+//        }
+//
+//        //Calculation
+////setBoardSplitt();
+////
+////        //beregning
+//        for (int x = 0; x < getRows(); x++) {
+//            for (int y = 0; y < getColumns(); y++) {
+//                nextGen.get(x).set(y, setCellRules(getValue(x,y), getNeighbours(x, y)));
+//            }
+//        }
+//
+//
+//
+//        board = nextGen;
+//        expand();
+//
+//        //Printing time used to performe method nextgeneration method
+//        PrintNextGenerationPerformance(start, System.currentTimeMillis());
+//        System.out.println("boarsplitt = " + boardSplit);
+//        System.out.println("processor : " + proseccors);
+//        System.out.println("boar size : " + board.size());
+////        System.out.println(TreThread.f();
+//
+//    }
+
+    //public static List<Thread> workers = new ArrayList<Thread>();
+
     /**
      *
      */
     public void nextGenerationConcurrent() {
         List<Thread> workers = new ArrayList<Thread>();
+        //lag nextGenBoard = new array-.---..
         nextGen = new ArrayList<>(getRows());
 
         //Creates an empty arraylist called nextgen -> ArrayList<ArrayList<Integer>>
@@ -81,6 +126,7 @@ public class DynamicBoard extends StaticBoard {
                     }
                 }
             }));
+//            workers.add();
 
             //Dividing threads to workers
         }
@@ -101,18 +147,25 @@ public class DynamicBoard extends StaticBoard {
         board = nextGen;
         expand();
         setBoardSplitt();
+
+        long start = System.currentTimeMillis();
+
+        PrintNextGenerationPerformance(start, System.currentTimeMillis());
+        System.out.println("boarsplitt = " + boardSplit);
+        System.out.println("processor : " + proseccors);
+        System.out.println("boar size : " + board.size());
+
     }
 
 
     /**
      * This method print to console time used to performe nextgeneration method
-     *
      * @param start
      * @param end
      * @return value as number of cells around one single cell, and calculate the time spent to execute the code.
      */
-    public void PrintNextGenerationPerformance(long start, long end) {
-        long time = end - start;
+    public void PrintNextGenerationPerformance(long start, long end ){
+        long time= end -start;
         System.out.println("Next generation time counter is :" + time);
     }
 
@@ -122,7 +175,6 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returning the number of neighbour cells for each cell.
-     *
      * @param x
      * @param y
      * @return value as number of cells around one single cell
@@ -131,26 +183,14 @@ public class DynamicBoard extends StaticBoard {
     public int getNeighbours(int x, int y) {
         int antallNaboer = 0;
 
-        if (!(x - 1 == -1) && getValue(x - 1, y) == 1)
-            antallNaboer++;                                         //CHECKING LEFT CENTER
-
-        if (!(y - 1 == -1) && getValue(x, y - 1) == 1)
-            antallNaboer++;                                         //CHECKING UP CENTER
-
-        if (!(x - 1 == -1 || y - 1 == -1) && getValue(x - 1, y - 1) == 1) antallNaboer++;                    //UP LEFT
-
-        if (!(x - 1 == -1 || y + 1 == getColumns()) && getValue(x - 1, y + 1) == 1) antallNaboer++;          //DOWN LEFT
-
-        if (!(y + 1 == getColumns()) && getValue(x, y + 1) == 1)
-            antallNaboer++;                               //DOWN CENTER
-
-        if (!(x + 1 == getRows() || y - 1 == -1) && getValue(x + 1, y - 1) == 1) antallNaboer++;             //UP RIGHT
-
-        if (!(x + 1 == getRows() || y + 1 == getColumns()) && getValue(x + 1, y + 1) == 1)
-            antallNaboer++;   //DOWN RIGHT
-
-        if (!(x + 1 == getRows()) && getValue(x + 1, y) == 1)
-            antallNaboer++;                                  //CENTER RIGHT
+        if (!(x - 1 == -1) && getValue(x-1,y) == 1) antallNaboer++;                                         //LEFT CENTER
+        if (!(y - 1 == -1) && getValue(x,y-1) == 1) antallNaboer++;                                         //UP CENTER
+        if (!(x - 1 == -1 || y - 1 == -1) && getValue(x-1,y-1) == 1) antallNaboer++;                      //UP LEFT
+        if (!(x - 1 == -1 || y + 1 == getColumns()) && getValue(x-1,y+1) == 1) antallNaboer++;            //DOWN LEFT
+        if (!(y + 1 == getColumns()) && getValue(x,y+1) == 1) antallNaboer++;                               //DOWN CENTER
+        if (!(x + 1 == getRows() || y - 1 == -1) && getValue(x+1,y-1) == 1) antallNaboer++;               //UP RIGHT
+        if (!(x + 1 == getRows() || y + 1 == getColumns()) && getValue(x+1,y+1) == 1) antallNaboer++;     //DOWN RIGHT
+        if (!(x + 1 == getRows()) && getValue(x+1,y) == 1) antallNaboer++;                                  //CENTER RIGHT
 
         return antallNaboer;
 
@@ -232,13 +272,12 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method let us set the value of each cell. Either dead or alive using 1 = alive or 0 = dead.
-     *
      * @param x
      * @param y
      * @param value
      */
     @Override
-    public void setValue(int x, int y, int value) {
+    public void setValue(int x, int y, int value){
         board.get(x).set(y, value);
     }
 
@@ -246,16 +285,15 @@ public class DynamicBoard extends StaticBoard {
      * This method converts an 2D int array to an Arraylist.
      * The RLE parser returns the file in the form of 2D array
      * and is nessesary to be converted for using it as a dynamicboard.
-     *
      * @param brett
      */
     @Override
     public int[][] setBrett(int[][] brett) {
 
         ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
-        for (int x = 0; x < brett.length; x++) {
+        for (int x = 0; x < brett.length; x++){
             convertList.add(new ArrayList<>());
-            for (int y = 0; y < brett[x].length; y++) {
+            for(int y = 0; y < brett[x].length; y++){
                 convertList.get(x).add(brett[x][y]);
             }
         }
@@ -270,7 +308,6 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returning board rows
-     *
      * @return rows
      */
     @Override
@@ -278,9 +315,13 @@ public class DynamicBoard extends StaticBoard {
         return rows;
     }
 
+//    public void convertToLine(){
+//        ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
+//        Arrays.asList(brett);
+//    }
+
     /**
      * This method returning toString method for class board
-     *
      * @return toString
      */
     @Override
@@ -288,9 +329,9 @@ public class DynamicBoard extends StaticBoard {
         return null;
     }
 
+
     /**
      * This method returns board in form of arraylist.
-     *
      * @return board
      */
     public ArrayList<ArrayList<Integer>> getBoard() {
@@ -299,7 +340,6 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returning nextgeneration in the form of an arraylist.
-     *
      * @return nextGen
      */
     public ArrayList<ArrayList<Integer>> getNextGen() {
@@ -312,7 +352,6 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returning cellSize
-     *
      * @return cellSize
      */
     @Override
@@ -332,6 +371,7 @@ public class DynamicBoard extends StaticBoard {
 
         this.boardSplit = (int) Math.ceil(board.size() / proseccors);
     }
+
 
 
 }
