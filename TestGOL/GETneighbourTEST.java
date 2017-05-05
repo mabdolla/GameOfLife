@@ -29,7 +29,7 @@ public class GETneighbourTEST {
         //x = row placement of cell
         //y = rows placement for cell
 
-        staticBoard.setBrett(board1);
+        staticBoard.setBoard(board1);
 
         Assert.assertEquals(0, staticBoard.getNeighbours(3,1));
     }
@@ -53,7 +53,7 @@ public class GETneighbourTEST {
         //x = columns
         //y = rows
 
-        staticBoard.setBrett(board1);
+        staticBoard.setBoard(board1);
 
         Assert.assertEquals(1, staticBoard.getNeighbours(1,1));
     }
@@ -76,7 +76,7 @@ public class GETneighbourTEST {
         //x = columns
         //y = rows
 
-        staticBoard.setBrett(board1);
+        staticBoard.setBoard(board1);
 
         Assert.assertEquals(8, staticBoard.getNeighbours(1,2));
     }

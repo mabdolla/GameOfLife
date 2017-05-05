@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -27,9 +28,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Optional;
 
-import static InterfaceDialog.Dialogboxes.drawError;
-import static InterfaceDialog.Dialogboxes.filenotFoundError;
-import static InterfaceDialog.Dialogboxes.gameInformation;
+import static InterfaceDialog.Dialogboxes.*;
 import static InterfaceSounds.Sounds.btnSound;
 import static InterfaceSounds.Sounds.errorSound;
 import static InterfaceSounds.Sounds.startUpSound;
@@ -66,7 +65,11 @@ public class GameOfLifeController implements Initializable {
     private Slider celleSlider;
     @FXML
     private Slider sliderSpeed;
+    @FXML
+    private LineChart linechart;
     private int iterasjoner = 0;
+    int numbofWorkers = Runtime.getRuntime().availableProcessors();
+
 
     /**
      * Constructs and initializes the canvas and application features.
@@ -83,13 +86,13 @@ public class GameOfLifeController implements Initializable {
      */
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        int numbofWorkers = Runtime.getRuntime().availableProcessors();
+
         System.out.println("Available processors:" + numbofWorkers);
 
         startUpSound();
 
         gc = canvas.getGraphicsContext2D();
-        dynamicBoard = new DynamicBoard(120, 80, gc, canvas);
+        dynamicBoard = new DynamicBoard(100, 80, gc, canvas);
 
         colorpickercell.setValue(Color.BLACK);
         colorPicker.setValue(Color.AQUA);
@@ -139,10 +142,12 @@ public class GameOfLifeController implements Initializable {
         try {
             if (file != null) {
                 FileReaderRLE filereaderRle = new FileReaderRLE(file);
-                dynamicBoard.setBrett(filereaderRle.brett);
+                dynamicBoard.setBoard(filereaderRle.brett);
                 dynamicBoard.setRules(filereaderRle.rules);
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
                 draw();
+
             }
 
         } catch (Exception e) {
@@ -186,28 +191,15 @@ public class GameOfLifeController implements Initializable {
                 File file = new File("tempPattern.rle");
 
                 FileReaderRLE filereaderRle = new FileReaderRLE(file);
-                dynamicBoard.setBrett(filereaderRle.brett);
+                dynamicBoard.setBoard(filereaderRle.brett);
                 dynamicBoard.setRules(filereaderRle.rules);
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 draw();
             }
 
         } catch (Exception e) {
             errorSound();
             filenotFoundError();
-        }
-    }
-
-    /**
-     * This method makes the zoom auto zoom when game is running
-     */
-    private void zoomable() {
-        if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()) {
-            celleSlider.setValue(celleSlider.getValue() - 0.01);
-            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.01));
-        }
-        if (dynamicBoard.board.get(0).size() > canvas.getHeight() / dynamicBoard.getCellSize()) {
-            celleSlider.setValue(celleSlider.getValue() - 0.01);
-            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.01));
         }
     }
 
@@ -227,16 +219,35 @@ public class GameOfLifeController implements Initializable {
 
         for (int x = 0; x < nyBrett.length; x++) {
             for (int y = 0; y < nyBrett[0].length; y++) {
-                dynamicBoard.getBrett()[x][y] = nyBrett[x][y];
+                dynamicBoard.getBoardStatic()[x][y] = nyBrett[x][y];
             }
         }
 
-        dynamicBoard.setBrett(nyBrett);
+        dynamicBoard.setBoard(nyBrett);
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        background();
+
         draw();
     }
 
+    /**
+     * This method makes the zoom auto zoom when game is running
+     */
+    private void zoomable() {
+        if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()) {
+            celleSlider.setValue(celleSlider.getValue() - 0.01);
+            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.01));
+        }
+        if (dynamicBoard.board.get(0).size() > canvas.getHeight() / dynamicBoard.getCellSize()) {
+            celleSlider.setValue(celleSlider.getValue() - 0.01);
+            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.01));
+        }
+    }
+
+    @FXML
+    private void seeStatistics() {
+        //linechart.setData(iterasjoner);
+
+    }
 
     /**
      * This method allows user to change the color for dead cells.
@@ -252,7 +263,7 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows userinput to change the background color with input from colorpicker.
      *
-     * @param c is choosing color
+     * @param c is the name of the actionevent that chooses color
      */
     @FXML
     private void changeColorCell(ActionEvent c) {
@@ -286,6 +297,16 @@ public class GameOfLifeController implements Initializable {
             timeline.play();
             StartStopBtn.setText("Stop");
         }
+    }
+
+    /**
+     * This method calls a method that show a alert box with information on how to play the game.
+     */
+    @FXML
+    public void howToPlay() {
+
+        howToPlayInfo();
+
     }
 
     /**

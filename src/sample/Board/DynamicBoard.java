@@ -188,6 +188,8 @@ public class DynamicBoard extends StaticBoard {
         for (int y = 0; y < getRows(); y++) {
 
             if (getValue(0, y) == 1) {
+                //System.out.println("Found cell on lefthand");
+
                 board.add(0, new ArrayList<Integer>());
                 for (int j = 0; j < getRows(); j++) {
                     board.get(0).add(0);
@@ -235,16 +237,16 @@ public class DynamicBoard extends StaticBoard {
      * The RLE parser returns the file in the form of 2D array
      * and is nessesary to be converted for using it as a dynamicboard.
      * The board Arraylist is equal to the convertlist Arraylist with the columns and rows from boards size.
-     * @param brett
+     * @param boardT
      */
     @Override
-    public int[][] setBrett(int[][] brett) {
+    public int[][] setBoard(int[][] boardT) {
 
         ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
-        for (int x = 0; x < brett.length; x++){
+        for (int x = 0; x < boardT.length; x++){
             ArrayList<Integer> temp = new ArrayList<>();
-            for(int y = 0; y < brett[x].length; y++){
-                temp.add(brett[x][y]);
+            for(int y = 0; y < boardT[x].length; y++){
+                temp.add(boardT[x][y]);
             }
             convertList.add(temp);
         }
@@ -254,7 +256,7 @@ public class DynamicBoard extends StaticBoard {
         setColumns(board.size());
         setRows(board.get(0).size());
 
-        return brett;
+        return boardT;
     }
 
 

@@ -29,7 +29,7 @@ public class StaticBoardTest extends StaticBoard {
                 { 0, 0, 0, 0 }
         };
 
-        staticBoard.setBrett(board);
+        staticBoard.setBoard(board);
         staticBoard.nextGeneration();
         Assert.assertEquals("0000011001100000", staticBoard.toString());
 
@@ -57,9 +57,9 @@ public class StaticBoardTest extends StaticBoard {
                 { 0, 0, 0, 0 }
         };
 
-        testStaticBoard2.setBrett(board);
+        testStaticBoard2.setBoard(board);
         testStaticBoard2.nextGeneration();
-        Assert.assertArrayEquals(board2, testStaticBoard2.getBrett());
+        Assert.assertArrayEquals(board2, testStaticBoard2.getBoardStatic());
         Assert.assertEquals("0010001000100000", testStaticBoard2.toString());
 
     }
@@ -90,9 +90,9 @@ public class StaticBoardTest extends StaticBoard {
                 {0, 0, 0, 0, 0, 0}
         };
 
-        testBrett3.setBrett(board3);
+        testBrett3.setBoard(board3);
         testBrett3.nextGeneration();
-        Assert.assertArrayEquals(board4, testBrett3.getBrett());
+        Assert.assertArrayEquals(board4, testBrett3.getBoardStatic());
         Assert.assertEquals("000000001000000110001100000000000000", testBrett3.toString());
     }
 
@@ -118,9 +118,9 @@ public class StaticBoardTest extends StaticBoard {
                 { 0, 0, 0}
         };
 
-        testBrett4.setBrett(board5);
+        testBrett4.setBoard(board5);
         testBrett4.nextGeneration();
-        Assert.assertArrayEquals(board6,testBrett4.getBrett());
+        Assert.assertArrayEquals(board6,testBrett4.getBoardStatic());
         Assert.assertEquals("000000000", testBrett4.toString());
 
     }
@@ -146,9 +146,9 @@ public class StaticBoardTest extends StaticBoard {
                 { 1, 1, 1}
         };
 
-        testBrett5.setBrett(board7);
+        testBrett5.setBoard(board7);
         testBrett5.nextGeneration();
-        Assert.assertArrayEquals(board8,testBrett5.getBrett());
+        Assert.assertArrayEquals(board8,testBrett5.getBoardStatic());
         Assert.assertEquals("111111111", testBrett5.toString());
 
     }

@@ -21,6 +21,14 @@ public class FileReaderRLE {
     public int[][] rules = new int[2][9];
     public int[][] brett;
 
+
+    /**
+     * Reads a file from the computer.
+     *
+     * @param file The file name for the file uploaded from disk. If the file is not empty,
+     *             the readboard method is called.
+     * @throws IOException Throws index out of bounds exeption i the filepattern is out of array bounds.
+     */
     public FileReaderRLE(File file) throws IOException {
         this.file2 = file;
 
@@ -30,8 +38,12 @@ public class FileReaderRLE {
     }
 
     /**
-     * Reads a file from the computer.
+     * Parses a file from the computer and creating an array with xlength & ylength according to the RLE file patterns size.
+     * Regex is used to parse pattern, and converting the content of the file to cells either dead or alive
+     * The file is returned as a arraylist that is the new boardpattern.
+     *
      * @throws IOException
+     * @see jdk.nashorn.internal.runtime.regexp.joni.Regex
      */
     public void readBoard() throws IOException {
 
@@ -39,7 +51,7 @@ public class FileReaderRLE {
         // Starts the process reading the file
         try {
             bReader = new BufferedReader(new FileReader(file2));
-            String line; //midlertidig lagring av hver linje
+            String line;                                    //Temporarily storing of each line from txt file
 
             Pattern pattern = Pattern.compile("[xy]=(\\d+),[xy]=(\\d+),rule=(\\w\\d+)\\/(\\w\\d+)");
 
@@ -62,7 +74,6 @@ public class FileReaderRLE {
 
             //Printed out info from RLE file, boardsize x length and y length.
             //System.out.println("INFO: " + Boardinfo);
-
 
 
             ///////////////////////RULES/////////////////////////////
@@ -127,7 +138,7 @@ public class FileReaderRLE {
                     } else {
                         x += Integer.parseInt(matcher2.group(1));
                     }
-                        //if "o" is found, the cell would be alive
+                    //if "o" is found, the cell would be alive
 
                 } else if (matcher2.group(2).matches("o")) {
                     if (matcher2.group(1) == null) {

@@ -10,8 +10,8 @@ import java.io.File;
  * The Game Of Life application created for HIOA
  * The Sound interface contains methods creating sound used in application.
  *
- * @author Fredrik, Hans-Jacob, Mohammad
- *         Studentnr : S309293, s
+ * @author Fredrik, Hans Jacob, Mohammad
+ *         Studentnr : S309293, s305064, s309856
  */
 
 public interface Sounds {

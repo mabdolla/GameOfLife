@@ -9,8 +9,8 @@ import javafx.scene.paint.Color;
 /**
  * The Game Of Life application created for HIOA
  * The Static board class contains constructor and methods for creating and using a 2d array as board.
- *
- * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
+ * @Deprecated (@link #DynamicBoard class)
+ * @author Fredrik, Hans Jacob, Mohammad
  *         Studentnr : S309293, s305064, s309856
  */
 
@@ -20,7 +20,7 @@ public class StaticBoard {
     public Canvas canvas;
     public int columns;
     public int rows;
-    public int[][] brett;
+    public int[][] boardStatic;
     public double cellSize = 7;
     private int gameSpeed = 40;
     private Color backgroundColor;
@@ -43,7 +43,7 @@ public class StaticBoard {
         this.columns = columns;
         this.rows = rows;
         this.gc = gc;
-        brett = new int[columns][rows];
+        boardStatic = new int[columns][rows];
         this.canvas = canvas;
 //        draw();
     }
@@ -65,7 +65,7 @@ public class StaticBoard {
     public void background() {
         gc.setFill(backgroundColor);
 
-        gc.fillRect(0, 0, brett.length * cellSize, brett[0].length * cellSize);
+        gc.fillRect(0, 0, boardStatic.length * cellSize, boardStatic[0].length * cellSize);
     }
 
     /**
@@ -75,9 +75,9 @@ public class StaticBoard {
 
         background();
         try {
-            for (int j = 0; j < brett.length && j < canvas.getWidth() / cellSize; j++) {
-                for (int i = 0; i < brett[0].length && i < canvas.getHeight() / cellSize; i++) {
-                    if (brett[j][i] == 1) {
+            for (int j = 0; j < boardStatic.length && j < canvas.getWidth() / cellSize; j++) {
+                for (int i = 0; i < boardStatic[0].length && i < canvas.getHeight() / cellSize; i++) {
+                    if (boardStatic[j][i] == 1) {
                         gc.setFill(cellColor);
                     } else {
                         gc.setFill(Color.AQUA);
@@ -94,10 +94,10 @@ public class StaticBoard {
      * Gets the value of a grid.
      * @param x is the first parameter in the getValue method.
      * @param y is the second parameter in the getValue method.
-     * @return brett is the third parameter in the getValue method.
+     * @return boardStatic is the third parameter in the getValue method.
      */
     public int getValue(int x, int y) {
-        return brett[x][y];
+        return boardStatic[x][y];
     }
 
     /** Sets the value of a grid.
@@ -106,7 +106,7 @@ public class StaticBoard {
      * @param value is the third parameter in the setValue method.
      */
     public void setValue(int x, int y, int value) {
-        brett[x][y] = value;
+        boardStatic[x][y] = value;
     }
 
     /**
@@ -117,12 +117,12 @@ public class StaticBoard {
 
 
         //beregning
-        for (int x = 0; x < brett.length; x++) {
-            for (int y = 0; y < brett[0].length; y++) {
-                nesteBrett[x][y] = setCellRules(brett[x][y], getNeighbours(x, y));
+        for (int x = 0; x < boardStatic.length; x++) {
+            for (int y = 0; y < boardStatic[0].length; y++) {
+                nesteBrett[x][y] = setCellRules(boardStatic[x][y], getNeighbours(x, y));
             }
         }
-        brett = nesteBrett;
+        boardStatic = nesteBrett;
         nesteBrett = null;
 
     }
@@ -133,12 +133,12 @@ public class StaticBoard {
     public void upDateBoard() {
         int[][] nyBrett = FileReader.openTXTfile();
 
-        for (int x = 0; x < brett.length; x++) {
-            for (int y = 0; y < brett[0].length; y++) {
-                nyBrett[x][y] = setCellRules(brett[y][x], getNeighbours(x, y));
+        for (int x = 0; x < boardStatic.length; x++) {
+            for (int y = 0; y < boardStatic[0].length; y++) {
+                nyBrett[x][y] = setCellRules(boardStatic[y][x], getNeighbours(x, y));
             }
         }
-        brett = nyBrett;
+        boardStatic = nyBrett;
 
     }
 
@@ -189,27 +189,27 @@ public class StaticBoard {
         //x = rader
         //y = kolonner
 
-        int antallNaboer = 0;
+        int numbOfNeighbours = 0;
 
 
-        if (!(x - 1 == -1 || y - 1 == -1) && brett[x - 1][y - 1] == 1)
-            antallNaboer++;                                                                         //Exclude top left
-        if (!(y - 1 == -1) && brett[x][y - 1] == 1)
-            antallNaboer++;                                                                         //Exclude top middle
-        if (!(x + 1 == brett.length || y - 1 == -1) && brett[x + 1][y - 1] == 1)
-            antallNaboer++;                                                                         //Exclude top right
-        if (!(x + 1 == brett.length || y + 1 == brett[0].length) && brett[x + 1][y + 1] == 1)
-            antallNaboer++;                                                                         //Exclude bottom right
-        if (!(x - 1 == -1 || y + 1 == brett[0].length) && brett[x - 1][y + 1] == 1)
-            antallNaboer++;                                                                         //Exclude bottom left
-        if (!(x + 1 == brett.length) && brett[x + 1][y] == 1)
-            antallNaboer++;                                                                         //Exclude bottom right
-        if (!(y + 1 == brett[0].length) && brett[x][y + 1] == 1)
-            antallNaboer++;                                                                         //Exclude bottom middle
-        if (!(x - 1 == -1) && brett[x - 1][y] == 1)
-            antallNaboer++;                                                                         //Exclude left middle
+        if (!(x - 1 == -1 || y - 1 == -1) && boardStatic[x - 1][y - 1] == 1)
+            numbOfNeighbours++;                                                                         //Exclude top left
+        if (!(y - 1 == -1) && boardStatic[x][y - 1] == 1)
+            numbOfNeighbours++;                                                                         //Exclude top middle
+        if (!(x + 1 == boardStatic.length || y - 1 == -1) && boardStatic[x + 1][y - 1] == 1)
+            numbOfNeighbours++;                                                                         //Exclude top right
+        if (!(x + 1 == boardStatic.length || y + 1 == boardStatic[0].length) && boardStatic[x + 1][y + 1] == 1)
+            numbOfNeighbours++;                                                                         //Exclude bottom right
+        if (!(x - 1 == -1 || y + 1 == boardStatic[0].length) && boardStatic[x - 1][y + 1] == 1)
+            numbOfNeighbours++;                                                                         //Exclude bottom left
+        if (!(x + 1 == boardStatic.length) && boardStatic[x + 1][y] == 1)
+            numbOfNeighbours++;                                                                         //Exclude bottom right
+        if (!(y + 1 == boardStatic[0].length) && boardStatic[x][y + 1] == 1)
+            numbOfNeighbours++;                                                                         //Exclude bottom middle
+        if (!(x - 1 == -1) && boardStatic[x - 1][y] == 1)
+            numbOfNeighbours++;                                                                         //Exclude left middle
 
-        return antallNaboer;
+        return numbOfNeighbours;
 
     }
 
@@ -224,20 +224,20 @@ public class StaticBoard {
 
     /**
      * Sets the board.
-     * @param brett is the only parameter in the setBrett method.
-     * @return brett.
+     * @param boardT is the only parameter in the setBoard method.
+     * @return boardStatic.
      */
-    public int[][] setBrett(int[][] brett) {
-        this.brett = brett;
-        return brett;
+    public int[][] setBoard(int[][] boardT) {
+        this.boardStatic = boardT;
+        return boardT;
     }
 
     /**
      * Gets Brett.
-     * @return brett.
+     * @return boardStatic.
      */
-    public int[][] getBrett() {
-        return brett;
+    public int[][] getBoardStatic() {
+        return boardStatic;
     }
 
     /**
@@ -330,9 +330,9 @@ public class StaticBoard {
     @Override
     public String toString() {
         String msg = "";
-        for (int kolonne = 0; kolonne < brett.length; kolonne++) {
-            for (int rows = 0; rows < brett[0].length; rows++) {
-                if (brett[rows][kolonne] == 0) {
+        for (int kolonne = 0; kolonne < boardStatic.length; kolonne++) {
+            for (int rows = 0; rows < boardStatic[0].length; rows++) {
+                if (boardStatic[rows][kolonne] == 0) {
                     msg = msg + "0";
                 } else {
                     msg = msg + "1";
