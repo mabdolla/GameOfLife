@@ -22,14 +22,11 @@ public class StaticBoard {
     public int rows;
     public int[][] boardStatic;
     public double cellSize = 7;
-    private int gameSpeed = 40;
-    private Color backgroundColor;
     public Color cellColor;
     int[][] rules =     {{0, 0, 0, 1, 0, 0, 0, 0, 0},
                         {0, 0, 1, 1, 0, 0, 0, 0, 0}};
-
-    public StaticBoard(){}
-
+    private int gameSpeed = 40;
+    private Color backgroundColor;
 
     /**
      * Constructs and initializes a board with columns, rows, gc and canvas
@@ -56,11 +53,12 @@ public class StaticBoard {
     public StaticBoard(int columns, int rows) {
         this.columns = columns;
         this.rows = rows;
-
     }
 
+    public StaticBoard(){}
+
     /**
-     * Sets background color by using setFill.
+     * Sets background color by using setFill on the graphicsContext
      */
     public void background() {
         gc.setFill(backgroundColor);
@@ -70,6 +68,8 @@ public class StaticBoard {
 
     /**
      * This method draws data to the board.
+     * Within the try andCatch, a for loop is created that runs through the length of the board and the canvas' width, and checks if the cells is alive and colors the cells, vice versa if they are dead they are also colored
+     * Not in use because its static, The draw method in the Controller is used
      */
     public void draw() {
 
@@ -91,7 +91,7 @@ public class StaticBoard {
     }
 
     /**
-     * Gets the value of a grid.
+     * returns the value of the board.
      * @param x is the first parameter in the getValue method.
      * @param y is the second parameter in the getValue method.
      * @return boardStatic is the third parameter in the getValue method.
@@ -100,7 +100,7 @@ public class StaticBoard {
         return boardStatic[x][y];
     }
 
-    /** Sets the value of a grid.
+    /** Sets the value of the board.
      * @param x is the first parameter in the setValue method.
      * @param y is the second parameter in the setValue method.
      * @param value is the third parameter in the setValue method.
@@ -111,24 +111,28 @@ public class StaticBoard {
 
     /**
      * Calculates the value of next generations cell, and applies this value to each cell.
+     * Then a for loop is created that runs through the length of board (rows) and (columns) and adds a the rules and the getNeighbours in the Array
+     * Then the array is equal to boardStatic Array
      */
     public void nextGeneration() {
-        int[][] nesteBrett = new int[columns][rows];
+        int[][] nextBoard = new int[columns][rows];
 
 
         //beregning
         for (int x = 0; x < boardStatic.length; x++) {
             for (int y = 0; y < boardStatic[0].length; y++) {
-                nesteBrett[x][y] = setCellRules(boardStatic[x][y], getNeighbours(x, y));
+                nextBoard[x][y] = setCellRules(boardStatic[x][y], getNeighbours(x, y));
             }
         }
-        boardStatic = nesteBrett;
-        nesteBrett = null;
+        boardStatic = nextBoard;
+        nextBoard = null;
 
     }
 
     /**
-     * Prints the values of a TXT-file to the board.
+     * Creates an new Array with the input from textfiles.
+     * A for loop runs through the lenght (rows and columns) of the board and adds the rules and the neighbours.
+     * declares the new board as boardStatic.
      */
     public void upDateBoard() {
         int[][] nyBrett = FileReader.openTXTfile();
@@ -143,11 +147,10 @@ public class StaticBoard {
     }
 
     /**
-     * Sets the rules.
+     * Setter for the rules.
      * @param rules is the only parameter in the setRules method.
      */
     public void setRules(int[][] rules) {
-
         this.rules = rules;
     }
 
@@ -181,6 +184,7 @@ public class StaticBoard {
 
     /**
      * Declares the rules of the board.
+     * The if loops checks if the patterns runs out the board, then it adds on the int totalNumbers
      * @param x is the first parameter in the getNeighbours method.
      * @param y is the second parameter in the getNeighbours method.
      * @return antall naboer (neighbours).
@@ -214,15 +218,6 @@ public class StaticBoard {
     }
 
     /**
-     * Sets the cell size.
-     * @param CSTR is the only parameter in the setCellSize method.
-     */
-    public void setCellSize(int CSTR) {
-
-        this.cellSize = CSTR;
-    }
-
-    /**
      * Sets the board.
      * @param boardT is the only parameter in the setBoard method.
      * @return boardStatic.
@@ -246,6 +241,15 @@ public class StaticBoard {
      */
     public double getCellSize() {
         return cellSize;
+    }
+
+    /**
+     * Sets the cell size.
+     * @param CSTR is the only parameter in the setCellSize method.
+     */
+    public void setCellSize(int CSTR) {
+
+        this.cellSize = CSTR;
     }
 
     /**
