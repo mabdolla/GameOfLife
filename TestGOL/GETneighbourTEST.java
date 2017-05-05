@@ -1,6 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import sample.Board.StaticBoard;
+import BoardLogic.StaticBoard;
 
 /**
  * @Test for getneighbours method in Staticboard class.

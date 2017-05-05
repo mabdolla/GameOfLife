@@ -2,6 +2,8 @@ package Controller;
 
 import FileHandler.FileReader;
 import FileHandler.FileReaderRLE;
+import Utils.Dialogboxes;
+import Utils.Sounds;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,7 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sample.Board.DynamicBoard;
+import BoardLogic.DynamicBoard;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,10 +30,6 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Optional;
 
-import static InterfaceDialog.Dialogboxes.*;
-import static InterfaceSounds.Sounds.btnSound;
-import static InterfaceSounds.Sounds.errorSound;
-import static InterfaceSounds.Sounds.startUpSound;
 
 /**
  * The Game Of Life application created for HIOA.
@@ -50,15 +48,10 @@ public class GameOfLifeController implements Initializable {
     public GraphicsContext gc;
     DynamicBoard dynamicBoard;
 
-    int oldChangeX;
-    int getOldChangeY;
-
-    int oldChangeClick_X;
-    int getoldChangeClick_Y;
     @FXML
-    private ColorPicker colorpickercell;
+    public ColorPicker colorpickercell;
     @FXML
-    private ColorPicker colorPicker;
+    public ColorPicker colorPicker;
     @FXML
     private Button StartStopBtn;
     @FXML
@@ -70,10 +63,16 @@ public class GameOfLifeController implements Initializable {
     private int iterasjoner = 0;
     int numbofWorkers = Runtime.getRuntime().availableProcessors();
 
+    int oldChangeX;
+    int getOldChangeY;
+
+    int oldChangeClick_X;
+    int getoldChangeClick_Y;
+
 
     /**
      * Constructs and initializes the canvas and application features.
-     *
+     * <p>
      * The start up sound method is ran here.
      * The DynamicBoard object is created.
      * Default values on the colorpickers is set.
@@ -81,7 +80,7 @@ public class GameOfLifeController implements Initializable {
      * The keyframe is created and defined. Within the keyframe we have some important methods to run like the nextGenerationConcurrent,
      * draw, and zoomable, then the keyframe is added in the timeline.
      *
-     * @param location is the first parameter in the initialize method.
+     * @param location  is the first parameter in the initialize method.
      * @param resources is the second parameter in the initialize method.
      */
 
@@ -89,10 +88,10 @@ public class GameOfLifeController implements Initializable {
 
         System.out.println("Available processors:" + numbofWorkers);
 
-        startUpSound();
+        Sounds.startUpSound();
 
         gc = canvas.getGraphicsContext2D();
-        dynamicBoard = new DynamicBoard(100, 80, gc, canvas);
+        dynamicBoard = new DynamicBoard(110, 80, gc, canvas);
 
         colorpickercell.setValue(Color.BLACK);
         colorPicker.setValue(Color.AQUA);
@@ -123,7 +122,7 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows the user to upload RLE file containing board pattern from computer disk.
-     *
+     * <p>
      * First a Filechooseer is created that lets the users choose some file they want, with a showOpenDialog.
      * Then if the file is not empty, the file is added to the filereaders board and rules is added to the dynamicBoards board and rules.
      * Also the if loop is set in a try and catch.
@@ -151,14 +150,14 @@ public class GameOfLifeController implements Initializable {
             }
 
         } catch (Exception e) {
-            errorSound();
-            filenotFoundError();
+            Sounds.errorSound();
+            Dialogboxes.filenotFoundError();
         }
     }
 
     /**
      * This method allows the user to upload RLE board pattern from URL link.
-     *
+     * <p>
      * First, a text input Dialog is created with some messages to the users,
      * then the URL is checked if it is present, then the content is read with ReadableByteChannel.
      * The content is put in a temporary file with FileOutputStream.
@@ -181,7 +180,8 @@ public class GameOfLifeController implements Initializable {
         try {
             if (result.isPresent()) {
                 System.out.println("URL-adress: " + result.get());
-                //lage til File og sende til FileReaderRLE
+
+                //Storing file and calling FileReaderRLE method
                 URL website = new URL(result.get());
                 ReadableByteChannel rbc = Channels.newChannel(website.openStream());
 
@@ -198,17 +198,16 @@ public class GameOfLifeController implements Initializable {
             }
 
         } catch (Exception e) {
-            errorSound();
-            filenotFoundError();
+            Sounds.errorSound();
+            Dialogboxes.filenotFoundError();
         }
     }
 
     /**
      * This method allows the user to upload txt file containing board pattern.
-     *
+     * <p>
      * A new board is created and the dynamic Boards sizes is added to the new board,
      * then the other methods from the dynamicboard is runned
-     *
      *
      * @param e is the only parameter.
      */
@@ -233,25 +232,29 @@ public class GameOfLifeController implements Initializable {
      * This method auto-zooms when the board is expanding
      */
     private void zoomable() {
-        if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()) {
-            celleSlider.setValue(celleSlider.getValue() - 0.01);
-            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.01));
+        double newSize = celleSlider.getValue() * 0.98;
+        if (dynamicBoard.getRows() > (canvas.getHeight() / newSize)) {
+            celleSlider.setValue(newSize);
+            dynamicBoard.setCellSize(newSize);
         }
-        if (dynamicBoard.board.get(0).size() > canvas.getHeight() / dynamicBoard.getCellSize()) {
-            celleSlider.setValue(celleSlider.getValue() - 0.01);
-            dynamicBoard.setCellSize((int) (celleSlider.getValue() - 0.01));
+        if (dynamicBoard.getColumns() > (canvas.getWidth() / newSize)) {
+            celleSlider.setValue(newSize);
+            dynamicBoard.setCellSize(newSize);
         }
-    }
-
-    @FXML
-    private void seeStatistics() {
-        //linechart.setData(iterasjoner);
-
     }
 
     /**
-     * This method allows user to change the color for dead cells.
-     * @param e is the only parameter in the changeColor method.
+     * This method is ment to generate statistics for x number of generations.
+     */
+    @FXML
+    private void seeStatistics() {
+    }
+
+
+    /**
+     * This method allows userinput to change the background color with input from colorpicker.
+     *
+     * @param e is the name of the actionevent that chooses color.
      */
     @FXML
     private void changecolor(ActionEvent e) {
@@ -260,8 +263,9 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * This method allows userinput to change the background color with input from colorpicker.
-     * @param c is the name of the actionevent that chooses color.
+     * This method allows user to change the color for dead cells.
+     *
+     * @param c is the only parameter in the changeColor method.
      */
     @FXML
     private void changeColorCell(ActionEvent c) {
@@ -273,7 +277,7 @@ public class GameOfLifeController implements Initializable {
      * This method allows user to clear canvas and creates a new empty board.
      */
     public void resetBoard() {
-        btnSound();
+        Sounds.btnSound();
         gc = canvas.getGraphicsContext2D();
         dynamicBoard = new DynamicBoard(dynamicBoard.getColumns(), dynamicBoard.getRows(), gc, canvas);
         draw();
@@ -287,7 +291,7 @@ public class GameOfLifeController implements Initializable {
     @FXML
     public void startSimulation() {
 
-        btnSound();
+        Sounds.btnSound();
         if (timeline.getStatus() == Animation.Status.RUNNING) {
             timeline.stop();
             StartStopBtn.setText("Start");
@@ -295,36 +299,6 @@ public class GameOfLifeController implements Initializable {
             timeline.play();
             StartStopBtn.setText("Stop");
         }
-    }
-
-    /**
-     * This method calls a method that show a alert box with information on how to play the game.
-     */
-    @FXML
-    public void howToPlay() {
-
-        howToPlayInfo();
-
-    }
-
-    /**
-     * This method calls a method that show a alert box with information about game of life.
-     */
-    @FXML
-    public void AboutGameofLife() {
-
-        gameInformation();
-
-    }
-
-    /**
-     * This method allows user to change the gamespeed.
-     * With the value of the slider, the speed of the timeline is adjusted.
-     */
-    @FXML
-    public void AdjustSpeed() {
-
-        timeline.setRate(sliderSpeed.getValue());
     }
 
     /**
@@ -345,42 +319,65 @@ public class GameOfLifeController implements Initializable {
      * If the value/cell is alive, it fills it with a color picked from the Color picker.
      * The same happens if the value/cell is dead.
      * All the rects are filled.
-     *
      */
     public void draw() throws ArrayIndexOutOfBoundsException {
-
         background();
+
 
         try {
 
             for (int j = 0; j < dynamicBoard.getColumns() && j < canvas.getWidth(); j++) {
-
                 for (int i = 0; i < dynamicBoard.getRows() && i < canvas.getWidth(); i++) {
                     if (dynamicBoard.getValue(j, i) == 1) {
                         gc.setFill(colorpickercell.getValue());
-
                     } else {
                         gc.setFill(colorPicker.getValue());
                     }
 
                     double CellSize = dynamicBoard.getCellSize();
-
                     gc.fillRect(j * CellSize, i * CellSize, CellSize - 0.5, CellSize - 0.5);
 
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            drawError();
+            Dialogboxes.drawError();
         }
     }
 
     /**
-     *
+     * This method calls a method that show a alert box with information on how to play the game.
+     */
+    @FXML
+    public void howToPlay() {
+
+        Dialogboxes.howToPlayInfo();
+
+    }
+
+    /**
+     * This method calls a method that show a alert box with information about game of life.
+     */
+    @FXML
+    public void AboutGameofLife() {
+
+        Dialogboxes.gameInformation();
+
+    }
+
+    /**
+     * This method allows user to change the gamespeed.
+     * With the value of the slider, the speed of the timeline is adjusted.
+     */
+    @FXML
+    public void AdjustSpeed() {
+
+        timeline.setRate(sliderSpeed.getValue());
+    }
+
+    /**
      * @param e
      * @throws Exception
      */
-
-
     @FXML
     public void userDrawCell(MouseEvent e) throws Exception {
 
@@ -398,8 +395,8 @@ public class GameOfLifeController implements Initializable {
                 draw();
             }
         } catch (Exception f) {
-            errorSound();
-            drawError();
+            Sounds.errorSound();
+            Dialogboxes.drawError();
         }
     }
 
@@ -427,8 +424,8 @@ public class GameOfLifeController implements Initializable {
             }
 
         } catch (Exception err) {
-            errorSound();
-            drawError();
+            Sounds.errorSound();
+            Dialogboxes.drawError();
         }
     }
 
@@ -441,6 +438,7 @@ public class GameOfLifeController implements Initializable {
         Platform.exit();
 
     }
-
 }
+
+
 

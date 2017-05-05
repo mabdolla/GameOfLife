@@ -1,19 +1,19 @@
-package InterfaceDialog;
+package Utils;
 
 import javafx.scene.control.Alert;
 
 /**
  * The Game Of Life application created for HIOA 2017
- * The Dialogboxes interface contains methods creating alertboxes with information and exeption handling.
+ * The Dialogboxes class contains methods creating alertboxes with information and exeption handling.
  *
  * @author Fredrik, Hans Jacob, Mohammad
  *         Studentnr : S309293, s305064, s309856
  */
-public interface Dialogboxes {
+public class Dialogboxes {
 
     /////////////////////////////////INFORMATION ABOUT THE GAME & HOW TO PLAY BOXES/////////////////////////////////////
 
-    static void gameInformation() {
+    public static void gameInformation() {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About Game of Life");
@@ -36,7 +36,7 @@ public interface Dialogboxes {
         alert.showAndWait();
     }
 
-    static void howToPlayInfo() {
+    public static void howToPlayInfo() {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("How to play");
@@ -72,7 +72,7 @@ public interface Dialogboxes {
     /**
      * This method creates a alertbox for exeption in userDrawcell method in controller.
      */
-    static void drawError() {
+    public static void drawError() {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -86,7 +86,7 @@ public interface Dialogboxes {
      * This method creates a alertbox for handling exeption in RLEopen open method
      * and URLopen methods in GameofLifeController.
      */
-    static void filenotFoundError() {
+    public static void filenotFoundError() {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");

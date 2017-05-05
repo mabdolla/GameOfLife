@@ -1,4 +1,4 @@
-package sample.Board;
+package BoardLogic;
 
 
 import FileHandler.FileReader;
@@ -53,6 +53,7 @@ public class StaticBoard {
     public StaticBoard(int columns, int rows) {
         this.columns = columns;
         this.rows = rows;
+
     }
 
     public StaticBoard(){}
@@ -151,6 +152,7 @@ public class StaticBoard {
      * @param rules is the only parameter in the setRules method.
      */
     public void setRules(int[][] rules) {
+
         this.rules = rules;
     }
 
@@ -190,8 +192,8 @@ public class StaticBoard {
      * @return antall naboer (neighbours).
      */
     public int getNeighbours(int x, int y) {
-        //x = rader
-        //y = kolonner
+        //x = rows
+        //y = columns
 
         int numbOfNeighbours = 0;
 
@@ -218,6 +220,15 @@ public class StaticBoard {
     }
 
     /**
+     * Sets the cell size.
+     * @param CSTR is the only parameter in the setCellSize method.
+     */
+    public void setCellSize(double CSTR) {
+
+        this.cellSize = CSTR;
+    }
+
+    /**
      * Sets the board.
      * @param boardT is the only parameter in the setBoard method.
      * @return boardStatic.
@@ -241,15 +252,6 @@ public class StaticBoard {
      */
     public double getCellSize() {
         return cellSize;
-    }
-
-    /**
-     * Sets the cell size.
-     * @param CSTR is the only parameter in the setCellSize method.
-     */
-    public void setCellSize(int CSTR) {
-
-        this.cellSize = CSTR;
     }
 
     /**

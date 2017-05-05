@@ -1,7 +1,8 @@
-package sample.Board;
+package BoardLogic;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +45,15 @@ public class DynamicBoard extends StaticBoard {
         }
     }
 
-
     /**
      * calculates the next generation and updates the board.
-     *
+     * <p>
      * Defines the nextgen Arraylist with the size of the columns of the array.
      * A for loop is created and runs through the number of columns and rows and adds a new Arraylist with getRows in nextgen with the add function.
      * The Threads are created with a for loop that runs through the amount of proseccors and creates threads of the same amount, then another for loop inside that runs through the amount of threads and applies the rules and getneighbours.
      * Within two for-loops the Threads are started and joined, join also needed to be inside a try and catch.
      * After the threads are started, the Board Arraylist is equal to the nextgen Arraylist.
      * The method expand is run.
-     *
      */
     public void nextGenerationConcurrent() {
         List<Thread> workers = new ArrayList<Thread>();
@@ -100,27 +99,18 @@ public class DynamicBoard extends StaticBoard {
 
         board = nextGen;
         expand();
-//        setBoardSplitt();
-
-
-        /*long start = System.currentTimeMillis();
-
-        PrintNextGenerationPerformance(start, System.currentTimeMillis());
-        System.out.println("boarsplitt = " + boardSplit);
-        System.out.println("processor : " + proseccors);
-        System.out.println("boar size : " + board.size());*/
-
     }
 
 
     /**
      * This method print to console time used to performe nextgeneration method.
+     *
      * @param start is the first parameter of the PrintNextGenerationPerformance method.
-     * @param end is the second parameter of the PrintNextGenerationPerformance method.
+     * @param end   is the second parameter of the PrintNextGenerationPerformance method.
      * @return value as number of cells around one single cell, and calculate the time spent to execute the code.
      */
-    public void PrintNextGenerationPerformance(long start, long end ){
-        long time= end -start;
+    public void PrintNextGenerationPerformance(long start, long end) {
+        long time = end - start;
         System.out.println("Next generation time counter is :" + time);
     }
 
@@ -131,6 +121,7 @@ public class DynamicBoard extends StaticBoard {
     /**
      * This method returning the number of neighbour cells for each cell.
      * The if loops checks if the patterns runs out the board, then it adds on the int totalNumbers.
+     *
      * @param x is the first parameter in the getNeighbours method.
      * @param y is the second parameter in the getNeighbours method.
      * @return value as number of cells around one single cell.
@@ -139,14 +130,20 @@ public class DynamicBoard extends StaticBoard {
     public int getNeighbours(int x, int y) {
         int totalNumbers = 0;
 
-        if (!(x - 1 == -1) && getValue(x-1,y) == 1) totalNumbers++;                                         //LEFT CENTER
-        if (!(y - 1 == -1) && getValue(x,y-1) == 1) totalNumbers++;                                         //UP CENTER
-        if (!(x - 1 == -1 || y - 1 == -1) && getValue(x-1,y-1) == 1) totalNumbers++;                      //UP LEFT
-        if (!(x - 1 == -1 || y + 1 == getRows()) && getValue(x-1,y+1) == 1) totalNumbers++;            //DOWN LEFT
-        if (!(y + 1 == getRows()) && getValue(x,y+1) == 1) totalNumbers++;                               //DOWN CENTER
-        if (!(x + 1 == getColumns() || y - 1 == -1) && getValue(x+1,y-1) == 1) totalNumbers++;               //UP RIGHT
-        if (!(x + 1 == getColumns() || y + 1 == getRows()) && getValue(x+1,y+1) == 1) totalNumbers++;     //DOWN RIGHT
-        if (!(x + 1 == getColumns()) && getValue(x+1,y) == 1) totalNumbers++;                                  //CENTER RIGHT
+        if (!(x - 1 == -1) && getValue(x - 1, y) == 1)
+            totalNumbers++;                                         //LEFT CENTER
+        if (!(y - 1 == -1) && getValue(x, y - 1) == 1)
+            totalNumbers++;                                         //UP CENTER
+        if (!(x - 1 == -1 || y - 1 == -1) && getValue(x - 1, y - 1) == 1) totalNumbers++;                      //UP LEFT
+        if (!(x - 1 == -1 || y + 1 == getRows()) && getValue(x - 1, y + 1) == 1) totalNumbers++;            //DOWN LEFT
+        if (!(y + 1 == getRows()) && getValue(x, y + 1) == 1)
+            totalNumbers++;                               //DOWN CENTER
+        if (!(x + 1 == getColumns() || y - 1 == -1) && getValue(x + 1, y - 1) == 1)
+            totalNumbers++;               //UP RIGHT
+        if (!(x + 1 == getColumns() || y + 1 == getRows()) && getValue(x + 1, y + 1) == 1)
+            totalNumbers++;     //DOWN RIGHT
+        if (!(x + 1 == getColumns()) && getValue(x + 1, y) == 1)
+            totalNumbers++;                                  //CENTER RIGHT
 
         return totalNumbers;
 
@@ -158,7 +155,7 @@ public class DynamicBoard extends StaticBoard {
      * It also checks if the cell on the rows minus one is alive and then adds another column as its neighbour.
      * Another for loop adds an Arraylist as a column to the cells on the edge.
      * The last point is to add the new List made in the loops to the Board Arraylist and add a row to it.
-     *
+     * <p>
      * And if it is, it expands the arraylist to the minimum size needed to contain all cells.
      */
     public void expand() {
@@ -223,12 +220,13 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method let us set the value of each cell. Either dead or alive using 1 = alive or 0 = dead.
-     * @param x is represented as a value.
-     * @param y is represented as a value.
+     *
+     * @param x     is represented as a value.
+     * @param y     is represented as a value.
      * @param value
      */
     @Override
-    public void setValue(int x, int y, int value){
+    public void setValue(int x, int y, int value) {
         board.get(x).set(y, value);
     }
 
@@ -237,15 +235,16 @@ public class DynamicBoard extends StaticBoard {
      * The RLE parser returns the file in the form of 2D array.
      * It is nessesary to be converted for using it as a dynamicboard.
      * The board Arraylist is equal to the convertlist Arraylist with the columns and rows from boards size.
+     *
      * @param boardT
      */
     @Override
     public int[][] setBoard(int[][] boardT) {
 
         ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
-        for (int x = 0; x < boardT.length; x++){
+        for (int x = 0; x < boardT.length; x++) {
             ArrayList<Integer> temp = new ArrayList<>();
-            for(int y = 0; y < boardT[x].length; y++){
+            for (int y = 0; y < boardT[x].length; y++) {
                 temp.add(boardT[x][y]);
             }
             convertList.add(temp);
@@ -262,6 +261,7 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returning board columns.
+     *
      * @return columns.
      */
     @Override
@@ -271,6 +271,7 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returning toString method for class board.
+     *
      * @return toString.
      */
     @Override
@@ -281,6 +282,7 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returns board in form of arraylist.
+     *
      * @return board.
      */
     public ArrayList<ArrayList<Integer>> getBoard() {
@@ -289,6 +291,7 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returning nextgeneration in the form of an arraylist.
+     *
      * @return nextGen.
      */
     public ArrayList<ArrayList<Integer>> getNextGen() {
@@ -301,6 +304,7 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returning cellSize.
+     *
      * @return cellSize.
      */
     @Override
@@ -312,15 +316,7 @@ public class DynamicBoard extends StaticBoard {
      * @param cellSize parameter is assigned to the cellSize for this class.
      */
     @Override
-    public void setCellSize(int cellSize) {
+    public void setCellSize(double cellSize) {
         this.cellSize = cellSize;
     }
-
-//    public void setBoardSplitt() {
-//
-//        this.boardSplit = (int) Math.ceil(board.size() / proseccors);
-//    }
-
-
-
 }
