@@ -46,6 +46,17 @@ public class GameOfLifeController implements Initializable {
 
 
     @FXML
+    private Canvas canvas;
+    private Timeline timeline = new Timeline();
+    public GraphicsContext gc;
+    DynamicBoard dynamicBoard;
+
+    int oldChangeX;
+    int getOldChangeY;
+
+    int oldChangeClick_X;
+    int getoldChangeClick_Y;
+    @FXML
     private ColorPicker colorpickercell;
     @FXML
     private ColorPicker colorPicker;
@@ -55,17 +66,17 @@ public class GameOfLifeController implements Initializable {
     private Slider celleSlider;
     @FXML
     private Slider sliderSpeed;
-    @FXML
-    public Canvas canvas;
-
-
-    public Timeline timeline = new Timeline();
-    public GraphicsContext gc;
-    DynamicBoard dynamicBoard;
     private int iterasjoner = 0;
 
     /**
      * Constructs and initializes the canvas and application features.
+     *
+     *The star up spund method is runned here
+     * The DynamicBoard object is created
+     * Default values on the colorpickers is set
+     * The zoom Slider is defined with a for loop
+     * And The keyframe is created and defined, within the keyframe we have some important methods to run like the nextGenerationConcurrent, draw, and zoomable
+     * Then the keyframe is added in the timeline
      *
      * @param location
      * @param resources
@@ -110,6 +121,10 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to upload RLE file containing board pattern from computer disk.
      *
+     * First a Filechooseer is created that lets the users choose some file they want, with a showOpenDialog
+     * Then if the file is not empty, the file is added to the filereaders board and rules is added to the dynamicBoards board and rules
+     *Also the if loop is set in a try and catch
+     *
      * @Throws Exeption if user uploads wrong file format, or invalid file.
      * If error occurs a alertbox will show.
      */
@@ -138,6 +153,12 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows the user to upload RLE board pattern from URL link.
+     *
+     *First, a textinput Dialog is created with some messages to the users
+     * Then the URL is checked if is present then the content is read with ReadableByteChannel
+     * The content is put in a temporary file with FileOutputStream
+     * And the original file is equal to the new temporary file
+     * And the file is added to the Filereader of RLE, with its the board and the rules of Dynamicboard.
      *
      * @Throws Exeption if user uploads wrong file format, or invalid file.
      * If error occurs a alertbox will show.
@@ -193,7 +214,11 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to upload txt file containing board pattern.
      *
-     * @param e event
+     * A new  board is created and the dynamic Boards sizes is added to the new board
+     * Then the other methods from the dynamicboard is runned
+     *
+     *
+     * @param e
      */
     @FXML
     public void openFile(Event e) {
@@ -216,7 +241,7 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows user to change the color for dead cells.
      *
-     * @param e event
+     * @param e
      */
     @FXML
     private void changecolor(ActionEvent e) {
@@ -241,12 +266,14 @@ public class GameOfLifeController implements Initializable {
     public void resetBoard() {
         btnSound();
         gc = canvas.getGraphicsContext2D();
-        dynamicBoard = new DynamicBoard(dynamicBoard.getRows(), dynamicBoard.getColumns(), gc, canvas);
+        dynamicBoard = new DynamicBoard(dynamicBoard.getColumns(), dynamicBoard.getRows(), gc, canvas);
         draw();
     }
 
     /**
      * This method allows user to click start/stop button in the application.
+     * Inside a if loop, if the timeline is running it will stop when the button is clicked and the button text will change to start
+     * and if the timeline is stopped it will play and the text on the button wil be changed to stop
      */
     @FXML
     public void startSimulation() {
@@ -273,6 +300,7 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows user to change the gamespeed.
+     * With the value of the slider, the speed of the timeline is adjusted
      */
     @FXML
     public void AdjustSpeed() {
@@ -282,16 +310,23 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method draws the background to the canvas.
+     * it fills the GraphicsContext with a simple color
+     * and fills the rects and adjusts the sizes
      */
     public void background() {
         gc.setFill(Color.GRAY);
 
         double cellsize1 = dynamicBoard.getCellSize();
-        gc.fillRect(0, 0, dynamicBoard.getRows() * cellsize1, dynamicBoard.getColumns() * cellsize1);
+        gc.fillRect(0, 0, dynamicBoard.getColumns() * cellsize1, dynamicBoard.getRows() * cellsize1);
     }
 
     /**
      * This method draws the grid/cells on canvas.
+     * Within a try and catch there is some for and if loops that runs through the number of columns of the board and the width of the canvas
+     * Then if the value/cell is live if fills it with a color picked from the Color picker
+     * the same if the value/cell is dead
+     * All the rects are filled
+     *
      */
     public void draw() throws ArrayIndexOutOfBoundsException {
 
@@ -299,9 +334,9 @@ public class GameOfLifeController implements Initializable {
 
         try {
 
-            for (int j = 0; j < dynamicBoard.getRows() && j < canvas.getWidth(); j++) {
+            for (int j = 0; j < dynamicBoard.getColumns() && j < canvas.getWidth(); j++) {
 
-                for (int i = 0; i < dynamicBoard.getColumns() && i < canvas.getWidth(); i++) {
+                for (int i = 0; i < dynamicBoard.getRows() && i < canvas.getWidth(); i++) {
                     if (dynamicBoard.getValue(j, i) == 1) {
                         gc.setFill(colorpickercell.getValue());
 
@@ -321,10 +356,11 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * This method allows the user to fill rectangles on canvas with alive or dead cells.
+     *
+     * @param e
+     * @throws Exception
      */
-    int oldChangeX;
-    int getOldChangeY;
+
 
     @FXML
     public void userDrawCell(MouseEvent e) throws Exception {
@@ -335,7 +371,7 @@ public class GameOfLifeController implements Initializable {
             if (x == oldChangeX && y == getOldChangeY)
                 return;
 
-            if (x >= 0 && y >= 0 && x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
+            if (x >= 0 && y >= 0 && x < dynamicBoard.getColumns() && y < dynamicBoard.getRows()) {
                 boolean value = dynamicBoard.getValue(x, y) == 0;
                 dynamicBoard.setValue(x, y, value ? 1 : 0); //ternary operator
                 oldChangeX = x;
@@ -348,15 +384,6 @@ public class GameOfLifeController implements Initializable {
         }
     }
 
-    /**
-     * This method allows the user to fill rectangles on canvas with alive or dead cells.
-     *
-     * @param e name of mouseevent
-     * @throws Exception if something in the draw method used by user goes wrong.
-     */
-    int oldChangeClick_X;
-    int getoldChangeClick_Y;
-
     @FXML
     public void userDrawCellClicked(MouseEvent e) throws Exception {
 
@@ -366,13 +393,13 @@ public class GameOfLifeController implements Initializable {
             if (x == oldChangeClick_X && y == getoldChangeClick_Y)
                 return;
 
-            if (x >= 0 && y >= 0 && x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
+            if (x >= 0 && y >= 0 && x < dynamicBoard.getColumns() && y < dynamicBoard.getRows()) {
                 boolean value = dynamicBoard.getValue(x, y) == 0;
                 dynamicBoard.setValue(x, y, value ? 1 : 0); //ternary operator
                 oldChangeClick_X = x;
                 getoldChangeClick_Y = y;
                 draw();
-            } else if (x < dynamicBoard.getRows() && y < dynamicBoard.getColumns()) {
+            } else if (x < dynamicBoard.getColumns() && y < dynamicBoard.getRows()) {
 
                 if (dynamicBoard.getValue(x, y) == 0) {
                     dynamicBoard.setValue(x, y, 0);

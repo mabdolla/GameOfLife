@@ -95,8 +95,8 @@ public class FileReader{
 //        }
 //
 //        boardForFiles = convertList;
-//        setRows(boardForFiles.size());
-//        setColumns(boardForFiles.get(0).size());
+//        setColumns(boardForFiles.size());
+//        setRows(boardForFiles.get(0).size());
 //
 //        return newBoard;
 //    }

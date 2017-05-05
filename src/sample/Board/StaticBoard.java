@@ -18,8 +18,8 @@ import javafx.scene.paint.Color;
 public class StaticBoard {
     public GraphicsContext gc;
     public Canvas canvas;
-    public int rows;
     public int columns;
+    public int rows;
     public int[][] brett;
     public double cellSize = 7;
     private int gameSpeed = 40;
@@ -32,18 +32,18 @@ public class StaticBoard {
 
 
     /**
-     * Constructs and initializes a board with rows, columns, gc and canvas.
-     * @param rows is the first parameter int the StaticBoard constructor.
-     * @param columns is the second parameter int the StaticBoard constructor.
-     * @param gc is the third parameter int the StaticBoard constructor.
-     * @param canvas is the fourth parameter int the StaticBoard constructor.
+     * Constructs and initializes a board with columns, rows, gc and canvas
+     * @param columns is the first parameter int the StaticBoard constructor
+     * @param rows is the second parameter int the StaticBoard constructor
+     * @param gc is the third parameter int the StaticBoard constructor
+     * @param canvas is the fourth parameter int the StaticBoard constructor
      */
     //Constructor
-    public StaticBoard(int rows, int columns, GraphicsContext gc, Canvas canvas) {
-        this.rows = rows;
+    public StaticBoard(int columns, int rows, GraphicsContext gc, Canvas canvas) {
         this.columns = columns;
+        this.rows = rows;
         this.gc = gc;
-        brett = new int[rows][columns];
+        brett = new int[columns][rows];
         this.canvas = canvas;
 //        draw();
     }
@@ -53,9 +53,9 @@ public class StaticBoard {
      * @param rows is the first parameter in the StaticBoard method.
      * @param columns is the second parameter in the StaticBoard method.
      */
-    public StaticBoard(int rows, int columns) {
-        this.rows = rows;
+    public StaticBoard(int columns, int rows) {
         this.columns = columns;
+        this.rows = rows;
 
     }
 
@@ -113,7 +113,7 @@ public class StaticBoard {
      * Calculates the value of next generations cell, and applies this value to each cell.
      */
     public void nextGeneration() {
-        int[][] nesteBrett = new int[rows][columns];
+        int[][] nesteBrett = new int[columns][rows];
 
 
         //beregning
@@ -249,26 +249,8 @@ public class StaticBoard {
     }
 
     /**
-     * Gets rows.
-     * @return rows.
-     */
-    public int getRows() {
-
-        return rows;
-    }
-
-    /**
-     * Gets rows.
-     * @param rows is the only parameter in the setRows method.
-     */
-    public void setRows(int rows) {
-
-        this.rows = rows;
-    }
-
-    /**
      * Gets columns.
-     * @return columns.
+     * @return columns
      */
     public int getColumns() {
 
@@ -277,11 +259,29 @@ public class StaticBoard {
 
     /**
      * Sets columns.
-     * @param columns is the only parameter in the setColumns method.
+     * @param columns is the only parameter in the setColumns method
      */
     public void setColumns(int columns) {
 
         this.columns = columns;
+    }
+
+    /**
+     * Gets rows
+     * @return rows
+     */
+    public int getRows() {
+
+        return rows;
+    }
+
+    /**
+     * Sets rows.
+     * @param rows is the only parameter in the setRows method
+     */
+    public void setRows(int rows) {
+
+        this.rows = rows;
     }
 
     /**

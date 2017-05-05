@@ -27,7 +27,7 @@ public class GETneighbourTEST {
         };
 
         //x = row placement of cell
-        //y = columns placement for cell
+        //y = rows placement for cell
 
         staticBoard.setBrett(board1);
 
@@ -50,8 +50,8 @@ public class GETneighbourTEST {
                 { 0, 0, 0, 0 }
         };
 
-        //x = rows
-        //y = columns
+        //x = columns
+        //y = rows
 
         staticBoard.setBrett(board1);
 
@@ -73,8 +73,8 @@ public class GETneighbourTEST {
                 { 0, 0, 0, 0 }
         };
 
-        //x = rows
-        //y = columns
+        //x = columns
+        //y = rows
 
         staticBoard.setBrett(board1);
 
