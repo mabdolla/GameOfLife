@@ -34,7 +34,7 @@ import static InterfaceSounds.Sounds.errorSound;
 import static InterfaceSounds.Sounds.startUpSound;
 
 /**
- * The Game Of Life application created for HIOA
+ * The Game Of Life application created for HIOA.
  * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
  * The class is also implementing Initializable interface.
  *
@@ -74,15 +74,15 @@ public class GameOfLifeController implements Initializable {
     /**
      * Constructs and initializes the canvas and application features.
      *
-     *The star up spund method is runned here
-     * The DynamicBoard object is created
-     * Default values on the colorpickers is set
-     * The zoom Slider is defined with a for loop
-     * And The keyframe is created and defined, within the keyframe we have some important methods to run like the nextGenerationConcurrent, draw, and zoomable
-     * Then the keyframe is added in the timeline
+     * The start up sound method is ran here.
+     * The DynamicBoard object is created.
+     * Default values on the colorpickers is set.
+     * The zoom Slider is defined with a for loop.
+     * The keyframe is created and defined. Within the keyframe we have some important methods to run like the nextGenerationConcurrent,
+     * draw, and zoomable, then the keyframe is added in the timeline.
      *
-     * @param location
-     * @param resources
+     * @param location is the first parameter in the initialize method.
+     * @param resources is the second parameter in the initialize method.
      */
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -124,12 +124,12 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to upload RLE file containing board pattern from computer disk.
      *
-     * First a Filechooseer is created that lets the users choose some file they want, with a showOpenDialog
-     * Then if the file is not empty, the file is added to the filereaders board and rules is added to the dynamicBoards board and rules
-     *Also the if loop is set in a try and catch
+     * First a Filechooseer is created that lets the users choose some file they want, with a showOpenDialog.
+     * Then if the file is not empty, the file is added to the filereaders board and rules is added to the dynamicBoards board and rules.
+     * Also the if loop is set in a try and catch.
      *
      * @Throws Exeption if user uploads wrong file format, or invalid file.
-     * If error occurs a alertbox will show.
+     * If error occurs an alertbox will show.
      */
     @FXML
     private void RLEopen() throws Exception {
@@ -159,14 +159,14 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to upload RLE board pattern from URL link.
      *
-     *First, a textinput Dialog is created with some messages to the users
-     * Then the URL is checked if is present then the content is read with ReadableByteChannel
-     * The content is put in a temporary file with FileOutputStream
-     * And the original file is equal to the new temporary file
-     * And the file is added to the Filereader of RLE, with its the board and the rules of Dynamicboard.
+     * First, a text input Dialog is created with some messages to the users,
+     * then the URL is checked if it is present, then the content is read with ReadableByteChannel.
+     * The content is put in a temporary file with FileOutputStream.
+     * The original file is equal to the new temporary file.
+     * The file is added to the Filereader of RLE, with the board and the rules of Dynamicboard.
      *
      * @Throws Exeption if user uploads wrong file format, or invalid file.
-     * If error occurs a alertbox will show.
+     * If error occurs an alertbox will show.
      */
     @FXML
     private void URLopen() throws Exception {
@@ -206,11 +206,11 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to upload txt file containing board pattern.
      *
-     * A new  board is created and the dynamic Boards sizes is added to the new board
-     * Then the other methods from the dynamicboard is runned
+     * A new board is created and the dynamic Boards sizes is added to the new board,
+     * then the other methods from the dynamicboard is runned
      *
      *
-     * @param e
+     * @param e is the only parameter.
      */
     @FXML
     public void openFile(Event e) {
@@ -230,7 +230,7 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * This method makes the zoom auto zoom when game is running
+     * This method auto-zooms when the board is expanding
      */
     private void zoomable() {
         if (dynamicBoard.board.size() > canvas.getWidth() / dynamicBoard.getCellSize()) {
@@ -251,8 +251,7 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows user to change the color for dead cells.
-     *
-     * @param e
+     * @param e is the only parameter in the changeColor method.
      */
     @FXML
     private void changecolor(ActionEvent e) {
@@ -262,8 +261,7 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows userinput to change the background color with input from colorpicker.
-     *
-     * @param c is the name of the actionevent that chooses color
+     * @param c is the name of the actionevent that chooses color.
      */
     @FXML
     private void changeColorCell(ActionEvent c) {
@@ -321,7 +319,7 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows user to change the gamespeed.
-     * With the value of the slider, the speed of the timeline is adjusted
+     * With the value of the slider, the speed of the timeline is adjusted.
      */
     @FXML
     public void AdjustSpeed() {
@@ -331,8 +329,8 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method draws the background to the canvas.
-     * it fills the GraphicsContext with a simple color
-     * and fills the rects and adjusts the sizes
+     * It fills the GraphicsContext with a simple color,
+     * and fills the rects and adjusts the sizes.
      */
     public void background() {
         gc.setFill(Color.GRAY);
@@ -343,10 +341,10 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method draws the grid/cells on canvas.
-     * Within a try and catch there is some for and if loops that runs through the number of columns of the board and the width of the canvas
-     * Then if the value/cell is live if fills it with a color picked from the Color picker
-     * the same if the value/cell is dead
-     * All the rects are filled
+     * Within a try and catch there is some for and if loops that runs through the number of columns of the board and the width of the canvas.
+     * If the value/cell is alive, it fills it with a color picked from the Color picker.
+     * The same happens if the value/cell is dead.
+     * All the rects are filled.
      *
      */
     public void draw() throws ArrayIndexOutOfBoundsException {
