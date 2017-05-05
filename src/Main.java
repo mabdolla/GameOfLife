@@ -8,6 +8,14 @@ public class Main extends Application {
 
 
     /**
+     * launches program.
+     * @param args is the main methods only parameter
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    /**
      *Opens the window that contains the Game Of Life.
      * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
      *         Studentnr : S309293, s305064, s309856
@@ -20,13 +28,5 @@ public class Main extends Application {
         primaryStage.show();
 
 
-    }
-
-    /**
-     * launches program.
-     * @param args is the main methods only parameter
-     */
-    public static void main(String[] args) {
-        launch(args);
     }
 }

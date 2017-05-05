@@ -4,8 +4,8 @@ import BoardLogic.StaticBoard;
 
 
 /**
- * The Game Of Life application created for HIOA.
- * The Test Class contains tests to ensure the application runs as intended.
+ * The Game Of Life application created at Oslo and Akershus University Collage of Applied Sciences.
+ * The Test Class contains tests to ensure the application runs as expected.
  * The class extends StaticBoard.
  *
  * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
@@ -16,7 +16,7 @@ public class StaticBoardTest extends StaticBoard {
     /**
      * Test Class Game of Life.
      * testNextGenerationEqual tests to see if the expected result corresponds to the array above it.
-     * In this example, the we expect the pattern to stay the same, and it does.
+     * In this example, twe expect the pattern to stay the same, and it does.
      **/
     @Test
     public void testNextGenerationEqual(){
@@ -97,9 +97,9 @@ public class StaticBoardTest extends StaticBoard {
     }
 
     /**
-     * * TestBrett4 tests to see if the expected result corresponds to the array above it.
+     * TestBrett4 tests to see if the expected result corresponds to the array above it.
      * The following code tests one single cell.
-     * The rules state that a single cell with no neighbours shall "die" of loneliness.
+     * The rules state that a single cell with no neighbours shall "die" of underpopulation.
      **/
     @Test
     public void testBrett4(){

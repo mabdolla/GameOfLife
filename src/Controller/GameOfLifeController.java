@@ -32,8 +32,8 @@ import java.util.Optional;
 
 
 /**
- * The Game Of Life application created for HIOA.
- * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
+ * The Game Of Life application created for Oslo and Akershus University Collage of Applied Sciences.
+ * The Controller class is the methods for fxml, all the features in fxml are assigned in this class.
  * The class is also implementing Initializable interface.
  *
  * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
@@ -42,16 +42,20 @@ import java.util.Optional;
 public class GameOfLifeController implements Initializable {
 
 
-    @FXML
-    private Canvas canvas;
-    private Timeline timeline = new Timeline();
     public GraphicsContext gc;
-    DynamicBoard dynamicBoard;
-
     @FXML
     public ColorPicker colorpickercell;
     @FXML
     public ColorPicker colorPicker;
+    DynamicBoard dynamicBoard;
+    int numbofWorkers = Runtime.getRuntime().availableProcessors();
+    int oldChangeX;
+    int getOldChangeY;
+    int oldChangeClick_X;
+    int getoldChangeClick_Y;
+    @FXML
+    private Canvas canvas;
+    private Timeline timeline = new Timeline();
     @FXML
     private Button StartStopBtn;
     @FXML
@@ -61,23 +65,15 @@ public class GameOfLifeController implements Initializable {
     @FXML
     private LineChart linechart;
     private int iterasjoner = 0;
-    int numbofWorkers = Runtime.getRuntime().availableProcessors();
-
-    int oldChangeX;
-    int getOldChangeY;
-
-    int oldChangeClick_X;
-    int getoldChangeClick_Y;
-
 
     /**
      * Constructs and initializes the canvas and application features.
-     * <p>
-     * The start up sound method is ran here.
+     * The start up sound method is run here.
      * The DynamicBoard object is created.
      * Default values on the colorpickers is set.
-     * The zoom Slider is defined with a for loop.
-     * The keyframe is created and defined. Within the keyframe we have some important methods to run like the nextGenerationConcurrent,
+     * The zoom Slider is defined with a for-loop.
+     * The keyframe is created and defined.
+     * Within the keyframe we have some important methods to run like the nextGenerationConcurrent,
      * draw, and zoomable, then the keyframe is added in the timeline.
      *
      * @param location  is the first parameter in the initialize method.
@@ -122,10 +118,9 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows the user to upload RLE file containing board pattern from computer disk.
-     * <p>
      * First a Filechooseer is created that lets the users choose some file they want, with a showOpenDialog.
-     * Then if the file is not empty, the file is added to the filereaders board and rules is added to the dynamicBoards board and rules.
-     * Also the if loop is set in a try and catch.
+     * Then if the file is not empty, the file is added to the filereaders board and rules is added to the dynamicBoard.
+     * The if-loop is set in a try and catch.
      *
      * @Throws Exeption if user uploads wrong file format, or invalid file.
      * If error occurs an alertbox will show.
@@ -157,7 +152,6 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows the user to upload RLE board pattern from URL link.
-     * <p>
      * First, a text input Dialog is created with some messages to the users,
      * then the URL is checked if it is present, then the content is read with ReadableByteChannel.
      * The content is put in a temporary file with FileOutputStream.
@@ -205,10 +199,8 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows the user to upload txt file containing board pattern.
-     * <p>
      * A new board is created and the dynamic Boards sizes is added to the new board,
-     * then the other methods from the dynamicboard is runned
-     *
+     * then the other methods from the dynamicboard will run.
      * @param e is the only parameter.
      */
     @FXML
@@ -229,7 +221,7 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * This method auto-zooms when the board is expanding
+     * This method auto-zooms when the board is expanding.
      */
     private void zoomable() {
         double newSize = celleSlider.getValue() * 0.98;
@@ -244,7 +236,7 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * This method is ment to generate statistics for x number of generations.
+     * This method is ment to generate statistics for x number of generations (W.I.P).
      */
     @FXML
     private void seeStatistics() {
@@ -253,7 +245,6 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows userinput to change the background color with input from colorpicker.
-     *
      * @param e is the name of the actionevent that chooses color.
      */
     @FXML
@@ -264,7 +255,6 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows user to change the color for dead cells.
-     *
      * @param c is the only parameter in the changeColor method.
      */
     @FXML
@@ -285,8 +275,8 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method allows user to click start/stop button in the application.
-     * Inside a if loop, if the timeline is running it will stop when the button is clicked and the button text will change to start
-     * and if the timeline is stopped it will play and the text on the button wil be changed to stop
+     * Inside a if-loop, if the timeline is running it will stop when the button is clicked and the button text will change to start
+     * and if the timeline is stopped it will play and the text on the button wil be changed to stop.
      */
     @FXML
     public void startSimulation() {
@@ -315,7 +305,8 @@ public class GameOfLifeController implements Initializable {
 
     /**
      * This method draws the grid/cells on canvas.
-     * Within a try and catch there is some for and if loops that runs through the number of columns of the board and the width of the canvas.
+     * A value can be 1 or 0.
+     * Within a try and catch there is some for- and if-loops that runs through the number of columns of the board and the width of the canvas.
      * If the value/cell is alive, it fills it with a color picked from the Color picker.
      * The same happens if the value/cell is dead.
      * All the rects are filled.
@@ -345,7 +336,7 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * This method calls a method that show a alert box with information on how to play the game.
+     * This method calls a method that shows an alert box with information on how to play the game.
      */
     @FXML
     public void howToPlay() {
@@ -355,7 +346,7 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * This method calls a method that show a alert box with information about game of life.
+     * This method calls a method that shows an alert box with information about game of life.
      */
     @FXML
     public void AboutGameofLife() {
@@ -365,7 +356,7 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * This method allows user to change the gamespeed.
+     * This method allows user to change the game speed.
      * With the value of the slider, the speed of the timeline is adjusted.
      */
     @FXML
@@ -375,7 +366,11 @@ public class GameOfLifeController implements Initializable {
     }
 
     /**
-     * @param e
+     * Lets the user draw living or dead cells while dragging directly on the board.
+     * Witching the try and catch there is implemented logic that checks if any cells is alive.
+     * The method lets the user click outside the board without the program returning any errors.
+     * The draw methid is runned.
+     * @param e is the only parameter in the changeColor method.
      * @throws Exception
      */
     @FXML
@@ -400,6 +395,14 @@ public class GameOfLifeController implements Initializable {
         }
     }
 
+    /**
+     * Lets the user draw living or dead cells while clicking directly on the board.
+     * Witching the try and catch there is implemented logic that checks if any cells is alive.
+     * The method lets the user click outside the board without the program returning any errors.
+     * The draw method is runned.
+     * @param e is the only parameter in the changeColor method.
+     * @throws Exception
+     */
     @FXML
     public void userDrawCellClicked(MouseEvent e) throws Exception {
 
@@ -431,7 +434,7 @@ public class GameOfLifeController implements Initializable {
 
 
     /**
-     * This method close the application when button Exit is pressed.
+     * This method close the application when exit button is clicked.
      */
     @FXML
     public void closeButtonAction() {

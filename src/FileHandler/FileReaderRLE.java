@@ -6,28 +6,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The Game Of Life application created for HIOA
- * The FileReaderRLE class parses both rle files from computer and rle files from url address
- * and creates an arraylist that will be the new board pattern
+ * The Game Of Life application created for Oslo and Akershus University Collage of Applied Sciences.
+ * The FileReaderRLE class parses both rle files from computer and rle files from url address,
+ * and creates an arraylist that will be the new board pattern.
  *
  * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  *         Studentnr : S309293, s305064, s309856
  */
 public class FileReaderRLE {
-    StringBuilder lineBuilder = new StringBuilder();
-    BufferedReader bReader;
     public File file2;
-
     public int[][] rules = new int[2][9];
     public int[][] brett;
+    StringBuilder lineBuilder = new StringBuilder();
+    BufferedReader bReader;
 
 
     /**
      * Reads a file from the computer.
      *
-     * @param file The file name for the file uploaded from disk. If the file is not empty,
-     *             the readboard method is called.
-     * @throws IOException Throws index out of bounds exeption i the filepattern is out of array bounds.
+     * @param file The file name for the file uploaded from disk.
+     *             If the file is not empty, the readboard method is called.
+     * @throws IOException Throws index out of bounds exeption if the filepattern is out of array bounds.
      */
     public FileReaderRLE(File file) throws IOException {
         this.file2 = file;
@@ -38,9 +37,10 @@ public class FileReaderRLE {
     }
 
     /**
-     * Parses a file from the computer and creating an array with xlength & ylength according to the RLE file patterns size.
+     * Parses a file from the computer and creates an array with xlength & ylength according to the RLE file patterns size.
      * Regex is used to parse pattern, and converting the content of the file to cells either dead or alive
-     * The file is returned as a arraylist that is the new boardpattern.
+     * The file is returned as an arraylist that is the new boardpattern.
+     * The while loop checks if the file has content according to regex and performs the expressions if they match with matcher.
      *
      * @throws IOException
      * @see jdk.nashorn.internal.runtime.regexp.joni.Regex

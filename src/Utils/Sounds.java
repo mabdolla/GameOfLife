@@ -9,10 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * The Game Of Life application created for HIOA
+ * The Game Of Life application created for Oslo and Akershus University Collage of Applied Sciences.
  * The Sound class contains methods creating sound used in application.
  *
- * @author Fredrik, Hans Jacob, Mohammad
+ * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  *         Studentnr : S309293, s305064, s309856
  */
 
@@ -41,7 +41,7 @@ public class Sounds {
     }
 
     /**
-     * This method creates a error sound that plays when something dont work or error occure.
+     * This method creates a error sound that plays when something doesn't work or an error occures.
      * Public domain.  https://www.myinstants.com/instant/windows-xp-error/.
      */
     public static void errorSound() {

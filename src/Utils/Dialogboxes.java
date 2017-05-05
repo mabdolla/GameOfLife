@@ -3,10 +3,10 @@ package Utils;
 import javafx.scene.control.Alert;
 
 /**
- * The Game Of Life application created for HIOA 2017
+ * The Game Of Life application created for Oslo and Akershus University Collage of Applied Sciences.
  * The Dialogboxes class contains methods creating alertboxes with information and exeption handling.
  *
- * @author Fredrik, Hans Jacob, Mohammad
+ * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  *         Studentnr : S309293, s305064, s309856
  */
 public class Dialogboxes {
@@ -23,10 +23,10 @@ public class Dialogboxes {
                 "The \"game\" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input." +
                 "You can interact in this java version of the game by drawing alive cells on the screen and see how they evolve." +
                 "\n\n" +
-                "Every cell thats drawn interacts with its eight neighbours that each cell has based on these rules the cells evolves into further generations:" +
+                "Every cell that is drawn interacts with its eight neighbours that each cell has based on these rules. The cells evolves into further generations:" +
 
                 "RULES:\n" +
-                "1: Any alive cell with less than two alive neighbours dies, as in underpopulation.\n\n" +
+                "1: Any alive cell with less than two alive neighbours dies, as of underpopulation.\n\n" +
                 "2: Any alive cell with two or three alive neighbours lives on.\n\n" +
                 "3: Any alive cell with more than three alive neighbours dies, as in by overpopulation.\n\n" +
                 "4: Any dead cell with exactly three alive neighbours turns into a living cell, as in reproduction.\n\n" +
@@ -52,7 +52,7 @@ public class Dialogboxes {
                         "By clicking this button, the grid will clear and you will start with a blank drawing grid.\n\n" +
 
                         "ZOOM:\n" +
-                        "Zooming in make the gridcells bigger, zooming out makes the gridcells smaller.\n\n" +
+                        "Zooming in makes the gridcells bigger, zooming out makes the gridcells smaller.\n\n" +
 
                         "ADJUST SPEED:\n" +
                         "Changing the speed of the animation.\n\n" +
@@ -70,7 +70,7 @@ public class Dialogboxes {
 
     //////////////////////////////ALERT BOXES FOR EXEPTION HANDLING////////////////////////////////////////////////////
     /**
-     * This method creates a alertbox for exeption in userDrawcell method in controller.
+     * This method creates an alertbox for exeption in userDrawcell method in controller.
      */
     public static void drawError() {
 
@@ -83,7 +83,7 @@ public class Dialogboxes {
     }
 
     /**
-     * This method creates a alertbox for handling exeption in RLEopen open method
+     * This method creates a alertbox for handling exeption in RLEopen open method,
      * and URLopen methods in GameofLifeController.
      */
     public static void filenotFoundError() {

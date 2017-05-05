@@ -1,14 +1,15 @@
 package FileHandler;
 
 import javafx.stage.FileChooser;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
 
 /**
- * The Game Of Life application created for HIOA
- * The FileReader class is the class for reading and parsing txt files containging board patterns.
+ * The Game Of Life application created for Oslo and Akershus University Collage of Applied Sciences.
+ * The FileReader class is the class for reading and parsing txt files containing board patterns.
  *
  * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  *         Studentnr : S309293, s305064, s309856
@@ -17,7 +18,8 @@ public class FileReader {
 
 
     /**
-     * This method sets up a filechooser, which is a fileexplorer, that gets accsess to see txt files on the computer.
+     * This method sets up a filechooser, which is a fileexplorer, that gets access to see txt files on the computer.
+     * Filechooser is created and then ads extentionfilter with the formats available.
      *
      * @return fileChooser that creates an fileexplorer that allows the user to upload files from computer.
      */
@@ -30,9 +32,13 @@ public class FileReader {
     }
 
     /**
-     * This method opens a TXT file and parses the file into a array.
+     * This method opens a TXT file and parses the file into an array.
+     * A scanner is created with the parameter txtfile.
+     * While loop checks gets line by line in the file chosen.
+     * Creates an array that thakes x and y parameters.
+     * in the for loop, if a character is 'o', it gets the value 1, meaning alive.
      *
-     * @return new int[][] array which is the new board pattern that will show up in the grid.
+     * @return new int[][] array which is the new board pattern that will show up on the board.
      */
     public static int[][] openTXTfile() {
 
@@ -52,9 +58,6 @@ public class FileReader {
                 xlength++;
 
             }
-
-            //Printing out the needed x & y length of the array.
-            //System.out.println(xlength + " x length, " + ylength + " y length");
 
             int[][] brett = new int[xlength][ylength];        //Creates an array that takes x and y as parameters
 
@@ -88,24 +91,6 @@ public class FileReader {
         }
         return new int[0][0];
     }
-
-
-//    public int[][] setBoard(int[][] newBoard) {
-//
-//        ArrayList<ArrayList<Integer>> convertList = new ArrayList<ArrayList<Integer>>();
-//        for (int x = 0; x < newBoard.length; x++){
-//            convertList.add(new ArrayList<>());
-//            for(int y = 0; y < newBoard[x].length; y++){
-//                convertList.get(x).add(newBoard[x][y]);
-//            }
-//        }
-//
-//        boardForFiles = convertList;
-//        setColumns(boardForFiles.size());
-//        setRows(boardForFiles.get(0).size());
-//
-//        return newBoard;
-//    }
 
 }
 

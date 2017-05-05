@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Game Of Life application created for HIOA.
- * The DynamicBoard class contains constructor and methods for creating and using arraylist as board.
+ * The Game Of Life application created at Oslo and Akershus University Collage of Applied Sciences.
+ * The DynamicBoard class contains constructors and methods for creating and using arraylists as boards.
  * Next generation method updating the board according to rules you will find in this class.
  * Next generation method is also running on Threads based on the number of processors on your computer.
  *
@@ -22,7 +22,6 @@ public class DynamicBoard extends StaticBoard {
     public ArrayList<ArrayList<Integer>> board = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> nextGen;
     double cellSize = 9;
-    int boardSplit;
 
     /**
      * Constructs and initiates a board with rows, columns, gc and canvas.
@@ -47,7 +46,6 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * calculates the next generation and updates the board.
-     * <p>
      * Defines the nextgen Arraylist with the size of the columns of the array.
      * A for loop is created and runs through the number of columns and rows and adds a new Arraylist with getRows in nextgen with the add function.
      * The Threads are created with a for loop that runs through the amount of proseccors and creates threads of the same amount, then another for loop inside that runs through the amount of threads and applies the rules and getneighbours.
@@ -106,7 +104,7 @@ public class DynamicBoard extends StaticBoard {
      * This method print to console time used to performe nextgeneration method.
      *
      * @param start is the first parameter of the PrintNextGenerationPerformance method.
-     * @param end   is the second parameter of the PrintNextGenerationPerformance method.
+     * @param end is the second parameter of the PrintNextGenerationPerformance method.
      * @return value as number of cells around one single cell, and calculate the time spent to execute the code.
      */
     public void PrintNextGenerationPerformance(long start, long end) {
@@ -114,12 +112,8 @@ public class DynamicBoard extends StaticBoard {
         System.out.println("Next generation time counter is :" + time);
     }
 
-//    public void setBoardSplitt(){
-//        this.boardSplit = (int) Math.ceil(board.size()/proseccors);
-//    }
-
     /**
-     * This method returning the number of neighbour cells for each cell.
+     * This method returns the number of neighbour cells, for each cell.
      * The if loops checks if the patterns runs out the board, then it adds on the int totalNumbers.
      *
      * @param x is the first parameter in the getNeighbours method.
@@ -131,31 +125,32 @@ public class DynamicBoard extends StaticBoard {
         int totalNumbers = 0;
 
         if (!(x - 1 == -1) && getValue(x - 1, y) == 1)
-            totalNumbers++;                                         //LEFT CENTER
+            totalNumbers++;                                                                                     //LEFT CENTER
         if (!(y - 1 == -1) && getValue(x, y - 1) == 1)
-            totalNumbers++;                                         //UP CENTER
-        if (!(x - 1 == -1 || y - 1 == -1) && getValue(x - 1, y - 1) == 1) totalNumbers++;                      //UP LEFT
-        if (!(x - 1 == -1 || y + 1 == getRows()) && getValue(x - 1, y + 1) == 1) totalNumbers++;            //DOWN LEFT
+            totalNumbers++;                                                                                     //UP CENTER
+        if (!(x - 1 == -1 || y - 1 == -1) && getValue(x - 1, y - 1) == 1)
+            totalNumbers++;                                                                                     //UP LEFT
+        if (!(x - 1 == -1 || y + 1 == getRows()) && getValue(x - 1, y + 1) == 1)
+            totalNumbers++;                                                                                     //DOWN LEFT
         if (!(y + 1 == getRows()) && getValue(x, y + 1) == 1)
-            totalNumbers++;                               //DOWN CENTER
+            totalNumbers++;                                                                                     //DOWN CENTER
         if (!(x + 1 == getColumns() || y - 1 == -1) && getValue(x + 1, y - 1) == 1)
-            totalNumbers++;               //UP RIGHT
+            totalNumbers++;                                                                                     //UP RIGHT
         if (!(x + 1 == getColumns() || y + 1 == getRows()) && getValue(x + 1, y + 1) == 1)
-            totalNumbers++;     //DOWN RIGHT
+            totalNumbers++;                                                                                     //DOWN RIGHT
         if (!(x + 1 == getColumns()) && getValue(x + 1, y) == 1)
-            totalNumbers++;                                  //CENTER RIGHT
+            totalNumbers++;                                                                                     //CENTER RIGHT
 
         return totalNumbers;
 
     }
 
     /**
-     * This method is checking if a cell is at the edge of the arraylist.
+     * This method checks if a cell is at the edge of the arraylist.
      * Different loops run through the numbers of the columns and checks if the cell is alive and then adds new elements as their neighbours.
      * It also checks if the cell on the rows minus one is alive and then adds another column as its neighbour.
      * Another for loop adds an Arraylist as a column to the cells on the edge.
      * The last point is to add the new List made in the loops to the Board Arraylist and add a row to it.
-     * <p>
      * And if it is, it expands the arraylist to the minimum size needed to contain all cells.
      */
     public void expand() {
@@ -236,7 +231,7 @@ public class DynamicBoard extends StaticBoard {
      * It is nessesary to be converted for using it as a dynamicboard.
      * The board Arraylist is equal to the convertlist Arraylist with the columns and rows from boards size.
      *
-     * @param boardT
+     * @param boardT is a temporary array ued in the for-loop.
      */
     @Override
     public int[][] setBoard(int[][] boardT) {
@@ -260,8 +255,7 @@ public class DynamicBoard extends StaticBoard {
 
 
     /**
-     * This method returning board columns.
-     *
+     * This method returns board columns.
      * @return columns.
      */
     @Override
@@ -270,8 +264,7 @@ public class DynamicBoard extends StaticBoard {
     }
 
     /**
-     * This method returning toString method for class board.
-     *
+     * This method returns toString method for class board.
      * @return toString.
      */
     @Override
@@ -282,7 +275,6 @@ public class DynamicBoard extends StaticBoard {
 
     /**
      * This method returns board in form of arraylist.
-     *
      * @return board.
      */
     public ArrayList<ArrayList<Integer>> getBoard() {
@@ -290,8 +282,7 @@ public class DynamicBoard extends StaticBoard {
     }
 
     /**
-     * This method returning nextgeneration in the form of an arraylist.
-     *
+     * This method returns nextgeneration in the form of an arraylist.
      * @return nextGen.
      */
     public ArrayList<ArrayList<Integer>> getNextGen() {
@@ -303,8 +294,7 @@ public class DynamicBoard extends StaticBoard {
     }
 
     /**
-     * This method returning cellSize.
-     *
+     * This method returns cellSize.
      * @return cellSize.
      */
     @Override
@@ -313,6 +303,7 @@ public class DynamicBoard extends StaticBoard {
     }
 
     /**
+     * Creates a cellsize of type double.
      * @param cellSize parameter is assigned to the cellSize for this class.
      */
     @Override
