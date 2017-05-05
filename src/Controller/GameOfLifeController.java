@@ -39,7 +39,7 @@ import static InterfaceSounds.Sounds.startUpSound;
  * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
  * The class is also implementing Initializable interface.
  *
- * @author Fredrik Kluftødegård, Hans Jacob, Mohammad
+ * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  *         Studentnr : S309293, s305064, s309856
  */
 public class GameOfLifeController implements Initializable {
@@ -193,7 +193,7 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows the user to upload txt file containing board pattern.
      *
-     * @param e
+     * @param e event
      */
     @FXML
     public void openFile(Event e) {
@@ -216,7 +216,7 @@ public class GameOfLifeController implements Initializable {
     /**
      * This method allows user to change the color for dead cells.
      *
-     * @param e
+     * @param e event
      */
     @FXML
     private void changecolor(ActionEvent e) {

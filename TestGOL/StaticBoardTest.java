@@ -4,19 +4,19 @@ import sample.Board.StaticBoard;
 
 
 /**
- * The Game Of Life application created for HIOA
- * The Test Class contains tests to ensure the application runs
- * as expected.
- * The class extends StaticBoard
- * <p>
- * @author Fredrik, Hans Jacob, Mohammad
+ * The Game Of Life application created for HIOA.
+ * The Test Class contains tests to ensure the application runs as intended.
+ * The class extends StaticBoard.
+ *
+ * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  * Studentnr : S309293, s305064, s309856
  **/
 public class StaticBoardTest extends StaticBoard {
 
     /**
-     * Test Class Game of Life
-     * testNextGenerationEqual  tests to see if the expected result corresponds to the array above it.
+     * Test Class Game of Life.
+     * testNextGenerationEqual tests to see if the expected result corresponds to the array above it.
+     * In this example, the we expect the pattern to stay the same, and it does.
      **/
     @Test
     public void testNextGenerationEqual(){
@@ -36,8 +36,8 @@ public class StaticBoardTest extends StaticBoard {
     }
 
     /**
-     * The testBrett2 tests to see if "board2" will display
-     * a horizontal row of three living cells when "board" has three vertical living cells, as that is the expected result.
+     * The testBrett2 tests to see if the expected result corresponds to the array above it.
+     * In this example we expect the three vertical cells to generate three horizontal cells in its next generation.
      **/
     @Test
     public void testBrett2(){
@@ -65,8 +65,8 @@ public class StaticBoardTest extends StaticBoard {
     }
 
     /**
-     * The code tests the next generation of the commonly used glider.
-     * TestBrett3 tests to see if the expected result corresponds to the array above it
+     * TestBrett3 tests to see if the expected result corresponds to the array above it.
+     * The code tests the next generation of the commonly used glider. The expected result corresponds to the array.
      **/
     @Test
     public void testBrett3() {
@@ -97,9 +97,9 @@ public class StaticBoardTest extends StaticBoard {
     }
 
     /**
+     * * TestBrett4 tests to see if the expected result corresponds to the array above it.
      * The following code tests one single cell.
      * The rules state that a single cell with no neighbours shall "die" of loneliness.
-     * TestBrett4 tests to see if the expected result corresponds to the array above it.
      **/
     @Test
     public void testBrett4(){

@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
  * The Game Of Life application created for HIOA
  * The Static board class contains constructor and methods for creating and using a 2d array as board.
  *
- * @author Fredrik, Hans Jacob, Mohammad
+ * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  *         Studentnr : S309293, s305064, s309856
  */
 
@@ -32,11 +32,11 @@ public class StaticBoard {
 
 
     /**
-     * Constructs and initializes a board with rows, columns, gc and canvas
-     * @param rows is the first parameter int the StaticBoard constructor
-     * @param columns is the second parameter int the StaticBoard constructor
-     * @param gc is the third parameter int the StaticBoard constructor
-     * @param canvas is the fourth parameter int the StaticBoard constructor
+     * Constructs and initializes a board with rows, columns, gc and canvas.
+     * @param rows is the first parameter int the StaticBoard constructor.
+     * @param columns is the second parameter int the StaticBoard constructor.
+     * @param gc is the third parameter int the StaticBoard constructor.
+     * @param canvas is the fourth parameter int the StaticBoard constructor.
      */
     //Constructor
     public StaticBoard(int rows, int columns, GraphicsContext gc, Canvas canvas) {
@@ -49,9 +49,9 @@ public class StaticBoard {
     }
 
     /**
-     * Static board.
-     * @param rows is the first parameter in the StaticBoard method
-     * @param columns is the second parameter in the StaticBoard method
+     * Static board is the constructor and defines the rows and columns
+     * @param rows is the first parameter in the StaticBoard method.
+     * @param columns is the second parameter in the StaticBoard method.
      */
     public StaticBoard(int rows, int columns) {
         this.rows = rows;
@@ -60,7 +60,7 @@ public class StaticBoard {
     }
 
     /**
-     * Sets background color.
+     * Sets background color by using setFill.
      */
     public void background() {
         gc.setFill(backgroundColor);
@@ -69,7 +69,7 @@ public class StaticBoard {
     }
 
     /**
-     * Sets grid color.
+     * This method draws data to the board.
      */
     public void draw() {
 
@@ -92,25 +92,25 @@ public class StaticBoard {
 
     /**
      * Gets the value of a grid.
-     * @param x is the first parameter in the getValue method
-     * @param y is the second parameter in the getValue method
-     * @return brett is the third parameter in the getValue method
+     * @param x is the first parameter in the getValue method.
+     * @param y is the second parameter in the getValue method.
+     * @return brett is the third parameter in the getValue method.
      */
     public int getValue(int x, int y) {
         return brett[x][y];
     }
 
     /** Sets the value of a grid.
-     * @param x is the first parameter in the setValue method
-     * @param y is the second parameter in the setValue method
-     * @param value is the third parameter in the setValue method
+     * @param x is the first parameter in the setValue method.
+     * @param y is the second parameter in the setValue method.
+     * @param value is the third parameter in the setValue method.
      */
     public void setValue(int x, int y, int value) {
         brett[x][y] = value;
     }
 
     /**
-     *
+     * Calculates the value of next generations cell, and applies this value to each cell.
      */
     public void nextGeneration() {
         int[][] nesteBrett = new int[rows][columns];
@@ -127,6 +127,9 @@ public class StaticBoard {
 
     }
 
+    /**
+     * Prints the values of a TXT-file to the board.
+     */
     public void upDateBoard() {
         int[][] nyBrett = FileReader.openTXTfile();
 
@@ -140,8 +143,8 @@ public class StaticBoard {
     }
 
     /**
-     * Gets rules.
-     * @param rules is the only parameter in the setRules method
+     * Sets the rules.
+     * @param rules is the only parameter in the setRules method.
      */
     public void setRules(int[][] rules) {
 
@@ -149,10 +152,10 @@ public class StaticBoard {
     }
 
     /**
-     *
-     * @param isAlive is the first parameter in the setCellRules method
-     * @param naboer is the second parameter in the setCellRules method
-     * @return rules
+     * returns 0 or 1, as a representation of dead or alive.
+     * @param isAlive is the first parameter in the setCellRules method.
+     * @param naboer is the second parameter in the setCellRules method.
+     * @return rules.
      */
     public int setCellRules(int isAlive, int naboer) {
 
@@ -178,8 +181,8 @@ public class StaticBoard {
 
     /**
      * Declares the rules of the board.
-     * @param x is the first parameter in the getNeighbours method
-     * @param y is the second parameter in the getNeighbours method
+     * @param x is the first parameter in the getNeighbours method.
+     * @param y is the second parameter in the getNeighbours method.
      * @return antall naboer (neighbours).
      */
     public int getNeighbours(int x, int y) {
@@ -211,8 +214,8 @@ public class StaticBoard {
     }
 
     /**
-     * Gets cell size.
-     * @param CSTR is the only parameter in the setCellSize method
+     * Sets the cell size.
+     * @param CSTR is the only parameter in the setCellSize method.
      */
     public void setCellSize(int CSTR) {
 
@@ -220,8 +223,9 @@ public class StaticBoard {
     }
 
     /**
-     * @param brett is the only parameter in the setBrett method
-     * @return brett
+     * Sets the board.
+     * @param brett is the only parameter in the setBrett method.
+     * @return brett.
      */
     public int[][] setBrett(int[][] brett) {
         this.brett = brett;
@@ -246,7 +250,7 @@ public class StaticBoard {
 
     /**
      * Gets rows.
-     * @return rows
+     * @return rows.
      */
     public int getRows() {
 
@@ -255,7 +259,7 @@ public class StaticBoard {
 
     /**
      * Gets rows.
-     * @param rows is the only parameter in the setRows method
+     * @param rows is the only parameter in the setRows method.
      */
     public void setRows(int rows) {
 
@@ -263,8 +267,8 @@ public class StaticBoard {
     }
 
     /**
-     * Gets columns
-     * @return columns
+     * Gets columns.
+     * @return columns.
      */
     public int getColumns() {
 
@@ -273,7 +277,7 @@ public class StaticBoard {
 
     /**
      * Sets columns.
-     * @param columns is the only parameter in the setColumns method
+     * @param columns is the only parameter in the setColumns method.
      */
     public void setColumns(int columns) {
 
@@ -282,7 +286,7 @@ public class StaticBoard {
 
     /**
      * Gets game speed.
-     * @return gameSpeed
+     * @return gameSpeed.
      */
     public int getGameSpeed() {
 
@@ -290,8 +294,8 @@ public class StaticBoard {
     }
 
     /**
-     * Sets game speed
-     * @param gameSpeed is the only parameter int the setGameSpeed method
+     * Sets game speed.
+     * @param gameSpeed is the only parameter int the setGameSpeed method.
      */
     public void setGameSpeed(int gameSpeed) {
 
@@ -300,7 +304,7 @@ public class StaticBoard {
 
     /**
      * Sets background color.
-     * @param backgroundColor is the only parameter in the setBackgroundVColor method
+     * @param backgroundColor is the only parameter in the setBackgroundVColor method.
      */
     public void setBackgroundColor(Color backgroundColor) {
 
@@ -309,7 +313,7 @@ public class StaticBoard {
 
     /**
      * Sets grid color.
-     * @param cellColor is the only parameter in the setCellColor method
+     * @param cellColor is the only parameter in the setCellColor method.
      */
     public void setCellColor(Color cellColor) {
 
@@ -320,8 +324,8 @@ public class StaticBoard {
     //Opprettett til BrettTest.java
 
     /**
-     *
-     * @return message
+     * Returns and array of 0 or 1.
+     * @return message.
      */
     @Override
     public String toString() {

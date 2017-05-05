@@ -14,7 +14,7 @@ import java.util.Scanner;
  * The Controller class is the fx for fxml, all the features in fxml are assigned in this class.
  * The class is also implementing Initializable interface.
  *
- * @author Fredrik, Hans Jacob, Mohammad
+ * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  *         Studentnr : S309293, s305064, s309856
  */
 public class FileReader{

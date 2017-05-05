@@ -9,7 +9,7 @@ public class Main extends Application {
 
     /**
      *Opens the window that contains the Game Of Life.
-     * @author Fredrik, Hans Jacob, Mohammad
+     * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
      *         Studentnr : S309293, s305064, s309856
      */
     @Override
@@ -24,7 +24,7 @@ public class Main extends Application {
 
     /**
      * launches program.
-     * @param args
+     * @param args is the main methods only parameter
      */
     public static void main(String[] args) {
         launch(args);

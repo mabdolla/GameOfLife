@@ -7,10 +7,10 @@ import java.util.regex.Pattern;
 
 /**
  * The Game Of Life application created for HIOA
- * The FileReaderRLE class parses both rle files from computer and rle files from url adress
+ * The FileReaderRLE class parses both rle files from computer and rle files from url address
  * and creates an arraylist that will be the new board pattern
  *
- * @author Fredrik, Hans Jacob, Mohammad
+ * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  *         Studentnr : S309293, s305064, s309856
  */
 public class FileReaderRLE {

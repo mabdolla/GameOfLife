@@ -12,7 +12,7 @@ import java.util.List;
  * Next generation method updating the board according to rules you will find in this class.
  * Next generation method is also running on Threads based on x number of processors from your computer.
  *
- * @author Fredrik, Hans Jacob, Mohammad
+ * @author Fredrik Kluftodegaard, Hans Jacob Hauge, Mohammad Abdolla
  *         Studentnr : S309293, s305064, s309856
  */
 public class DynamicBoard extends StaticBoard {
